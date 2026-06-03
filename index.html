@@ -1,3 +1,4 @@
+const API_URL = 'https://script.google.com/macros/s/AKfycbwhBzeRAyaqB134Mfn8lBC_075jftKbyu7tT858Kf4IXN8MEX1V412uCKsy96GyrPj1/exec';
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1014,3 +1015,38 @@ function toast(msg,cls=''){
 </script>
 </body>
 </html>
+async function saveRosterToCloud(monthName, rows) {
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      body: JSON.stringify({ month: monthName, data: rows })
+    });
+    const result = await response.json();
+    if (result.success) {
+      alert('✅ Roster saved! All users can now see it.');
+    }
+  } catch (err) {
+    alert('❌ Could not save. Check internet.');
+  }
+}
+
+async function loadRosterFromCloud(monthName) {
+  try {
+    const res = await fetch(`${API_URL}?action=getRoster&month=${encodeURIComponent(monthName)}`);
+    const result = await res.json();
+    if (result.data) return result.data;
+  } catch (err) {
+    console.error('Load failed:', err);
+  }
+  return null;
+}
+
+async function loadAvailableMonths() {
+  try {
+    const res = await fetch(`${API_URL}?action=listMonths`);
+    const result = await res.json();
+    return result.months || [];
+  } catch (err) {
+    return [];
+  }
+}
