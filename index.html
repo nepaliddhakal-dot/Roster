@@ -1,4 +1,3 @@
-const API_URL = 'https://script.google.com/macros/s/AKfycbwhBzeRAyaqB134Mfn8lBC_075jftKbyu7tT858Kf4IXN8MEX1V412uCKsy96GyrPj1/exec';
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,8 +14,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 input,select,button,textarea{font-family:inherit}
 .screen{display:none;flex-direction:column;min-height:100vh}
 .screen.active{display:flex}
-
-/* LOGIN */
 #s-login{align-items:center;justify-content:center;padding:2rem 1rem;background:var(--bg)}
 .logo-wrap{width:64px;height:64px;background:var(--acbg);border:1px solid var(--ac);border-radius:18px;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem}
 .logo-wrap svg{width:32px;height:32px;stroke:var(--ac);fill:none;stroke-width:1.5}
@@ -40,8 +37,6 @@ input,select,button,textarea{font-family:inherit}
 .role-btn.fore.sel .rl{color:var(--fore)}
 .role-btn.smet.sel{border-color:var(--smet);background:var(--smetbg)}
 .role-btn.smet.sel .rl{color:var(--smet)}
-
-/* TOPBAR */
 .topbar{background:var(--bg2);border-bottom:1px solid var(--bdr);padding:11px 15px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;flex-shrink:0}
 .tb-l{display:flex;flex-direction:column}
 .tb-hi{font-size:10px;color:var(--tx3)}
@@ -53,29 +48,21 @@ input,select,button,textarea{font-family:inherit}
 .rb-obs{background:var(--obsbg);color:var(--obs);border:1px solid var(--obs)}
 .rb-fore{background:var(--forebg);color:var(--fore);border:1px solid var(--fore)}
 .rb-smet{background:var(--smetbg);color:var(--smet);border:1px solid var(--smet)}
-
-/* DUTY BANNER */
 .duty-banner{margin:10px 14px 0;border-radius:var(--r);padding:11px 13px;display:none}
 .db-on{background:var(--acbg);border:1px solid var(--ac)}
 .db-off{background:var(--gnbg);border:1px solid var(--gn)}
 .db-title{font-size:13px;font-weight:700;margin-bottom:2px}
 .db-body{font-size:12px;color:var(--tx2)}
-
-/* TABS */
 .tabs{display:flex;background:var(--bg2);border-bottom:1px solid var(--bdr);flex-shrink:0}
 .tab-btn{flex:1;padding:10px 3px;font-size:10px;color:var(--tx3);background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;border-bottom:2px solid transparent}
 .tab-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8}
 .tab-btn.active{color:var(--ac);border-bottom-color:var(--ac)}
 .pane{display:none;padding:14px;flex:1;overflow-y:auto}
 .pane.active{display:block}
-
-/* MONTH ROW */
 .mrow{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:9px 12px;gap:8px}
 .mrow select{background:transparent;border:none;color:var(--tx);font-size:13px;font-weight:700;outline:none;cursor:pointer;flex:1;-webkit-appearance:none}
 .mrow select option{background:var(--bg2)}
 .mmeta{font-size:11px;color:var(--tx3);white-space:nowrap}
-
-/* SHIFTS */
 .sh{display:inline-block;padding:3px 8px;border-radius:6px;font-size:11px;font-weight:700;white-space:nowrap}
 .s-OFF{background:rgba(100,116,139,.15);color:var(--tx3)}
 .s-MO{background:var(--gnbg);color:var(--gn)}
@@ -84,8 +71,6 @@ input,select,button,textarea{font-family:inherit}
 .s-A1{background:var(--acbg);color:var(--ac)}
 .s-A2{background:var(--ambg);color:var(--am)}
 .s-OTH{background:var(--bg3);color:var(--tx2)}
-
-/* SCHEDULE ROWS */
 .wblk{margin-bottom:18px}
 .wlbl{font-size:10px;color:var(--tx3);letter-spacing:.07em;text-transform:uppercase;margin-bottom:7px}
 .drow{display:flex;align-items:center;justify-content:space-between;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:10px 12px;margin-bottom:5px;gap:8px}
@@ -95,14 +80,10 @@ input,select,button,textarea{font-family:inherit}
 .ddt{font-size:14px;font-weight:700}
 .dgt{font-size:10px;color:var(--tx3)}
 .tchip{font-size:10px;background:var(--ac);color:#0c1a27;padding:2px 7px;border-radius:20px;font-weight:700;white-space:nowrap}
-
-/* SUMMARY */
 .sgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:14px}
 .scard{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:12px;text-align:center}
 .snum{font-size:26px;font-weight:700}
 .slbl{font-size:10px;color:var(--tx3);margin-top:2px}
-
-/* CALENDAR */
 .chead{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:2px}
 .chc{text-align:center;font-size:9px;color:var(--tx3);padding:3px 0;text-transform:uppercase}
 .cbody{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
@@ -112,8 +93,6 @@ input,select,button,textarea{font-family:inherit}
 .cdn{font-size:10px;font-weight:700;color:var(--tx2);margin-bottom:2px}
 .cc.today .cdn{color:var(--ac)}
 .cpip{font-size:8px;padding:1px 3px;border-radius:3px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:1px}
-
-/* TODAY */
 .sec-lbl{font-size:12px;font-weight:700;color:var(--tx2);margin:12px 0 7px}
 .dutyrow{display:flex;align-items:center;justify-content:space-between;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:10px 12px;margin-bottom:5px}
 .drp{display:flex;align-items:center;gap:9px}
@@ -121,8 +100,6 @@ input,select,button,textarea{font-family:inherit}
 .pnm{font-size:13px;font-weight:600}
 .off-chips{display:flex;flex-wrap:wrap;gap:5px}
 .off-chip{font-size:11px;padding:4px 10px;background:var(--bg2);border:1px solid var(--bdr);border-radius:20px;color:var(--tx3)}
-
-/* ADMIN */
 .ascroll{flex:1;overflow-y:auto;padding:14px}
 .atabs{display:flex;gap:5px;margin-bottom:14px;flex-wrap:wrap}
 .atab{padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--bdr2);background:var(--bg3);color:var(--tx2);cursor:pointer;white-space:nowrap}
@@ -151,8 +128,6 @@ input,select,button,textarea{font-family:inherit}
 .sadd{display:flex;gap:7px;margin-top:10px}
 .sadd input{flex:1;background:var(--bg3);border:1px solid var(--bdr2);border-radius:var(--r);color:var(--tx);font-size:13px;padding:8px 10px;outline:none}
 .sadd button{background:var(--ac);color:#0c1a27;border:none;border-radius:var(--r);padding:8px 13px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
-
-/* DAY BLOCK */
 .dblk{background:var(--bg3);border-radius:var(--r);padding:11px;margin-bottom:8px}
 .dblk-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
 .dblk-n{font-size:12px;font-weight:700}
@@ -162,8 +137,6 @@ input,select,button,textarea{font-family:inherit}
 .shrn{font-size:12px;color:var(--tx)}
 .shsel{background:var(--bg);border:1px solid var(--bdr2);border-radius:6px;color:var(--tx);font-size:12px;padding:4px 7px;outline:none;-webkit-appearance:none}
 .addbtn{background:var(--bg3);border:1.5px dashed var(--bdr2);border-radius:var(--r);width:100%;padding:9px;font-size:12px;color:var(--tx2);cursor:pointer;margin-bottom:10px}
-
-/* EDIT MODAL */
 .mwrap{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;display:flex;align-items:flex-end;justify-content:center}
 .msheet{background:var(--bg2);border-radius:var(--rl) var(--rl) 0 0;width:100%;max-width:480px;max-height:88vh;overflow-y:auto;padding:20px 16px 36px}
 .mtitle{font-size:15px;font-weight:700;margin-bottom:3px}
@@ -176,16 +149,12 @@ input,select,button,textarea{font-family:inherit}
 .macts button{flex:1;padding:10px;border-radius:var(--r);font-size:13px;font-weight:700;cursor:pointer;border:none}
 .msave{background:var(--gn);color:#052e16}
 .mcancel{background:var(--bg3);color:var(--tx2)}
-
-/* UPLOAD */
 .udrop{border:2px dashed var(--bdr2);border-radius:var(--r);padding:22px 14px;text-align:center;cursor:pointer;transition:border-color .18s;background:var(--bg3);margin-bottom:10px}
 .udrop:hover,.udrop.over{border-color:var(--ac);background:var(--acbg)}
 .udrop.ok{border-color:var(--gn)}
 .udrop-icon{font-size:30px;margin-bottom:6px}
 .udrop-lbl{font-size:13px;font-weight:600;color:var(--tx2)}
 .udrop-sub{font-size:11px;color:var(--tx3);margin-top:3px}
-
-/* STATUS */
 .stat{font-size:12px;padding:8px 11px;border-radius:7px;margin-top:7px;display:none;line-height:1.5}
 .stat-ok{background:var(--gnbg);color:var(--gn)}
 .stat-err{background:var(--rdbg);color:var(--rd)}
@@ -321,7 +290,7 @@ input,select,button,textarea{font-family:inherit}
     <div class="apane active" id="ap-upload">
       <div class="asec">
         <h2>&#128229; Upload Roster File (.xlsx / .csv)</h2>
-        <div class="infobox">Upload your Excel or CSV file directly from your device. No internet needed &mdash; everything is read locally.</div>
+        <div class="infobox">Upload your Excel or CSV file. Data will be saved to the cloud so <strong>all users</strong> can see it.</div>
         <div class="frow">
           <label class="flbl">Roster type</label>
           <select class="finp" id="up-type">
@@ -348,7 +317,7 @@ input,select,button,textarea{font-family:inherit}
           <label class="flbl">Header row number (row containing staff names)</label>
           <input class="finp" id="up-hrow" type="number" value="5" min="1" max="20">
         </div>
-        <button class="btn-g btn-fw" onclick="importFile()" style="margin-top:4px">&#128229; Import</button>
+        <button class="btn-g btn-fw" onclick="importFile()" style="margin-top:4px">&#128229; Import &amp; Save to Cloud</button>
         <div id="up-stat" class="stat"></div>
         <div class="divider"></div>
         <p style="font-size:12px;font-weight:700;color:var(--tx2);margin-bottom:6px">Expected format</p>
@@ -445,33 +414,68 @@ input,select,button,textarea{font-family:inherit}
 </div>
 
 <script>
-// ── STORAGE ──────────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════
+// ★ PASTE YOUR GOOGLE APPS SCRIPT URL HERE ★
+// ══════════════════════════════════════════════════════════════════
+const API_URL = 'https://script.google.com/macros/s/AKfycbwhBzeRAyaqB134Mfn8lBC_075jftKbyu7tT858Kf4IXN8MEX1V412uCKsy96GyrPj1/exec';
+
+// ── CLOUD FUNCTIONS ───────────────────────────────────────────────
+async function saveRosterToCloud(rosterObj) {
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'saveAll', data: rosterObj })
+    });
+    const result = await response.json();
+    return result.success === true;
+  } catch (err) {
+    console.error('Cloud save failed:', err);
+    return false;
+  }
+}
+
+async function loadRosterFromCloud() {
+  try {
+    const res = await fetch(API_URL + '?action=loadAll');
+    const result = await res.json();
+    if (result && result.data) return result.data;
+  } catch (err) {
+    console.error('Cloud load failed:', err);
+  }
+  return null;
+}
+
+// ── LOCAL STORAGE (fallback) ──────────────────────────────────────
 const K={R:'mfd5_r',S:'mfd5_s',A:'mfd5_a',MP:'mfd5_mp'};
 const g=(k,d)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch{return d}};
 const s=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
 const getRoster=()=>g(K.R,{obs:[],fore:[],smet:[]});
-const saveRoster=r=>s(K.R,r);
+const saveRoster=async r=>{
+  s(K.R,r); // always save locally first (instant)
+  const ok = await saveRosterToCloud(r); // then sync to cloud
+  if(!ok) toast('⚠️ Saved locally only. Cloud sync failed.','err');
+};
 const getStaff=()=>g(K.S,{obs:['Biju','Jeni','Jyoti','Menka','Munesh','Pratima','Rasmi'],fore:[],smet:[]});
 const saveStaff=v=>s(K.S,v);
 const getAdmins=()=>g(K.A,[]);
 const saveAdmins=v=>s(K.A,v);
 const getMPin=()=>g(K.MP,'1234');
 
-// ── CONSTANTS ─────────────────────────────────────────────────────────────────
+// ── CONSTANTS ─────────────────────────────────────────────────────
 const WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const OBS_SH=['xx','MO','MO*','AON*','A1','A2'];
 const FORE_SH=['xx','MF','MF*','AFN*','AF','A1','A2'];
 const SMET_SH=['xx','SDM1','SDM2','SDM3','A1','A2','MO'];
 const SKIP_COLS=['mean','total','leave','incharge','agro','check','weekly','note','remark'];
 
-// ── STATE ─────────────────────────────────────────────────────────────────────
+// ── STATE ─────────────────────────────────────────────────────────
 let CU='',CT='obs',IM=false,CAO=null;
 let MOD={type:'',mid:'',di:-1};
 let NMC=0,_upFile=null;
 const todayISO=()=>new Date().toISOString().split('T')[0];
 const ini=n=>(n||'?').slice(0,2).toUpperCase();
 
-// ── SHIFT HELPERS ─────────────────────────────────────────────────────────────
+// ── SHIFT HELPERS ─────────────────────────────────────────────────
 const SC=s_=>{
   if(!s_||s_==='xx')return 's-OFF';
   if(s_==='MO')return 's-MO';if(s_==='MO*')return 's-MOS';
@@ -492,7 +496,7 @@ const SCL=s_=>{
 };
 const shiftListForType=t=>t==='fore'?FORE_SH:t==='smet'?SMET_SH:OBS_SH;
 
-// ── SEED DATA (Jestha 2083 Observer) ──────────────────────────────────────────
+// ── SEED DATA ─────────────────────────────────────────────────────
 const SEED={obs:[{id:'obs-jestha-2083',name:'Jestha 2083',nepali:'\u091c\u0947\u0920 \u20e3\u2083',type:'obs',startDate:'2026-05-15',
 days:[
 {date:1,isoDate:'2026-05-15',day:'Fri',duties:{Biju:'xx',Jeni:'MO*',Jyoti:'A1',Menka:'MO',Munesh:'AON*',Pratima:'AON*',Rasmi:'MO*'}},
@@ -528,16 +532,22 @@ days:[
 {date:31,isoDate:'2026-06-14',day:'Sun',duties:{Biju:'A1',Jeni:'AON*',Jyoti:'MO*',Menka:'MO',Munesh:'AON*',Pratima:'A1',Rasmi:'MO*'}},
 ]}],fore:[],smet:[]};
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
-window.addEventListener('DOMContentLoaded',()=>{
-  if(!g(K.R,null))saveRoster(SEED);
+// ── INIT ──────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', async () => {
+  // Try to load from cloud first
+  const cloudData = await loadRosterFromCloud();
+  if (cloudData) {
+    s(K.R, cloudData); // update local cache with cloud data
+  } else if (!g(K.R, null)) {
+    saveRoster(SEED); // first time ever, use seed data
+  }
   selRole('obs');
 });
 
-// ── SCREENS ───────────────────────────────────────────────────────────────────
+// ── SCREENS ───────────────────────────────────────────────────────
 const showScreen=id=>{document.querySelectorAll('.screen').forEach(sc=>sc.classList.remove('active'));document.getElementById(id).classList.add('active');};
 
-// ── LOGIN ─────────────────────────────────────────────────────────────────────
+// ── LOGIN ─────────────────────────────────────────────────────────
 let _role='obs';
 function selRole(r){
   _role=r;
@@ -566,9 +576,8 @@ function openAdmin(){
 function doLogout(){showScreen('s-login');}
 function backLogin(){showScreen('s-login');}
 
-// ── APP ───────────────────────────────────────────────────────────────────────
+// ── APP ───────────────────────────────────────────────────────────
 const ROLE_LABELS={obs:'Observer',fore:'Forecaster',smet:'Sr. Met'};
-const ROLE_BADGE={obs:'rb-obs',fore:'rb-fore',smet:'rb-smet'};
 function showApp(){
   showScreen('s-app');
   document.getElementById('app-user').textContent=CU;
@@ -587,7 +596,7 @@ function showTab(t){
   if(t==='today')renderToday();
 }
 
-// ── MONTH SELECTS ─────────────────────────────────────────────────────────────
+// ── MONTH SELECTS ─────────────────────────────────────────────────
 function getTypeMonths(t){return (getRoster()[t]||[]);}
 function fillMonthSels(){
   ['mine','cal'].forEach(id=>{
@@ -601,7 +610,7 @@ function getSelM(id){
   return getTypeMonths(CT).find(m=>m.id===v)||getTypeMonths(CT)[0];
 }
 
-// ── MY DUTIES ─────────────────────────────────────────────────────────────────
+// ── MY DUTIES ─────────────────────────────────────────────────────
 function renderMine(){
   const m=getSelM('sel-mine');
   const el=document.getElementById('mine-list');
@@ -636,7 +645,7 @@ function renderMine(){
     <div class="scard"><div class="snum" style="color:var(--tx3)">${cnt.off}</div><div class="slbl">Days off</div></div>`;
 }
 
-// ── CALENDAR ──────────────────────────────────────────────────────────────────
+// ── CALENDAR ──────────────────────────────────────────────────────
 function renderCal(){
   const m=getSelM('sel-cal');
   if(!m){document.getElementById('cal-body').innerHTML='';return;}
@@ -657,7 +666,7 @@ function renderCal(){
   document.getElementById('cal-body').innerHTML=html;
 }
 
-// ── TODAY ─────────────────────────────────────────────────────────────────────
+// ── TODAY ─────────────────────────────────────────────────────────
 function renderToday(){
   const today=todayISO(),r=getRoster();
   let fd=null,fm=null;
@@ -677,7 +686,7 @@ function renderToday(){
     ${off.length?`<div class="sec-lbl" style="margin-top:14px">Day off</div><div class="off-chips">${off.map(n=>`<span class="off-chip">${n}</span>`).join('')}</div>`:''}`;
 }
 
-// ── NOTIFICATIONS ─────────────────────────────────────────────────────────────
+// ── NOTIFICATIONS ─────────────────────────────────────────────────
 function reqNotif(){
   if(!('Notification' in window))return;
   if(Notification.permission==='default')Notification.requestPermission().then(p=>{if(p==='granted')checkDuty(true);});
@@ -701,7 +710,7 @@ function checkDuty(notif=false){
   }
 }
 
-// ── ADMIN ─────────────────────────────────────────────────────────────────────
+// ── ADMIN ─────────────────────────────────────────────────────────
 function showAdmin(name){
   showScreen('s-admin');
   document.getElementById('admin-lbl').textContent=name;
@@ -718,7 +727,7 @@ function showATab(btn,name){
   if(name==='edit'){populateEdMonths();renderEditList();}
 }
 
-// ── STAFF ─────────────────────────────────────────────────────────────────────
+// ── STAFF ─────────────────────────────────────────────────────────
 function renderStaffLists(){
   ['obs','fore','smet'].forEach(t=>{
     const staff=getStaff()[t]||[];
@@ -753,7 +762,7 @@ function renameStaff(t,i){
   st[t][i]=nw.trim();saveStaff(st);saveRoster(r);renderStaffLists();fillNameDrop();toast('Renamed to '+nw.trim());
 }
 
-// ── MONTHS LIST ───────────────────────────────────────────────────────────────
+// ── MONTHS LIST ───────────────────────────────────────────────────
 function renderAllMonths(){
   const r=getRoster();
   const all=[...(r.obs||[]).map(m=>({...m,tl:'Observer'})),...(r.fore||[]).map(m=>({...m,tl:'Forecaster'})),...(r.smet||[]).map(m=>({...m,tl:'Sr. Met'}))];
@@ -770,7 +779,7 @@ function deleteMonth(type,id){
   saveRoster(r);renderAllMonths();fillMonthSels();populateEdMonths();toast('Deleted');
 }
 
-// ── ADD MONTH MANUALLY ────────────────────────────────────────────────────────
+// ── ADD MONTH MANUALLY ────────────────────────────────────────────
 function clearNMDays(){document.getElementById('nm-days').innerHTML='';NMC=0;}
 function refreshNMDays(){document.querySelectorAll('[data-nmd]').forEach(el=>{const i=parseInt(el.dataset.nmd);updNMDay(i);});}
 function addNMDay(){
@@ -823,7 +832,7 @@ function saveNM(){
   document.getElementById('nm-start').value='';clearNMDays();
 }
 
-// ── FILE UPLOAD ────────────────────────────────────────────────────────────────
+// ── FILE UPLOAD ────────────────────────────────────────────────────
 function udragOver(e){e.preventDefault();document.getElementById('udrop').classList.add('over');}
 function udragLeave(){document.getElementById('udrop').classList.remove('over');}
 function udrop_(e){e.preventDefault();udragLeave();const f=e.dataTransfer.files[0];if(f)setUpFile(f);}
@@ -847,17 +856,16 @@ function importFile(){
   const mnepali=document.getElementById('up-mnepali').value.trim();
   const type=document.getElementById('up-type').value||'obs';
   const tabName=document.getElementById('up-tab').value.trim();
-  const hrow=parseInt(document.getElementById('up-hrow').value||'5')-1;// 0-indexed
+  const hrow=parseInt(document.getElementById('up-hrow').value||'5')-1;
   if(!mname){toast('Enter month name','err');return;}
   loadXLSX(()=>{
     const stat=document.getElementById('up-stat');
     stat.className='stat stat-load';stat.style.display='block';
     stat.innerHTML='<span class="spinner"></span>Reading file...';
     const reader=new FileReader();
-    reader.onload=e=>{
+    reader.onload=async e=>{
       try{
         const wb=XLSX.read(new Uint8Array(e.target.result),{type:'array',cellDates:true});
-        // Find sheet
         let sname=wb.SheetNames[0];
         if(tabName){
           const m=wb.SheetNames.find(n=>n.trim().toLowerCase()===tabName.toLowerCase())
@@ -867,9 +875,7 @@ function importFile(){
         }
         const ws=wb.Sheets[sname];
         const rows=XLSX.utils.sheet_to_json(ws,{header:1,defval:'',raw:false});
-        // header row
         let hi=hrow;
-        // try to auto-detect if user's row doesn't look right
         if(!rows[hi]||rows[hi].filter(c=>c).length<3){
           const autoHi=rows.findIndex(r=>r.some(c=>c&&(c.toString().toUpperCase().includes('DAY')||c.toString().includes('\u0917\u0924\u0947'))));
           if(autoHi>=0)hi=autoHi;
@@ -883,11 +889,9 @@ function importFile(){
           staffCols.push({name:h.toString().trim(),col:i});
         });
         if(!staffCols.length){stat.className='stat stat-err';stat.textContent='No staff columns found in row '+(hi+1)+'. Try changing Header row number.';return;}
-        // update staff list
         const st=getStaff();st[type]=st[type]||[];
         staffCols.forEach(sc=>{if(!st[type].includes(sc.name))st[type].push(sc.name);});
         saveStaff(st);
-        // parse rows
         const days=[];let startDate='';
         rows.slice(hi+1).forEach(row=>{
           const nc=(row[1]||'').toString().trim();
@@ -909,10 +913,24 @@ function importFile(){
         const ei=r[type].findIndex(m=>m.id===id);
         const mo={id,name:mname,nepali:mnepali,type,startDate,days};
         if(ei>=0){if(!confirm('Month "'+mname+'" already exists. Overwrite?'))return;r[type][ei]=mo;}else r[type].push(mo);
-        saveRoster(r);renderStaffLists();renderAllMonths();fillMonthSels();fillNameDrop();populateEdMonths();
-        stat.className='stat stat-ok';
-        stat.textContent='\u2705 Imported '+days.length+' days \u00b7 '+staffCols.length+' staff from "'+sname+'"';
-        toast('Imported: '+mname);
+
+        // ── SAVE TO CLOUD ──────────────────────────────────────
+        stat.innerHTML='<span class="spinner"></span>Saving to cloud so all users can see...';
+        stat.className='stat stat-load';stat.style.display='block';
+        const ok = await saveRosterToCloud(r);
+        s(K.R, r); // always update local too
+        // ──────────────────────────────────────────────────────
+
+        renderStaffLists();renderAllMonths();fillMonthSels();fillNameDrop();populateEdMonths();
+        if(ok){
+          stat.className='stat stat-ok';
+          stat.textContent='\u2705 Imported '+days.length+' days \u00b7 '+staffCols.length+' staff \u00b7 Saved to cloud! All users can now see this roster.';
+          toast('Imported & saved to cloud: '+mname);
+        } else {
+          stat.className='stat stat-err';
+          stat.textContent='\u26A0\uFE0F Imported locally but cloud save failed. Check your Apps Script URL and internet connection.';
+          toast('Imported locally only','err');
+        }
       }catch(err){stat.className='stat stat-err';stat.textContent='\u274C '+err.message;}
     };
     reader.onerror=()=>{stat.className='stat stat-err';stat.textContent='Failed to read file.';};
@@ -920,7 +938,7 @@ function importFile(){
   });
 }
 
-// ── EDIT DUTIES ────────────────────────────────────────────────────────────────
+// ── EDIT DUTIES ────────────────────────────────────────────────────
 function populateEdMonths(){
   const type=document.getElementById('ed-type')?.value||'obs';
   const sel=document.getElementById('ed-month');
@@ -946,7 +964,7 @@ function renderEditList(){
   document.getElementById('ed-list').innerHTML=html||'<p style="font-size:12px;color:var(--tx3)">No days.</p>';
 }
 
-// ── EDIT MODAL ─────────────────────────────────────────────────────────────────
+// ── EDIT MODAL ─────────────────────────────────────────────────────
 function openModal(type,mid,di){
   const month=(getRoster()[type]||[]).find(m=>m.id===mid);if(!month)return;
   const day=month.days[di];MOD={type,mid,di};
@@ -971,7 +989,7 @@ function saveModal(){
   saveRoster(r);closeModal();renderEditList();renderMine();renderCal();renderToday();toast('Duties updated \u2713');
 }
 
-// ── SUB-ADMINS ─────────────────────────────────────────────────────────────────
+// ── SUB-ADMINS ─────────────────────────────────────────────────────
 function renderSubAdmins(){
   const admins=getAdmins();
   document.getElementById('sub-admins').innerHTML=admins.length
@@ -1005,7 +1023,7 @@ function saveMPin(){
   s(K.MP,pin);toast('Master PIN updated');document.getElementById('mpin-inp').value='';
 }
 
-// ── TOAST ──────────────────────────────────────────────────────────────────────
+// ── TOAST ──────────────────────────────────────────────────────────
 function toast(msg,cls=''){
   const t=document.getElementById('toast');
   t.textContent=msg;t.className='toast'+(cls==='err'?' et':'');
@@ -1015,38 +1033,3 @@ function toast(msg,cls=''){
 </script>
 </body>
 </html>
-async function saveRosterToCloud(monthName, rows) {
-  try {
-    const response = await fetch(API_URL, {
-      method: 'POST',
-      body: JSON.stringify({ month: monthName, data: rows })
-    });
-    const result = await response.json();
-    if (result.success) {
-      alert('✅ Roster saved! All users can now see it.');
-    }
-  } catch (err) {
-    alert('❌ Could not save. Check internet.');
-  }
-}
-
-async function loadRosterFromCloud(monthName) {
-  try {
-    const res = await fetch(`${API_URL}?action=getRoster&month=${encodeURIComponent(monthName)}`);
-    const result = await res.json();
-    if (result.data) return result.data;
-  } catch (err) {
-    console.error('Load failed:', err);
-  }
-  return null;
-}
-
-async function loadAvailableMonths() {
-  try {
-    const res = await fetch(`${API_URL}?action=listMonths`);
-    const result = await res.json();
-    return result.months || [];
-  } catch (err) {
-    return [];
-  }
-}
