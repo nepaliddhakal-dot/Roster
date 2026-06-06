@@ -26,65 +26,49 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden}
 input,select,button,textarea{font-family:inherit}
-
-/* ── SCREENS ── */
 .screen{display:none;flex-direction:column;min-height:100vh;animation:fadeIn .25s var(--ease)}
 .screen.active{display:flex}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-
-/* ── LOGIN SCREEN ── */
 #s-login{align-items:center;justify-content:flex-start;padding:0;background:var(--bg)}
 .login-wrap{width:100%;max-width:400px;margin:0 auto;padding:2rem 1.25rem 3rem}
 .logo-wrap{width:60px;height:60px;background:var(--acbg);border:1px solid rgba(56,189,248,.3);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem}
 .logo-wrap svg{width:28px;height:28px;stroke:var(--ac);fill:none;stroke-width:1.5}
 .org{font-size:10px;color:var(--tx3);letter-spacing:.12em;text-transform:uppercase;text-align:center;margin-bottom:3px}
 .app-title{font-size:20px;font-weight:700;text-align:center;margin-bottom:1.5rem}
-
-/* Login tabs */
 .ltabs{display:flex;background:var(--bg3);border-radius:var(--r);padding:3px;margin-bottom:1.25rem;gap:2px}
 .ltab{flex:1;padding:8px 6px;border:none;border-radius:8px;background:transparent;color:var(--tx3);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s var(--ease);display:flex;align-items:center;justify-content:center;gap:5px}
 .ltab svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
 .ltab.active{background:var(--bg2);color:var(--tx);box-shadow:0 1px 3px rgba(0,0,0,.3)}
 .ltab-pane{display:none}
 .ltab-pane.active{display:block;animation:fadeIn .2s var(--ease)}
-
 .lbl{font-size:12px;color:var(--tx2);margin-bottom:5px;display:block;font-weight:500}
 .inp{width:100%;background:var(--bg3);border:1px solid var(--bdr2);border-radius:var(--r);color:var(--tx);font-size:14px;padding:10px 12px;margin-bottom:10px;outline:none;transition:border-color .2s;-webkit-appearance:none}
 .inp:focus{border-color:var(--ac)}
 .inp option{background:var(--bg2)}
-
-/* Password field with show/hide */
 .pw-wrap{position:relative;margin-bottom:10px}
 .pw-wrap .inp{margin-bottom:0;padding-right:42px}
 .pw-eye{position:absolute;right:0;top:0;height:100%;width:42px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--tx3);transition:color .2s;background:none;border:none}
 .pw-eye:hover{color:var(--tx2)}
 .pw-eye svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8}
-
 .btn-pri{width:100%;background:var(--ac);color:#0c1a27;border:none;border-radius:var(--r);padding:11px;font-size:14px;font-weight:700;cursor:pointer;transition:opacity .18s,transform .12s;margin-top:2px}
 .btn-pri:hover{opacity:.92}
 .btn-pri:active{transform:scale(.98)}
 .btn-pri:disabled{opacity:.5;cursor:not-allowed}
-
 .role-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:11px}
 .role-btn{padding:10px 6px;border:1px solid var(--bdr2);border-radius:var(--r);background:var(--bg3);cursor:pointer;text-align:center;transition:all .18s}
-.role-btn .rl{font-size:12px;font-weight:700;color:var(--tx)}
-.role-btn .rs{font-size:10px;color:var(--tx3);margin-top:2px}
+.role-btn .rl{font-size:11px;font-weight:700;color:var(--tx)}
+.role-btn .rs{font-size:9px;color:var(--tx3);margin-top:2px}
 .role-btn.obs.sel{border-color:var(--obs);background:var(--obsbg)}
 .role-btn.obs.sel .rl{color:var(--obs)}
 .role-btn.fore.sel{border-color:var(--fore);background:var(--forebg)}
 .role-btn.fore.sel .rl{color:var(--fore)}
 .role-btn.smet.sel{border-color:var(--smet);background:var(--smetbg)}
 .role-btn.smet.sel .rl{color:var(--smet)}
-
 .forgot-link{text-align:center;margin-top:12px;font-size:12px}
 .forgot-link a{color:var(--ac);text-decoration:none;cursor:pointer}
 .forgot-link a:hover{text-decoration:underline}
-
-/* Admin login form */
 .admin-login-box{}
 .admin-err{font-size:12px;color:var(--rd);background:var(--rdbg);border:1px solid rgba(248,113,113,.3);border-radius:8px;padding:8px 11px;margin-bottom:10px;display:none;animation:fadeIn .2s}
-
-/* ── TOPBAR ── */
 .topbar{background:var(--bg2);border-bottom:1px solid var(--bdr);padding:11px 15px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;flex-shrink:0}
 .tb-l{display:flex;flex-direction:column}
 .tb-hi{font-size:10px;color:var(--tx3)}
@@ -97,23 +81,17 @@ input,select,button,textarea{font-family:inherit}
 .rb-obs{background:var(--obsbg);color:var(--obs);border:1px solid var(--obs)}
 .rb-fore{background:var(--forebg);color:var(--fore);border:1px solid var(--fore)}
 .rb-smet{background:var(--smetbg);color:var(--smet);border:1px solid var(--smet)}
-
-/* ── DUTY BANNER ── */
 .duty-banner{margin:10px 14px 0;border-radius:var(--r);padding:11px 13px;display:none}
 .db-on{background:var(--acbg);border:1px solid var(--ac)}
 .db-off{background:var(--gnbg);border:1px solid var(--gn)}
 .db-title{font-size:13px;font-weight:700;margin-bottom:2px}
 .db-body{font-size:12px;color:var(--tx2)}
-
-/* ── TABS ── */
 .tabs{display:flex;background:var(--bg2);border-bottom:1px solid var(--bdr);flex-shrink:0}
 .tab-btn{flex:1;padding:10px 3px;font-size:10px;color:var(--tx3);background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;border-bottom:2px solid transparent;transition:color .18s,border-color .18s}
 .tab-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8}
 .tab-btn.active{color:var(--ac);border-bottom-color:var(--ac)}
 .pane{display:none;padding:14px;flex:1;overflow-y:auto}
 .pane.active{display:block;animation:fadeIn .2s var(--ease)}
-
-/* ── SHARED COMPONENTS ── */
 .mrow{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:9px 12px;gap:8px}
 .mrow select{background:transparent;border:none;color:var(--tx);font-size:13px;font-weight:700;outline:none;cursor:pointer;flex:1;-webkit-appearance:none}
 .mrow select option{background:var(--bg2)}
@@ -155,8 +133,6 @@ input,select,button,textarea{font-family:inherit}
 .pnm{font-size:13px;font-weight:600}
 .off-chips{display:flex;flex-wrap:wrap;gap:5px}
 .off-chip{font-size:11px;padding:4px 10px;background:var(--bg2);border:1px solid var(--bdr);border-radius:20px;color:var(--tx3)}
-
-/* ── ADMIN SCREEN ── */
 .ascroll{flex:1;overflow-y:auto;padding:14px}
 .atabs{display:flex;gap:5px;margin-bottom:14px;flex-wrap:wrap}
 .atab{padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--bdr2);background:var(--bg3);color:var(--tx2);cursor:pointer;white-space:nowrap;transition:all .18s}
@@ -170,14 +146,11 @@ input,select,button,textarea{font-family:inherit}
 .finp{width:100%;background:var(--bg3);border:1px solid var(--bdr2);border-radius:var(--r);color:var(--tx);font-size:13px;padding:8px 11px;outline:none;transition:border-color .2s;-webkit-appearance:none}
 .finp:focus{border-color:var(--ac)}
 .finp option{background:var(--bg2)}
-
-/* Password field in admin forms */
 .fpw-wrap{position:relative}
 .fpw-wrap .finp{padding-right:38px;margin-bottom:0}
 .fpw-eye{position:absolute;right:0;top:0;height:100%;width:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--tx3);background:none;border:none;transition:color .18s}
 .fpw-eye:hover{color:var(--tx2)}
 .fpw-eye svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8}
-
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 .btn-g{background:var(--gn);color:#052e16;border:none;border-radius:var(--r);padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;transition:opacity .15s}
@@ -205,8 +178,6 @@ input,select,button,textarea{font-family:inherit}
 .shsel{background:var(--bg);border:1px solid var(--bdr2);border-radius:6px;color:var(--tx);font-size:12px;padding:4px 7px;outline:none;-webkit-appearance:none}
 .addbtn{background:var(--bg3);border:1.5px dashed var(--bdr2);border-radius:var(--r);width:100%;padding:9px;font-size:12px;color:var(--tx2);cursor:pointer;margin-bottom:10px;transition:border-color .18s,color .18s}
 .addbtn:hover{border-color:var(--ac);color:var(--ac)}
-
-/* Edit row */
 .ed-row{display:flex;align-items:flex-start;gap:8px;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:10px 12px;margin-bottom:5px}
 .ed-l{min-width:68px;flex-shrink:0}
 .ed-date{font-size:13px;font-weight:700}
@@ -215,8 +186,6 @@ input,select,button,textarea{font-family:inherit}
 .ed-btn{background:none;border:none;color:var(--tx3);cursor:pointer;padding:3px;border-radius:5px;flex-shrink:0;transition:color .15s}
 .ed-btn:hover{color:var(--ac)}
 .ed-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
-
-/* Upload */
 .udrop{border:2px dashed var(--bdr2);border-radius:var(--r);padding:22px 14px;text-align:center;cursor:pointer;transition:border-color .18s,background .18s;background:var(--bg3);margin-bottom:10px}
 .udrop:hover,.udrop.over{border-color:var(--ac);background:var(--acbg)}
 .udrop.ok{border-color:var(--gn)}
@@ -240,8 +209,6 @@ input,select,button,textarea{font-family:inherit}
 .ptag-obs{background:var(--obsbg);color:var(--obs)}
 .ptag-fore{background:var(--forebg);color:var(--fore)}
 .ptag-smet{background:var(--smetbg);color:var(--smet)}
-
-/* ── EDIT MODAL ── */
 .mwrap{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;display:flex;align-items:flex-end;justify-content:center;animation:overlayIn .2s var(--ease)}
 @keyframes overlayIn{from{opacity:0}to{opacity:1}}
 .msheet{background:var(--bg2);border-radius:var(--rl) var(--rl) 0 0;width:100%;max-width:480px;max-height:88vh;overflow-y:auto;padding:20px 16px 36px;animation:sheetUp .25s var(--ease)}
@@ -256,8 +223,6 @@ input,select,button,textarea{font-family:inherit}
 .macts button{flex:1;padding:10px;border-radius:var(--r);font-size:13px;font-weight:700;cursor:pointer;border:none;transition:opacity .15s}
 .msave{background:var(--gn);color:#052e16}
 .mcancel{background:var(--bg3);color:var(--tx2)}
-
-/* ── FULLSCREEN MODAL (PIN/OTP) ── */
 .fs-modal{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:600;display:flex;align-items:center;justify-content:center;padding:1.25rem;animation:overlayIn .2s var(--ease)}
 .fs-card{background:var(--bg2);border:1px solid var(--bdr2);border-radius:var(--rl);padding:1.75rem 1.5rem;width:100%;max-width:340px;animation:sheetUp .25s var(--ease)}
 .fs-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:22px}
@@ -283,12 +248,8 @@ input,select,button,textarea{font-family:inherit}
 .fs-link{text-align:center;margin-top:10px;font-size:12px;color:var(--tx3)}
 .fs-link a{color:var(--ac);cursor:pointer;text-decoration:none}
 .fs-link a:hover{text-decoration:underline}
-
-/* Spinner */
 .spinner{width:13px;height:13px;border:2px solid var(--bdr2);border-top-color:var(--ac);border-radius:50%;animation:spin .7s linear infinite;display:inline-block;vertical-align:middle;margin-right:5px}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* Toast */
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--gn);color:#052e16;padding:9px 20px;border-radius:20px;font-size:13px;font-weight:700;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center}
 .toast.show{opacity:1}
 .toast.et{background:var(--rd);color:#fff}
@@ -298,9 +259,7 @@ input,select,button,textarea{font-family:inherit}
 <body>
 <div class="toast" id="toast"></div>
 
-<!-- ════════════════════════════════════════════════════════
-     LOGIN SCREEN
-════════════════════════════════════════════════════════ -->
+<!-- LOGIN SCREEN -->
 <div class="screen active" id="s-login">
   <div class="login-wrap">
     <div class="logo-wrap">
@@ -308,8 +267,6 @@ input,select,button,textarea{font-family:inherit}
     </div>
     <p class="org">Dept. of Hydrology &amp; Meteorology · Nepal</p>
     <h1 class="app-title">MFD Duty Roster</h1>
-
-    <!-- Tab switcher -->
     <div class="ltabs">
       <button class="ltab active" id="lt-staff" onclick="switchLTab('staff')">
         <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
@@ -320,7 +277,6 @@ input,select,button,textarea{font-family:inherit}
         Admin Login
       </button>
     </div>
-
     <!-- Staff pane -->
     <div class="ltab-pane active" id="lp-staff">
       <label class="lbl">Select your role</label>
@@ -332,14 +288,13 @@ input,select,button,textarea{font-family:inherit}
           <div class="rl">🌤 Forecaster</div><div class="rs">MF / AF duties</div>
         </div>
         <div class="role-btn smet" id="rb-smet" onclick="selRole('smet')">
-          <div class="rl">⭐ Sr. Met</div><div class="rs">SDM duties</div>
+          <div class="rl">⭐ Sr. Div. Met.</div><div class="rs">SDM duties</div>
         </div>
       </div>
       <label class="lbl">Select your name</label>
       <select class="inp" id="login-name"></select>
       <button class="btn-pri" onclick="doLogin()">View My Roster</button>
     </div>
-
     <!-- Admin pane -->
     <div class="ltab-pane" id="lp-admin">
       <div class="admin-err" id="admin-err"></div>
@@ -359,9 +314,7 @@ input,select,button,textarea{font-family:inherit}
   </div>
 </div>
 
-<!-- ════════════════════════════════════════════════════════
-     APP SCREEN
-════════════════════════════════════════════════════════ -->
+<!-- APP SCREEN -->
 <div class="screen" id="s-app">
   <div class="topbar">
     <div class="tb-l"><span class="tb-hi">Welcome,</span><span class="tb-name" id="app-user"></span></div>
@@ -401,9 +354,7 @@ input,select,button,textarea{font-family:inherit}
   </div>
 </div>
 
-<!-- ════════════════════════════════════════════════════════
-     ADMIN SCREEN
-════════════════════════════════════════════════════════ -->
+<!-- ADMIN SCREEN -->
 <div class="screen" id="s-admin">
   <div class="topbar">
     <div class="tb-l"><span class="tb-hi">Admin Panel</span><span class="tb-name" id="admin-lbl"></span></div>
@@ -419,19 +370,22 @@ input,select,button,textarea{font-family:inherit}
       <button class="atab" onclick="showATab(this,'months')">📋 Months</button>
       <button class="atab" id="admins-tab" onclick="showATab(this,'admins')">🔑 Admins</button>
     </div>
-
     <!-- UPLOAD -->
     <div class="apane active" id="ap-upload">
       <div class="asec">
         <h2>📥 Upload Roster File (.xlsx / .csv)</h2>
         <div class="infobox">Upload your Excel or CSV file. Data will be saved to the cloud so <strong>all users</strong> can see it.</div>
         <div class="frow"><label class="flbl">Roster type</label>
-          <select class="finp" id="up-type"><option value="obs">🔭 Observer</option><option value="fore">🌤 Forecaster</option><option value="smet">⭐ Sr. Met</option></select>
+          <select class="finp" id="up-type">
+            <option value="obs">🔭 Observer</option>
+            <option value="fore">🌤 Forecaster</option>
+            <option value="smet">⭐ Senior Divisional Meteorologist</option>
+          </select>
         </div>
         <div class="udrop" id="udrop" onclick="document.getElementById('ufile').click()" ondragover="udragOver(event)" ondragleave="udragLeave()" ondrop="udrop_(event)">
           <div class="udrop-icon">📄</div>
           <div class="udrop-lbl" id="udrop-lbl">Tap or drag .xlsx / .csv here</div>
-          <div class="udrop-sub">Observer, Forecaster or Sr. Met roster file</div>
+          <div class="udrop-sub">Observer, Forecaster or Senior Divisional Meteorologist roster file</div>
         </div>
         <input type="file" id="ufile" accept=".xlsx,.xls,.csv" style="display:none" onchange="ufileChosen(this)">
         <div class="frow"><label class="flbl">Sheet tab name (leave blank = first sheet)</label><input class="finp" id="up-tab" placeholder="e.g. Jestha (AO)"></div>
@@ -447,7 +401,6 @@ input,select,button,textarea{font-family:inherit}
         <div class="hint">Row 1–4: title rows (skipped)<br>Row 5: headers — <code>DAY</code> | <code>गते</code> | <code>Date</code> | <code>Name1</code>…<br>Row 6+: data — <code>Mon</code> | <code>1</code> | <code>2026-05-15</code> | <code>MO</code>…</div>
       </div>
     </div>
-
     <!-- EDIT -->
     <div class="apane" id="ap-edit">
       <div class="asec">
@@ -456,7 +409,9 @@ input,select,button,textarea{font-family:inherit}
         <div class="g2">
           <div class="frow"><label class="flbl">Roster type</label>
             <select class="finp" id="ed-type" onchange="populateEdMonths();renderEditList()">
-              <option value="obs">Observer</option><option value="fore">Forecaster</option><option value="smet">Sr. Met</option>
+              <option value="obs">Observer</option>
+              <option value="fore">Forecaster</option>
+              <option value="smet">Senior Divisional Meteorologist</option>
             </select>
           </div>
           <div class="frow"><label class="flbl">Month</label><select class="finp" id="ed-month" onchange="renderEditList()"></select></div>
@@ -464,14 +419,12 @@ input,select,button,textarea{font-family:inherit}
         <div id="ed-list"></div>
       </div>
     </div>
-
     <!-- STAFF -->
     <div class="apane" id="ap-staff">
       <div class="asec"><h2>🔭 Observer Staff</h2><div id="obs-staff"></div><div class="sadd"><input type="text" id="obs-inp" placeholder="Add name…"><button onclick="addStaff('obs')">+ Add</button></div></div>
       <div class="asec"><h2>🌤 Forecaster Staff</h2><div id="fore-staff"></div><div class="sadd"><input type="text" id="fore-inp" placeholder="Add name…"><button onclick="addStaff('fore')">+ Add</button></div></div>
-      <div class="asec"><h2>⭐ Sr. Met Staff</h2><div id="smet-staff"></div><div class="sadd"><input type="text" id="smet-inp" placeholder="Add name…"><button onclick="addStaff('smet')">+ Add</button></div></div>
+      <div class="asec"><h2>⭐ Senior Divisional Meteorologist Staff</h2><div id="smet-staff"></div><div class="sadd"><input type="text" id="smet-inp" placeholder="Add name…"><button onclick="addStaff('smet')">+ Add</button></div></div>
     </div>
-
     <!-- MONTHS -->
     <div class="apane" id="ap-months">
       <div class="asec"><h2>📋 All Months</h2><div id="all-months"></div></div>
@@ -483,17 +436,21 @@ input,select,button,textarea{font-family:inherit}
         </div>
         <div class="g2">
           <div class="frow"><label class="flbl">Start date</label><input type="date" class="finp" id="nm-start" onchange="refreshNMDays()"></div>
-          <div class="frow"><label class="flbl">Type</label><select class="finp" id="nm-type" onchange="clearNMDays()"><option value="obs">Observer</option><option value="fore">Forecaster</option><option value="smet">Sr. Met</option></select></div>
+          <div class="frow"><label class="flbl">Type</label>
+            <select class="finp" id="nm-type" onchange="clearNMDays()">
+              <option value="obs">Observer</option>
+              <option value="fore">Forecaster</option>
+              <option value="smet">Senior Divisional Meteorologist</option>
+            </select>
+          </div>
         </div>
         <div id="nm-days"></div>
         <button class="addbtn" onclick="addNMDay()">+ Add day</button>
         <button class="btn-g btn-fw" onclick="saveNM()">💾 Save Month</button>
       </div>
     </div>
-
     <!-- ADMINS -->
     <div class="apane" id="ap-admins">
-      <!-- Master Admin credentials -->
       <div class="asec">
         <h2>👑 Master Admin Credentials</h2>
         <div class="infobox">Change the master admin username and PIN. This is what you use to log in to the Admin panel.</div>
@@ -508,8 +465,6 @@ input,select,button,textarea{font-family:inherit}
         </div>
         <button class="btn-g" onclick="saveMasterCreds()">Save Master Credentials</button>
       </div>
-
-      <!-- Sub-admins -->
       <div class="asec">
         <h2>👤 Sub-Admins</h2>
         <div id="sub-admins"></div>
@@ -528,7 +483,10 @@ input,select,button,textarea{font-family:inherit}
         </div>
         <div class="frow"><label class="flbl">Permission</label>
           <select class="finp" id="sa-perm">
-            <option value="all">All rosters</option><option value="obs">Observer only</option><option value="fore">Forecaster only</option><option value="smet">Sr. Met only</option>
+            <option value="all">All rosters</option>
+            <option value="obs">Observer only</option>
+            <option value="fore">Forecaster only</option>
+            <option value="smet">Senior Divisional Meteorologist only</option>
           </select>
         </div>
         <button class="btn-g" onclick="addSubAdmin()">Add Sub-Admin</button>
@@ -537,9 +495,7 @@ input,select,button,textarea{font-family:inherit}
   </div>
 </div>
 
-<!-- ════════════════════════════════════════════════════════
-     EDIT DUTIES MODAL
-════════════════════════════════════════════════════════ -->
+<!-- EDIT DUTIES MODAL -->
 <div class="mwrap" id="modal" style="display:none" onclick="bgClose(event)">
   <div class="msheet">
     <div class="mtitle" id="modal-title"></div>
@@ -549,12 +505,9 @@ input,select,button,textarea{font-family:inherit}
   </div>
 </div>
 
-<!-- ════════════════════════════════════════════════════════
-     FORGOT PIN MODAL  (3 steps: send → verify → set new)
-════════════════════════════════════════════════════════ -->
+<!-- FORGOT PIN MODAL -->
 <div class="fs-modal" id="fp-modal" style="display:none">
   <div class="fs-card">
-    <!-- Step 1: send -->
     <div id="fp-s1">
       <div class="fs-icon amber">📧</div>
       <div class="fs-title">Forgot PIN?</div>
@@ -565,7 +518,6 @@ input,select,button,textarea{font-family:inherit}
         <button class="fs-submit" id="fp-send-btn" onclick="fpSendCode()">Send Code</button>
       </div>
     </div>
-    <!-- Step 2: verify -->
     <div id="fp-s2" style="display:none">
       <div class="fs-icon blue">✉️</div>
       <div class="fs-title">Enter Code</div>
@@ -579,7 +531,6 @@ input,select,button,textarea{font-family:inherit}
       </div>
       <div class="fs-link"><a onclick="fpSendCode(true)">Resend code</a></div>
     </div>
-    <!-- Step 3: set new PIN -->
     <div id="fp-s3" style="display:none">
       <div class="fs-icon green">🔐</div>
       <div class="fs-title">Set New PIN</div>
@@ -609,7 +560,7 @@ input,select,button,textarea{font-family:inherit}
 
 <script>
 // ══════════════════════════════════════════════════════════════
-// CONFIG — paste your deployed Apps Script URL here
+// CONFIG
 // ══════════════════════════════════════════════════════════════
 const API_URL = 'https://script.google.com/macros/s/AKfycbwhBzeRAyaqB134Mfn8lBC_075jftKbyu7tT858Kf4IXN8MEX1V412uCKsy96GyrPj1/exec';
 
@@ -618,7 +569,7 @@ async function apiGet(action){try{const r=await fetch(API_URL+'?action='+action)
 async function apiPost(body){try{const r=await fetch(API_URL,{method:'POST',body:JSON.stringify(body)});return await r.json();}catch{return null;}}
 async function saveRosterToCloud(data){const r=await apiPost({action:'saveAll',data});return r&&r.success;}
 async function loadRosterFromCloud(){const r=await apiGet('loadAll');return r&&r.data?r.data:null;}
-async function loadCredsFromCloud(){const r=await apiGet('getCreds');return r;}  // {username, pin}
+async function loadCredsFromCloud(){const r=await apiGet('getCreds');return r;}
 async function saveCredsToCloud(username,pin){return await apiPost({action:'saveCreds',username,pin});}
 async function loadStaffFromCloud(){const r=await apiGet('loadStaff');return r&&r.data?r.data:null;}
 async function saveStaffToCloud(data){return await apiPost({action:'saveStaff',data});}
@@ -633,7 +584,7 @@ const getStaff=()=>lg(K.S,{obs:[],fore:[],smet:[]});
 const saveStaff=async v=>{ls(K.S,v);await saveStaffToCloud(v);};
 const getAdmins=()=>lg(K.A,[]);
 const saveAdmins=v=>ls(K.A,v);
-// Master creds: {username:'admin', pin:'1234'}
+// getCreds reads from local cache only (cloud is loaded at boot and on login)
 const getCreds=()=>lg(K.CR,{username:'admin',pin:'1234'});
 const saveCreds=async(u,p)=>{ls(K.CR,{username:u,pin:p});await saveCredsToCloud(u,p);};
 
@@ -654,11 +605,14 @@ const FORE_SH=['xx','MF','MF*','AFN*','AF','A1','A2'];
 const SMET_SH=['xx','SDM1','SDM2','SDM3','A1','A2','MO'];
 const SKIP_COLS=['mean','total','leave','incharge','agro','check','weekly','note','remark'];
 
+// ── ROLE LABELS — FIXED: full name for smet ──────────────────────
+const ROLE_LABELS={obs:'Observer',fore:'Forecaster',smet:'Senior Divisional Meteorologist'};
+
 // ── STATE ────────────────────────────────────────────────────────
 let CU='',CT='obs',IM=false,CAO=null;
 let MOD={type:'',mid:'',di:-1};
 let NMC=0,_upFile=null;
-let _fpVerified=false; // OTP passed?
+let _fpVerified=false;
 const todayISO=()=>new Date().toISOString().split('T')[0];
 const ini=n=>(n||'?').slice(0,2).toUpperCase();
 
@@ -667,15 +621,20 @@ const SC=s_=>{if(!s_||s_==='xx')return 's-OFF';if(s_==='MO')return 's-MO';if(s_=
 const SL=s_=>{const m={MO:'Morning','MO*':'Morning*','AON*':'Night',A1:'Afternoon',A2:'Late',MF:'Morning Fcst','MF*':'Morning Fcst*','AFN*':'Night Fcst',AF:'Aft Fcst',SDM1:'SDM Morning',SDM2:'SDM Afternoon',SDM3:'SDM Night',xx:'Day off'};return m[s_]||s_||'Day off';};
 const SCL=s_=>{const m={MO:'#4ade80','MO*':'#86efac','AON*':'#a78bfa',A1:'#38bdf8',A2:'#fbbf24',MF:'#34d399','MF*':'#6ee7b7','AFN*':'#c084fc',AF:'#60a5fa',SDM1:'#f97316',SDM2:'#fb923c',SDM3:'#fdba74',xx:'#64748b'};return m[s_]||'#64748b';};
 const shiftListForType=t=>t==='fore'?FORE_SH:t==='smet'?SMET_SH:OBS_SH;
-const ROLE_LABELS={obs:'Observer',fore:'Forecaster',smet:'Sr. Met'};
 
-// ── INIT ─────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════
+// INIT — load cloud data then sync to localStorage
+// ═══════════════════════════════════════════════════════════════
 window.addEventListener('DOMContentLoaded',async()=>{
-  // Load creds from cloud
+  // Load master credentials fresh from cloud and cache locally
   const creds=await loadCredsFromCloud();
-  if(creds&&creds.username)ls(K.CR,{username:creds.username,pin:creds.pin||'1234'});
-  const cs=await loadStaffFromCloud();if(cs)ls(K.S,cs);
-  const cd=await loadRosterFromCloud();if(cd)ls(K.R,cd);
+  if(creds&&creds.username){
+    ls(K.CR,{username:creds.username,pin:creds.pin||'1234'});
+  }
+  const cs=await loadStaffFromCloud();
+  if(cs)ls(K.S,cs);
+  const cd=await loadRosterFromCloud();
+  if(cd)ls(K.R,cd);
   selRole('obs');
 });
 
@@ -686,7 +645,6 @@ function togglePw(inputId,btn){
   inp.type=isHidden?'text':'password';
   const icon=btn.querySelector('svg');
   if(isHidden){
-    // show "eye-off" icon
     icon.innerHTML='<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
   }else{
     icon.innerHTML='<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
@@ -699,7 +657,13 @@ function switchLTab(tab){
   document.getElementById('lt-admin').classList.toggle('active',tab==='admin');
   document.getElementById('lp-staff').classList.toggle('active',tab==='staff');
   document.getElementById('lp-admin').classList.toggle('active',tab==='admin');
-  if(tab==='admin'){setTimeout(()=>document.getElementById('adm-user').focus(),80);}
+  if(tab==='admin'){
+    // Re-sync creds from cloud each time admin tab is opened
+    loadCredsFromCloud().then(creds=>{
+      if(creds&&creds.username)ls(K.CR,{username:creds.username,pin:creds.pin||'1234'});
+    });
+    setTimeout(()=>document.getElementById('adm-user').focus(),80);
+  }
 }
 
 // ── STAFF LOGIN ──────────────────────────────────────────────────
@@ -708,7 +672,10 @@ function selRole(r){_role=r;['obs','fore','smet'].forEach(x=>document.getElement
 function fillNameDrop(){const sel=document.getElementById('login-name');const staff=(getStaff()[_role]||[]);sel.innerHTML='<option value="">-- Select your name --</option>';staff.forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n;sel.appendChild(o);});}
 function doLogin(){const name=document.getElementById('login-name').value;if(!name){toast('Please select your name','err');return;}CU=name;CT=_role;IM=false;CAO=null;showApp();}
 
-// ── ADMIN LOGIN ──────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════
+// ADMIN LOGIN — FIX: always re-fetch creds from cloud first,
+// then compare against the freshly-stored local values.
+// ═══════════════════════════════════════════════════════════════
 async function doAdminLogin(){
   const user=document.getElementById('adm-user').value.trim();
   const pass=document.getElementById('adm-pass').value.trim();
@@ -716,18 +683,25 @@ async function doAdminLogin(){
   err.style.display='none';
   if(!user||!pass){showAdminErr('Enter username and PIN.');return;}
 
-  // Always reload creds from cloud to ensure latest
-  const creds=await loadCredsFromCloud();
-  if(creds&&creds.username)ls(K.CR,{username:creds.username,pin:creds.pin||'1234'});
-  const local=getCreds();
-
-  // Check master admin
-  if(user===local.username&&pass===local.pin){
-    IM=true;CAO=null;showAdmin(local.username+' (Master)');return;
+  // Step 1 — fetch latest credentials from the cloud
+  const cloudCreds=await loadCredsFromCloud();
+  if(cloudCreds&&cloudCreds.username){
+    // Write the fresh cloud values into localStorage so getCreds() is current
+    ls(K.CR,{username:cloudCreds.username,pin:cloudCreds.pin||'1234'});
   }
-  // Check sub-admins
+
+  // Step 2 — read back the now-current local copy
+  const creds=getCreds();
+
+  // Step 3 — compare
+  if(user===creds.username&&pass===creds.pin){
+    IM=true;CAO=null;showAdmin(creds.username+' (Master)');return;
+  }
+
+  // Check sub-admins (stored locally only)
   const found=getAdmins().find(a=>a.name===user&&a.pin===pass);
   if(found){IM=false;CAO=found;showAdmin(found.name);return;}
+
   showAdminErr('Incorrect username or PIN.');
 }
 function showAdminErr(msg){const e=document.getElementById('admin-err');e.textContent=msg;e.style.display='block';}
@@ -862,7 +836,7 @@ function renameStaff(t,i){const st=getStaff();const old=st[t][i];const nw=prompt
 
 // ── MONTHS ───────────────────────────────────────────────────────
 function renderAllMonths(){
-  const r=getRoster();const all=[...(r.obs||[]).map(m=>({...m,tl:'Observer'})),...(r.fore||[]).map(m=>({...m,tl:'Forecaster'})),...(r.smet||[]).map(m=>({...m,tl:'Sr. Met'}))];
+  const r=getRoster();const all=[...(r.obs||[]).map(m=>({...m,tl:'Observer'})),...(r.fore||[]).map(m=>({...m,tl:'Forecaster'})),...(r.smet||[]).map(m=>({...m,tl:'Sr. Div. Met.'}))];
   document.getElementById('all-months').innerHTML=all.length?all.map(m=>`<div class="lrow"><div><div class="lmain">${m.name}<span class="pill p-${m.type}">${m.tl}</span></div><div class="lsub">${m.nepali||''} · ${m.days.length} days</div></div><button class="btn-d btn-sm" onclick="deleteMonth('${m.type}','${m.id}')">Delete</button></div>`).join(''):'<p style="font-size:12px;color:var(--tx3)">No months yet.</p>';
 }
 function deleteMonth(type,id){if(!confirm('Delete this month?'))return;const r=getRoster();r[type]=(r[type]||[]).filter(m=>m.id!==id);saveRoster(r);renderAllMonths();fillMonthSels();populateEdMonths();toast('Deleted');}
@@ -938,12 +912,9 @@ function addSubAdmin(){
 function removeSA(i){const a=getAdmins();if(!confirm('Remove "'+a[i].name+'"?'))return;a.splice(i,1);saveAdmins(a);renderSubAdmins();toast('Removed');}
 function editSAPIN(i){const a=getAdmins();const np=prompt('New PIN for "'+a[i].name+'":');if(!np||np.length<4){toast('4+ digits required','err');return;}a[i].pin=np;saveAdmins(a);renderSubAdmins();toast('PIN updated');}
 
-// ═══════════════════════════════════════════════════════════════
-// FORGOT PIN — 3-step flow: Send OTP → Verify OTP → Set New PIN
-// ═══════════════════════════════════════════════════════════════
+// ── FORGOT PIN ───────────────────────────────────────────────────
 function openForgotPin(){
   _fpVerified=false;
-  // Reset to step 1
   document.getElementById('fp-s1').style.display='block';
   document.getElementById('fp-s2').style.display='none';
   document.getElementById('fp-s3').style.display='none';
@@ -964,18 +935,13 @@ async function fpSendCode(isResend=false){
   err.style.display='none';btn.textContent='Sending…';btn.disabled=true;
   const r=await apiGet('sendCode');
   btn.disabled=false;
-  if(!r||!r.success){
-    err.textContent=r?r.error:'Network error. Check connection.';err.style.display='block';
-    btn.textContent='Send Code';return;
-  }
+  if(!r||!r.success){err.textContent=r?r.error:'Network error. Check connection.';err.style.display='block';btn.textContent='Send Code';return;}
   if(!isResend){
     document.getElementById('fp-s1').style.display='none';
     document.getElementById('fp-s2').style.display='block';
     document.getElementById('fp-s2-desc').textContent='Code sent to '+r.email+'. Enter the 6-digit code below. Expires in 10 min.';
     setTimeout(()=>document.getElementById('fp-code').focus(),80);
-  } else {
-    toast('New code sent to '+r.email);
-  }
+  }else{toast('New code sent to '+r.email);}
 }
 
 async function fpVerify(){
@@ -988,7 +954,6 @@ async function fpVerify(){
   const r=await apiPost({action:'verifyCode',code});
   btn.disabled=false;btn.textContent='Verify';
   if(!r||!r.success){err.textContent=r?r.error:'Network error.';err.style.display='block';return;}
-  // OTP verified — go to step 3 (set new PIN)
   _fpVerified=true;
   document.getElementById('fp-s2').style.display='none';
   document.getElementById('fp-s3').style.display='block';
