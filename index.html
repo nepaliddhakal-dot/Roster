@@ -8,26 +8,64 @@
 <meta name="theme-color" content="#0f172a">
 <title>MFD Duty Roster</title>
 <style>
-:root{--bg:#0f172a;--bg2:#1e293b;--bg3:#334155;--bg4:#475569;--bdr:rgba(255,255,255,.08);--bdr2:rgba(255,255,255,.15);--tx:#f1f5f9;--tx2:#94a3b8;--tx3:#64748b;--ac:#38bdf8;--acbg:rgba(56,189,248,.12);--gn:#4ade80;--gnbg:rgba(74,222,128,.12);--pu:#a78bfa;--pubg:rgba(167,139,250,.12);--am:#fbbf24;--ambg:rgba(251,191,36,.12);--rd:#f87171;--rdbg:rgba(248,113,113,.12);--obs:#f97316;--obsbg:rgba(249,115,22,.12);--fore:#22d3ee;--forebg:rgba(34,211,238,.12);--smet:#a78bfa;--smetbg:rgba(167,139,250,.12);--r:10px;--rl:14px}
+:root{
+  --bg:#0f172a;--bg2:#1e293b;--bg3:#334155;--bg4:#475569;
+  --bdr:rgba(255,255,255,.08);--bdr2:rgba(255,255,255,.15);
+  --tx:#f1f5f9;--tx2:#94a3b8;--tx3:#64748b;
+  --ac:#38bdf8;--acbg:rgba(56,189,248,.12);
+  --gn:#4ade80;--gnbg:rgba(74,222,128,.12);
+  --pu:#a78bfa;--pubg:rgba(167,139,250,.12);
+  --am:#fbbf24;--ambg:rgba(251,191,36,.12);
+  --rd:#f87171;--rdbg:rgba(248,113,113,.12);
+  --obs:#f97316;--obsbg:rgba(249,115,22,.12);
+  --fore:#22d3ee;--forebg:rgba(34,211,238,.12);
+  --smet:#a78bfa;--smetbg:rgba(167,139,250,.12);
+  --r:10px;--rl:14px;
+  --ease:cubic-bezier(.4,0,.2,1);
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden}
 input,select,button,textarea{font-family:inherit}
-.screen{display:none;flex-direction:column;min-height:100vh}
+
+/* ── SCREENS ── */
+.screen{display:none;flex-direction:column;min-height:100vh;animation:fadeIn .25s var(--ease)}
 .screen.active{display:flex}
-#s-login{align-items:center;justify-content:center;padding:2rem 1rem;background:var(--bg)}
-.logo-wrap{width:64px;height:64px;background:var(--acbg);border:1px solid var(--ac);border-radius:18px;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem}
-.logo-wrap svg{width:32px;height:32px;stroke:var(--ac);fill:none;stroke-width:1.5}
-.org{font-size:10px;color:var(--tx3);letter-spacing:.1em;text-transform:uppercase;text-align:center;margin-bottom:4px}
-.app-title{font-size:22px;font-weight:700;text-align:center;margin-bottom:1.75rem}
-.card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--rl);padding:1.5rem;width:100%;max-width:380px}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ── LOGIN SCREEN ── */
+#s-login{align-items:center;justify-content:flex-start;padding:0;background:var(--bg)}
+.login-wrap{width:100%;max-width:400px;margin:0 auto;padding:2rem 1.25rem 3rem}
+.logo-wrap{width:60px;height:60px;background:var(--acbg);border:1px solid rgba(56,189,248,.3);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem}
+.logo-wrap svg{width:28px;height:28px;stroke:var(--ac);fill:none;stroke-width:1.5}
+.org{font-size:10px;color:var(--tx3);letter-spacing:.12em;text-transform:uppercase;text-align:center;margin-bottom:3px}
+.app-title{font-size:20px;font-weight:700;text-align:center;margin-bottom:1.5rem}
+
+/* Login tabs */
+.ltabs{display:flex;background:var(--bg3);border-radius:var(--r);padding:3px;margin-bottom:1.25rem;gap:2px}
+.ltab{flex:1;padding:8px 6px;border:none;border-radius:8px;background:transparent;color:var(--tx3);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s var(--ease);display:flex;align-items:center;justify-content:center;gap:5px}
+.ltab svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
+.ltab.active{background:var(--bg2);color:var(--tx);box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.ltab-pane{display:none}
+.ltab-pane.active{display:block;animation:fadeIn .2s var(--ease)}
+
 .lbl{font-size:12px;color:var(--tx2);margin-bottom:5px;display:block;font-weight:500}
-.inp{width:100%;background:var(--bg3);border:1px solid var(--bdr2);border-radius:var(--r);color:var(--tx);font-size:14px;padding:10px 12px;margin-bottom:11px;outline:none;transition:border-color .2s;-webkit-appearance:none}
+.inp{width:100%;background:var(--bg3);border:1px solid var(--bdr2);border-radius:var(--r);color:var(--tx);font-size:14px;padding:10px 12px;margin-bottom:10px;outline:none;transition:border-color .2s;-webkit-appearance:none}
 .inp:focus{border-color:var(--ac)}
 .inp option{background:var(--bg2)}
-.btn-pri{width:100%;background:var(--ac);color:#0c1a27;border:none;border-radius:var(--r);padding:11px;font-size:14px;font-weight:700;cursor:pointer}
-.login-links{display:flex;justify-content:center;margin-top:1rem;font-size:12px;color:var(--tx3)}
-.login-links a{color:var(--ac);text-decoration:none;cursor:pointer}
-.role-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:12px}
+
+/* Password field with show/hide */
+.pw-wrap{position:relative;margin-bottom:10px}
+.pw-wrap .inp{margin-bottom:0;padding-right:42px}
+.pw-eye{position:absolute;right:0;top:0;height:100%;width:42px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--tx3);transition:color .2s;background:none;border:none}
+.pw-eye:hover{color:var(--tx2)}
+.pw-eye svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8}
+
+.btn-pri{width:100%;background:var(--ac);color:#0c1a27;border:none;border-radius:var(--r);padding:11px;font-size:14px;font-weight:700;cursor:pointer;transition:opacity .18s,transform .12s;margin-top:2px}
+.btn-pri:hover{opacity:.92}
+.btn-pri:active{transform:scale(.98)}
+.btn-pri:disabled{opacity:.5;cursor:not-allowed}
+
+.role-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:11px}
 .role-btn{padding:10px 6px;border:1px solid var(--bdr2);border-radius:var(--r);background:var(--bg3);cursor:pointer;text-align:center;transition:all .18s}
 .role-btn .rl{font-size:12px;font-weight:700;color:var(--tx)}
 .role-btn .rs{font-size:10px;color:var(--tx3);margin-top:2px}
@@ -37,28 +75,45 @@ input,select,button,textarea{font-family:inherit}
 .role-btn.fore.sel .rl{color:var(--fore)}
 .role-btn.smet.sel{border-color:var(--smet);background:var(--smetbg)}
 .role-btn.smet.sel .rl{color:var(--smet)}
+
+.forgot-link{text-align:center;margin-top:12px;font-size:12px}
+.forgot-link a{color:var(--ac);text-decoration:none;cursor:pointer}
+.forgot-link a:hover{text-decoration:underline}
+
+/* Admin login form */
+.admin-login-box{}
+.admin-err{font-size:12px;color:var(--rd);background:var(--rdbg);border:1px solid rgba(248,113,113,.3);border-radius:8px;padding:8px 11px;margin-bottom:10px;display:none;animation:fadeIn .2s}
+
+/* ── TOPBAR ── */
 .topbar{background:var(--bg2);border-bottom:1px solid var(--bdr);padding:11px 15px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;flex-shrink:0}
 .tb-l{display:flex;flex-direction:column}
 .tb-hi{font-size:10px;color:var(--tx3)}
 .tb-name{font-size:15px;font-weight:700}
 .tb-r{display:flex;gap:7px;align-items:center}
-.ib{background:var(--bg3);border:1px solid var(--bdr);border-radius:8px;width:35px;height:35px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--tx2);flex-shrink:0}
+.ib{background:var(--bg3);border:1px solid var(--bdr);border-radius:8px;width:35px;height:35px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--tx2);flex-shrink:0;transition:background .15s,color .15s}
+.ib:hover{background:var(--bg4);color:var(--tx)}
 .ib svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8}
 .rbadge{font-size:10px;padding:3px 9px;border-radius:20px;font-weight:700;white-space:nowrap}
 .rb-obs{background:var(--obsbg);color:var(--obs);border:1px solid var(--obs)}
 .rb-fore{background:var(--forebg);color:var(--fore);border:1px solid var(--fore)}
 .rb-smet{background:var(--smetbg);color:var(--smet);border:1px solid var(--smet)}
+
+/* ── DUTY BANNER ── */
 .duty-banner{margin:10px 14px 0;border-radius:var(--r);padding:11px 13px;display:none}
 .db-on{background:var(--acbg);border:1px solid var(--ac)}
 .db-off{background:var(--gnbg);border:1px solid var(--gn)}
 .db-title{font-size:13px;font-weight:700;margin-bottom:2px}
 .db-body{font-size:12px;color:var(--tx2)}
+
+/* ── TABS ── */
 .tabs{display:flex;background:var(--bg2);border-bottom:1px solid var(--bdr);flex-shrink:0}
-.tab-btn{flex:1;padding:10px 3px;font-size:10px;color:var(--tx3);background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;border-bottom:2px solid transparent}
+.tab-btn{flex:1;padding:10px 3px;font-size:10px;color:var(--tx3);background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;border-bottom:2px solid transparent;transition:color .18s,border-color .18s}
 .tab-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8}
 .tab-btn.active{color:var(--ac);border-bottom-color:var(--ac)}
 .pane{display:none;padding:14px;flex:1;overflow-y:auto}
-.pane.active{display:block}
+.pane.active{display:block;animation:fadeIn .2s var(--ease)}
+
+/* ── SHARED COMPONENTS ── */
 .mrow{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:9px 12px;gap:8px}
 .mrow select{background:transparent;border:none;color:var(--tx);font-size:13px;font-weight:700;outline:none;cursor:pointer;flex:1;-webkit-appearance:none}
 .mrow select option{background:var(--bg2)}
@@ -73,7 +128,7 @@ input,select,button,textarea{font-family:inherit}
 .s-OTH{background:var(--bg3);color:var(--tx2)}
 .wblk{margin-bottom:18px}
 .wlbl{font-size:10px;color:var(--tx3);letter-spacing:.07em;text-transform:uppercase;margin-bottom:7px}
-.drow{display:flex;align-items:center;justify-content:space-between;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:10px 12px;margin-bottom:5px;gap:8px}
+.drow{display:flex;align-items:center;justify-content:space-between;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:10px 12px;margin-bottom:5px;gap:8px;transition:border-color .18s}
 .drow.today{border-color:var(--ac);background:var(--acbg)}
 .dl{display:flex;flex-direction:column;min-width:78px}
 .ddn{font-size:10px;color:var(--tx3)}
@@ -100,12 +155,14 @@ input,select,button,textarea{font-family:inherit}
 .pnm{font-size:13px;font-weight:600}
 .off-chips{display:flex;flex-wrap:wrap;gap:5px}
 .off-chip{font-size:11px;padding:4px 10px;background:var(--bg2);border:1px solid var(--bdr);border-radius:20px;color:var(--tx3)}
+
+/* ── ADMIN SCREEN ── */
 .ascroll{flex:1;overflow-y:auto;padding:14px}
 .atabs{display:flex;gap:5px;margin-bottom:14px;flex-wrap:wrap}
-.atab{padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--bdr2);background:var(--bg3);color:var(--tx2);cursor:pointer;white-space:nowrap}
+.atab{padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--bdr2);background:var(--bg3);color:var(--tx2);cursor:pointer;white-space:nowrap;transition:all .18s}
 .atab.active{background:var(--ac);color:#0c1a27;border-color:var(--ac)}
 .apane{display:none}
-.apane.active{display:block}
+.apane.active{display:block;animation:fadeIn .2s var(--ease)}
 .asec{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--rl);padding:15px;margin-bottom:13px}
 .asec h2{font-size:13px;font-weight:700;margin-bottom:11px;color:var(--tx)}
 .frow{margin-bottom:9px}
@@ -113,11 +170,21 @@ input,select,button,textarea{font-family:inherit}
 .finp{width:100%;background:var(--bg3);border:1px solid var(--bdr2);border-radius:var(--r);color:var(--tx);font-size:13px;padding:8px 11px;outline:none;transition:border-color .2s;-webkit-appearance:none}
 .finp:focus{border-color:var(--ac)}
 .finp option{background:var(--bg2)}
+
+/* Password field in admin forms */
+.fpw-wrap{position:relative}
+.fpw-wrap .finp{padding-right:38px;margin-bottom:0}
+.fpw-eye{position:absolute;right:0;top:0;height:100%;width:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--tx3);background:none;border:none;transition:color .18s}
+.fpw-eye:hover{color:var(--tx2)}
+.fpw-eye svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8}
+
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.btn-g{background:var(--gn);color:#052e16;border:none;border-radius:var(--r);padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer}
+.btn-g{background:var(--gn);color:#052e16;border:none;border-radius:var(--r);padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;transition:opacity .15s}
+.btn-g:hover{opacity:.88}
 .btn-fw{width:100%}
-.btn-d{background:var(--rdbg);color:var(--rd);border:1px solid var(--rd);border-radius:var(--r);padding:6px 11px;font-size:12px;font-weight:600;cursor:pointer}
+.btn-d{background:var(--rdbg);color:var(--rd);border:1px solid var(--rd);border-radius:var(--r);padding:6px 11px;font-size:12px;font-weight:600;cursor:pointer;transition:opacity .15s}
+.btn-d:hover{opacity:.8}
 .btn-a{background:var(--ambg);color:var(--am);border:1px solid var(--am);border-radius:var(--r);padding:6px 11px;font-size:12px;font-weight:600;cursor:pointer}
 .btn-sm{padding:5px 10px;font-size:11px}
 .lrow{display:flex;align-items:flex-start;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--bdr);gap:8px}
@@ -136,20 +203,21 @@ input,select,button,textarea{font-family:inherit}
 .shr:last-child{border-bottom:none}
 .shrn{font-size:12px;color:var(--tx)}
 .shsel{background:var(--bg);border:1px solid var(--bdr2);border-radius:6px;color:var(--tx);font-size:12px;padding:4px 7px;outline:none;-webkit-appearance:none}
-.addbtn{background:var(--bg3);border:1.5px dashed var(--bdr2);border-radius:var(--r);width:100%;padding:9px;font-size:12px;color:var(--tx2);cursor:pointer;margin-bottom:10px}
-.mwrap{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;display:flex;align-items:flex-end;justify-content:center}
-.msheet{background:var(--bg2);border-radius:var(--rl) var(--rl) 0 0;width:100%;max-width:480px;max-height:88vh;overflow-y:auto;padding:20px 16px 36px}
-.mtitle{font-size:15px;font-weight:700;margin-bottom:3px}
-.msub{font-size:12px;color:var(--tx3);margin-bottom:16px}
-.mprow{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--bdr)}
-.mprow:last-child{border-bottom:none}
-.mpname{font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px}
-.msel{background:var(--bg3);border:1px solid var(--bdr2);border-radius:7px;color:var(--tx);font-size:12px;padding:6px 10px;outline:none;min-width:120px;-webkit-appearance:none}
-.macts{display:flex;gap:8px;margin-top:16px}
-.macts button{flex:1;padding:10px;border-radius:var(--r);font-size:13px;font-weight:700;cursor:pointer;border:none}
-.msave{background:var(--gn);color:#052e16}
-.mcancel{background:var(--bg3);color:var(--tx2)}
-.udrop{border:2px dashed var(--bdr2);border-radius:var(--r);padding:22px 14px;text-align:center;cursor:pointer;transition:border-color .18s;background:var(--bg3);margin-bottom:10px}
+.addbtn{background:var(--bg3);border:1.5px dashed var(--bdr2);border-radius:var(--r);width:100%;padding:9px;font-size:12px;color:var(--tx2);cursor:pointer;margin-bottom:10px;transition:border-color .18s,color .18s}
+.addbtn:hover{border-color:var(--ac);color:var(--ac)}
+
+/* Edit row */
+.ed-row{display:flex;align-items:flex-start;gap:8px;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:10px 12px;margin-bottom:5px}
+.ed-l{min-width:68px;flex-shrink:0}
+.ed-date{font-size:13px;font-weight:700}
+.ed-dn{font-size:10px;color:var(--tx3)}
+.ed-shifts{flex:1;display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.ed-btn{background:none;border:none;color:var(--tx3);cursor:pointer;padding:3px;border-radius:5px;flex-shrink:0;transition:color .15s}
+.ed-btn:hover{color:var(--ac)}
+.ed-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* Upload */
+.udrop{border:2px dashed var(--bdr2);border-radius:var(--r);padding:22px 14px;text-align:center;cursor:pointer;transition:border-color .18s,background .18s;background:var(--bg3);margin-bottom:10px}
 .udrop:hover,.udrop.over{border-color:var(--ac);background:var(--acbg)}
 .udrop.ok{border-color:var(--gn)}
 .udrop-icon{font-size:30px;margin-bottom:6px}
@@ -172,16 +240,55 @@ input,select,button,textarea{font-family:inherit}
 .ptag-obs{background:var(--obsbg);color:var(--obs)}
 .ptag-fore{background:var(--forebg);color:var(--fore)}
 .ptag-smet{background:var(--smetbg);color:var(--smet)}
-.ed-row{display:flex;align-items:flex-start;gap:8px;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:10px 12px;margin-bottom:5px}
-.ed-l{min-width:68px;flex-shrink:0}
-.ed-date{font-size:13px;font-weight:700}
-.ed-dn{font-size:10px;color:var(--tx3)}
-.ed-shifts{flex:1;display:flex;flex-wrap:wrap;gap:4px;align-items:center}
-.ed-btn{background:none;border:none;color:var(--tx3);cursor:pointer;padding:3px;border-radius:5px;flex-shrink:0}
-.ed-btn:hover{color:var(--ac)}
-.ed-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* ── EDIT MODAL ── */
+.mwrap{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;display:flex;align-items:flex-end;justify-content:center;animation:overlayIn .2s var(--ease)}
+@keyframes overlayIn{from{opacity:0}to{opacity:1}}
+.msheet{background:var(--bg2);border-radius:var(--rl) var(--rl) 0 0;width:100%;max-width:480px;max-height:88vh;overflow-y:auto;padding:20px 16px 36px;animation:sheetUp .25s var(--ease)}
+@keyframes sheetUp{from{transform:translateY(40px)}to{transform:none}}
+.mtitle{font-size:15px;font-weight:700;margin-bottom:3px}
+.msub{font-size:12px;color:var(--tx3);margin-bottom:16px}
+.mprow{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--bdr)}
+.mprow:last-child{border-bottom:none}
+.mpname{font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px}
+.msel{background:var(--bg3);border:1px solid var(--bdr2);border-radius:7px;color:var(--tx);font-size:12px;padding:6px 10px;outline:none;min-width:120px;-webkit-appearance:none}
+.macts{display:flex;gap:8px;margin-top:16px}
+.macts button{flex:1;padding:10px;border-radius:var(--r);font-size:13px;font-weight:700;cursor:pointer;border:none;transition:opacity .15s}
+.msave{background:var(--gn);color:#052e16}
+.mcancel{background:var(--bg3);color:var(--tx2)}
+
+/* ── FULLSCREEN MODAL (PIN/OTP) ── */
+.fs-modal{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:600;display:flex;align-items:center;justify-content:center;padding:1.25rem;animation:overlayIn .2s var(--ease)}
+.fs-card{background:var(--bg2);border:1px solid var(--bdr2);border-radius:var(--rl);padding:1.75rem 1.5rem;width:100%;max-width:340px;animation:sheetUp .25s var(--ease)}
+.fs-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:22px}
+.fs-icon.blue{background:var(--acbg);border:1px solid rgba(56,189,248,.3)}
+.fs-icon.amber{background:var(--ambg);border:1px solid rgba(251,191,36,.3)}
+.fs-icon.green{background:var(--gnbg);border:1px solid rgba(74,222,128,.3)}
+.fs-title{font-size:16px;font-weight:700;text-align:center;margin-bottom:5px}
+.fs-desc{font-size:12px;color:var(--tx3);text-align:center;margin-bottom:1.25rem;line-height:1.6}
+.fs-err{font-size:12px;color:var(--rd);background:var(--rdbg);border:1px solid rgba(248,113,113,.25);border-radius:8px;padding:7px 10px;margin-bottom:10px;display:none;animation:fadeIn .2s}
+.fs-inp{width:100%;background:var(--bg3);border:1px solid var(--bdr2);border-radius:var(--r);color:var(--tx);font-size:15px;padding:10px 42px 10px 12px;outline:none;letter-spacing:.1em;margin-bottom:10px;transition:border-color .2s;-webkit-appearance:none}
+.fs-inp:focus{border-color:var(--ac)}
+.fs-inp-wrap{position:relative;margin-bottom:10px}
+.fs-inp-wrap .fs-inp{margin-bottom:0;padding-right:42px}
+.fs-eye{position:absolute;right:0;top:0;height:100%;width:42px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--tx3);background:none;border:none;transition:color .18s}
+.fs-eye:hover{color:var(--tx2)}
+.fs-eye svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8}
+.fs-row{display:flex;gap:8px}
+.fs-row button{flex:1;padding:10px;border-radius:var(--r);font-size:13px;font-weight:700;cursor:pointer;border:none;transition:opacity .15s,transform .1s}
+.fs-row button:active{transform:scale(.97)}
+.fs-cancel{background:var(--bg3);color:var(--tx2)}
+.fs-submit{background:var(--ac);color:#0c1a27}
+.fs-submit:disabled{opacity:.5;cursor:not-allowed}
+.fs-link{text-align:center;margin-top:10px;font-size:12px;color:var(--tx3)}
+.fs-link a{color:var(--ac);cursor:pointer;text-decoration:none}
+.fs-link a:hover{text-decoration:underline}
+
+/* Spinner */
 .spinner{width:13px;height:13px;border:2px solid var(--bdr2);border-top-color:var(--ac);border-radius:50%;animation:spin .7s linear infinite;display:inline-block;vertical-align:middle;margin-right:5px}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* Toast */
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--gn);color:#052e16;padding:9px 20px;border-radius:20px;font-size:13px;font-weight:700;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center}
 .toast.show{opacity:1}
 .toast.et{background:var(--rd);color:#fff}
@@ -191,43 +298,73 @@ input,select,button,textarea{font-family:inherit}
 <body>
 <div class="toast" id="toast"></div>
 
-<!-- LOGIN -->
+<!-- ════════════════════════════════════════════════════════
+     LOGIN SCREEN
+════════════════════════════════════════════════════════ -->
 <div class="screen active" id="s-login">
-  <div class="logo-wrap">
-    <svg viewBox="0 0 24 24"><path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
-  </div>
-  <p class="org">Dept. of Hydrology &amp; Meteorology &middot; Nepal</p>
-  <h1 class="app-title">MFD Duty Roster</h1>
-  <div class="card">
-    <label class="lbl">Select your role</label>
-    <div class="role-grid">
-      <div class="role-btn obs" id="rb-obs" onclick="selRole('obs')">
-        <div class="rl">&#128301; Observer</div>
-        <div class="rs">AO / MO duties</div>
-      </div>
-      <div class="role-btn fore" id="rb-fore" onclick="selRole('fore')">
-        <div class="rl">&#127780; Forecaster</div>
-        <div class="rs">MF / AF duties</div>
-      </div>
-      <div class="role-btn smet" id="rb-smet" onclick="selRole('smet')">
-        <div class="rl">&#11088; Sr. Met</div>
-        <div class="rs">SDM duties</div>
-      </div>
+  <div class="login-wrap">
+    <div class="logo-wrap">
+      <svg viewBox="0 0 24 24"><path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
     </div>
-    <label class="lbl">Select your name</label>
-    <select class="inp" id="login-name"></select>
-    <button class="btn-pri" onclick="doLogin()">View My Roster</button>
-    <div class="login-links"><a onclick="openAdmin()">&#128273; Admin panel</a></div>
+    <p class="org">Dept. of Hydrology &amp; Meteorology · Nepal</p>
+    <h1 class="app-title">MFD Duty Roster</h1>
+
+    <!-- Tab switcher -->
+    <div class="ltabs">
+      <button class="ltab active" id="lt-staff" onclick="switchLTab('staff')">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        Staff View
+      </button>
+      <button class="ltab" id="lt-admin" onclick="switchLTab('admin')">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        Admin Login
+      </button>
+    </div>
+
+    <!-- Staff pane -->
+    <div class="ltab-pane active" id="lp-staff">
+      <label class="lbl">Select your role</label>
+      <div class="role-grid">
+        <div class="role-btn obs" id="rb-obs" onclick="selRole('obs')">
+          <div class="rl">🔭 Observer</div><div class="rs">AO / MO duties</div>
+        </div>
+        <div class="role-btn fore" id="rb-fore" onclick="selRole('fore')">
+          <div class="rl">🌤 Forecaster</div><div class="rs">MF / AF duties</div>
+        </div>
+        <div class="role-btn smet" id="rb-smet" onclick="selRole('smet')">
+          <div class="rl">⭐ Sr. Met</div><div class="rs">SDM duties</div>
+        </div>
+      </div>
+      <label class="lbl">Select your name</label>
+      <select class="inp" id="login-name"></select>
+      <button class="btn-pri" onclick="doLogin()">View My Roster</button>
+    </div>
+
+    <!-- Admin pane -->
+    <div class="ltab-pane" id="lp-admin">
+      <div class="admin-err" id="admin-err"></div>
+      <label class="lbl">Username</label>
+      <input class="inp" id="adm-user" type="text" placeholder="Enter username" autocomplete="off">
+      <label class="lbl">Password / PIN</label>
+      <div class="pw-wrap">
+        <input class="inp" id="adm-pass" type="password" placeholder="Enter PIN or password" autocomplete="off"
+               onkeydown="if(event.key==='Enter')doAdminLogin()">
+        <button class="pw-eye" onclick="togglePw('adm-pass',this)" type="button" aria-label="Show password">
+          <svg id="adm-pass-eye-icon" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+      <button class="btn-pri" style="margin-top:10px" onclick="doAdminLogin()">Login to Admin Panel</button>
+      <div class="forgot-link"><a onclick="openForgotPin()">Forgot PIN? Reset via email</a></div>
+    </div>
   </div>
 </div>
 
-<!-- APP -->
+<!-- ════════════════════════════════════════════════════════
+     APP SCREEN
+════════════════════════════════════════════════════════ -->
 <div class="screen" id="s-app">
   <div class="topbar">
-    <div class="tb-l">
-      <span class="tb-hi">Welcome,</span>
-      <span class="tb-name" id="app-user"></span>
-    </div>
+    <div class="tb-l"><span class="tb-hi">Welcome,</span><span class="tb-name" id="app-user"></span></div>
     <div class="tb-r">
       <span class="rbadge" id="app-badge"></span>
       <div class="ib" onclick="reqNotif()" title="Notifications">
@@ -239,28 +376,23 @@ input,select,button,textarea{font-family:inherit}
     </div>
   </div>
   <div class="duty-banner" id="duty-banner">
-    <div class="db-title" id="db-t"></div>
-    <div class="db-body" id="db-b"></div>
+    <div class="db-title" id="db-t"></div><div class="db-body" id="db-b"></div>
   </div>
   <div class="tabs">
     <button class="tab-btn active" id="tb-today" onclick="showTab('today')">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      Today
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Today
     </button>
     <button class="tab-btn" id="tb-mine" onclick="showTab('mine')">
-      <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-      My Duties
+      <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>My Duties
     </button>
     <button class="tab-btn" id="tb-cal" onclick="showTab('cal')">
-      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      Calendar
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Calendar
     </button>
   </div>
   <div class="pane active" id="pane-today"><div id="today-content"></div></div>
   <div class="pane" id="pane-mine">
     <div class="mrow"><select id="sel-mine" onchange="renderMine()"></select><span class="mmeta" id="meta-mine"></span></div>
-    <div id="mine-list"></div>
-    <div class="sgrid" id="mine-sum"></div>
+    <div id="mine-list"></div><div class="sgrid" id="mine-sum"></div>
   </div>
   <div class="pane" id="pane-cal">
     <div class="mrow"><select id="sel-cal" onchange="renderCal()"></select><span class="mmeta" id="meta-cal"></span></div>
@@ -269,7 +401,9 @@ input,select,button,textarea{font-family:inherit}
   </div>
 </div>
 
-<!-- ADMIN -->
+<!-- ════════════════════════════════════════════════════════
+     ADMIN SCREEN
+════════════════════════════════════════════════════════ -->
 <div class="screen" id="s-admin">
   <div class="topbar">
     <div class="tb-l"><span class="tb-hi">Admin Panel</span><span class="tb-name" id="admin-lbl"></span></div>
@@ -279,62 +413,46 @@ input,select,button,textarea{font-family:inherit}
   </div>
   <div class="ascroll">
     <div class="atabs">
-      <button class="atab active" onclick="showATab(this,'upload')">&#128194; Upload</button>
-      <button class="atab" onclick="showATab(this,'edit')">&#9999;&#65039; Edit</button>
-      <button class="atab" onclick="showATab(this,'staff')">&#128101; Staff</button>
-      <button class="atab" onclick="showATab(this,'months')">&#128203; Months</button>
-      <button class="atab" id="admins-tab" onclick="showATab(this,'admins')">&#128273; Admins</button>
+      <button class="atab active" onclick="showATab(this,'upload')">📁 Upload</button>
+      <button class="atab" onclick="showATab(this,'edit')">✏️ Edit</button>
+      <button class="atab" onclick="showATab(this,'staff')">👥 Staff</button>
+      <button class="atab" onclick="showATab(this,'months')">📋 Months</button>
+      <button class="atab" id="admins-tab" onclick="showATab(this,'admins')">🔑 Admins</button>
     </div>
 
     <!-- UPLOAD -->
     <div class="apane active" id="ap-upload">
       <div class="asec">
-        <h2>&#128229; Upload Roster File (.xlsx / .csv)</h2>
+        <h2>📥 Upload Roster File (.xlsx / .csv)</h2>
         <div class="infobox">Upload your Excel or CSV file. Data will be saved to the cloud so <strong>all users</strong> can see it.</div>
-        <div class="frow">
-          <label class="flbl">Roster type</label>
-          <select class="finp" id="up-type">
-            <option value="obs">&#128301; Observer</option>
-            <option value="fore">&#127780; Forecaster</option>
-            <option value="smet">&#11088; Sr. Met</option>
-          </select>
+        <div class="frow"><label class="flbl">Roster type</label>
+          <select class="finp" id="up-type"><option value="obs">🔭 Observer</option><option value="fore">🌤 Forecaster</option><option value="smet">⭐ Sr. Met</option></select>
         </div>
         <div class="udrop" id="udrop" onclick="document.getElementById('ufile').click()" ondragover="udragOver(event)" ondragleave="udragLeave()" ondrop="udrop_(event)">
-          <div class="udrop-icon">&#128196;</div>
+          <div class="udrop-icon">📄</div>
           <div class="udrop-lbl" id="udrop-lbl">Tap or drag .xlsx / .csv here</div>
           <div class="udrop-sub">Observer, Forecaster or Sr. Met roster file</div>
         </div>
         <input type="file" id="ufile" accept=".xlsx,.xls,.csv" style="display:none" onchange="ufileChosen(this)">
-        <div class="frow">
-          <label class="flbl">Sheet tab name (leave blank = first sheet)</label>
-          <input class="finp" id="up-tab" placeholder="e.g. Jestha (AO)">
-        </div>
+        <div class="frow"><label class="flbl">Sheet tab name (leave blank = first sheet)</label><input class="finp" id="up-tab" placeholder="e.g. Jestha (AO)"></div>
         <div class="g2">
           <div class="frow"><label class="flbl">Month name (English)</label><input class="finp" id="up-mname" placeholder="e.g. Jestha 2083"></div>
-          <div class="frow"><label class="flbl">Nepali name</label><input class="finp" id="up-mnepali" placeholder="e.g. &#2332;&#2375;&#2336; &#2406;&#2080;&#2078;&#2091;"></div>
+          <div class="frow"><label class="flbl">Nepali name</label><input class="finp" id="up-mnepali" placeholder="e.g. जेठ २०८३"></div>
         </div>
-        <div class="frow">
-          <label class="flbl">Header row number (row containing staff names)</label>
-          <input class="finp" id="up-hrow" type="number" value="5" min="1" max="20">
-        </div>
-        <button class="btn-g btn-fw" onclick="importFile()" style="margin-top:4px">&#128229; Import &amp; Save to Cloud</button>
+        <div class="frow"><label class="flbl">Header row number</label><input class="finp" id="up-hrow" type="number" value="5" min="1" max="20"></div>
+        <button class="btn-g btn-fw" onclick="importFile()" style="margin-top:4px">📥 Import &amp; Save to Cloud</button>
         <div id="up-stat" class="stat"></div>
         <div class="divider"></div>
         <p style="font-size:12px;font-weight:700;color:var(--tx2);margin-bottom:6px">Expected format</p>
-        <div class="hint">
-          Row 1&ndash;4: title rows (skipped)<br>
-          Row 5: headers &mdash; <code>DAY</code> | <code>&#2327;&#2340;&#2375;</code> | <code>Date</code> | <code>Name1</code> | <code>Name2</code>&hellip;<br>
-          Row 6+: data &mdash; <code>Mon</code> | <code>1</code> | <code>2026-05-15</code> | <code>MO</code> | <code>AON*</code>&hellip;<br>
-          Shifts: <code>MO</code> <code>MO*</code> <code>AON*</code> <code>A1</code> <code>A2</code> <code>MF</code> <code>MF*</code> <code>AFN*</code> <code>SDM</code> <code>xx</code>
-        </div>
+        <div class="hint">Row 1–4: title rows (skipped)<br>Row 5: headers — <code>DAY</code> | <code>गते</code> | <code>Date</code> | <code>Name1</code>…<br>Row 6+: data — <code>Mon</code> | <code>1</code> | <code>2026-05-15</code> | <code>MO</code>…</div>
       </div>
     </div>
 
     <!-- EDIT -->
     <div class="apane" id="ap-edit">
       <div class="asec">
-        <h2>&#9999;&#65039; Edit Duties on a Specific Date</h2>
-        <div class="infobox">Select a month then tap &#9998; on any day to change individual duties.</div>
+        <h2>✏️ Edit Duties on a Specific Date</h2>
+        <div class="infobox">Select a month then tap ✎ on any day to change duties.</div>
         <div class="g2">
           <div class="frow"><label class="flbl">Roster type</label>
             <select class="finp" id="ed-type" onchange="populateEdMonths();renderEditList()">
@@ -349,22 +467,19 @@ input,select,button,textarea{font-family:inherit}
 
     <!-- STAFF -->
     <div class="apane" id="ap-staff">
-      <div class="asec"><h2>&#128301; Observer Staff</h2><div id="obs-staff"></div><div class="sadd"><input type="text" id="obs-inp" placeholder="Add name&hellip;"><button onclick="addStaff('obs')">+ Add</button></div></div>
-      <div class="asec"><h2>&#127780; Forecaster Staff</h2><div id="fore-staff"></div><div class="sadd"><input type="text" id="fore-inp" placeholder="Add name&hellip;"><button onclick="addStaff('fore')">+ Add</button></div></div>
-      <div class="asec"><h2>&#11088; Sr. Met Staff</h2><div id="smet-staff"></div><div class="sadd"><input type="text" id="smet-inp" placeholder="Add name&hellip;"><button onclick="addStaff('smet')">+ Add</button></div></div>
+      <div class="asec"><h2>🔭 Observer Staff</h2><div id="obs-staff"></div><div class="sadd"><input type="text" id="obs-inp" placeholder="Add name…"><button onclick="addStaff('obs')">+ Add</button></div></div>
+      <div class="asec"><h2>🌤 Forecaster Staff</h2><div id="fore-staff"></div><div class="sadd"><input type="text" id="fore-inp" placeholder="Add name…"><button onclick="addStaff('fore')">+ Add</button></div></div>
+      <div class="asec"><h2>⭐ Sr. Met Staff</h2><div id="smet-staff"></div><div class="sadd"><input type="text" id="smet-inp" placeholder="Add name…"><button onclick="addStaff('smet')">+ Add</button></div></div>
     </div>
 
     <!-- MONTHS -->
     <div class="apane" id="ap-months">
+      <div class="asec"><h2>📋 All Months</h2><div id="all-months"></div></div>
       <div class="asec">
-        <h2>&#128203; All Months</h2>
-        <div id="all-months"></div>
-      </div>
-      <div class="asec">
-        <h2>&#10133; Add Month Manually</h2>
+        <h2>➕ Add Month Manually</h2>
         <div class="g2">
           <div class="frow"><label class="flbl">Month name</label><input class="finp" id="nm-name" placeholder="e.g. Jestha 2083"></div>
-          <div class="frow"><label class="flbl">Nepali name</label><input class="finp" id="nm-nepali" placeholder="e.g. &#2332;&#2375;&#2336; &#2406;&#2080;&#2078;&#2091;"></div>
+          <div class="frow"><label class="flbl">Nepali name</label><input class="finp" id="nm-nepali" placeholder="e.g. जेठ २०८३"></div>
         </div>
         <div class="g2">
           <div class="frow"><label class="flbl">Start date</label><input type="date" class="finp" id="nm-start" onchange="refreshNMDays()"></div>
@@ -372,25 +487,44 @@ input,select,button,textarea{font-family:inherit}
         </div>
         <div id="nm-days"></div>
         <button class="addbtn" onclick="addNMDay()">+ Add day</button>
-        <button class="btn-g btn-fw" onclick="saveNM()">&#128190; Save Month</button>
+        <button class="btn-g btn-fw" onclick="saveNM()">💾 Save Month</button>
       </div>
     </div>
 
     <!-- ADMINS -->
     <div class="apane" id="ap-admins">
+      <!-- Master Admin credentials -->
       <div class="asec">
-        <h2>&#128273; Change Master PIN</h2>
-        <div class="frow"><label class="flbl">New master PIN (4&ndash;6 digits)</label><input type="password" class="finp" id="mpin-inp" placeholder="New PIN" maxlength="6"></div>
-        <button class="btn-g" onclick="saveMPin()">Save PIN</button>
+        <h2>👑 Master Admin Credentials</h2>
+        <div class="infobox">Change the master admin username and PIN. This is what you use to log in to the Admin panel.</div>
+        <div class="frow"><label class="flbl">Username</label><input class="finp" id="ma-user" placeholder="e.g. admin"></div>
+        <div class="frow"><label class="flbl">New PIN (4–6 digits)</label>
+          <div class="fpw-wrap">
+            <input type="password" class="finp" id="ma-pin" placeholder="New PIN" maxlength="6">
+            <button class="fpw-eye" onclick="togglePw('ma-pin',this)" type="button">
+              <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+        <button class="btn-g" onclick="saveMasterCreds()">Save Master Credentials</button>
       </div>
+
+      <!-- Sub-admins -->
       <div class="asec">
-        <h2>&#128100; Sub-Admins</h2>
+        <h2>👤 Sub-Admins</h2>
         <div id="sub-admins"></div>
         <div class="divider"></div>
         <p style="font-size:12px;font-weight:700;color:var(--tx2);margin-bottom:9px">Add sub-admin</p>
         <div class="g2">
           <div class="frow"><label class="flbl">Username</label><input class="finp" id="sa-name" placeholder="Name"></div>
-          <div class="frow"><label class="flbl">PIN</label><input type="password" class="finp" id="sa-pin" placeholder="4&ndash;6 digits" maxlength="6"></div>
+          <div class="frow"><label class="flbl">PIN</label>
+            <div class="fpw-wrap">
+              <input type="password" class="finp" id="sa-pin" placeholder="4–6 digits" maxlength="6">
+              <button class="fpw-eye" onclick="togglePw('sa-pin',this)" type="button">
+                <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+          </div>
         </div>
         <div class="frow"><label class="flbl">Permission</label>
           <select class="finp" id="sa-perm">
@@ -403,828 +537,485 @@ input,select,button,textarea{font-family:inherit}
   </div>
 </div>
 
-<!-- EDIT MODAL -->
+<!-- ════════════════════════════════════════════════════════
+     EDIT DUTIES MODAL
+════════════════════════════════════════════════════════ -->
 <div class="mwrap" id="modal" style="display:none" onclick="bgClose(event)">
   <div class="msheet">
     <div class="mtitle" id="modal-title"></div>
     <div class="msub" id="modal-sub"></div>
     <div id="modal-rows"></div>
-    <div class="macts"><button class="mcancel" onclick="closeModal()">Cancel</button><button class="msave" onclick="saveModal()">&#10003; Save</button></div>
+    <div class="macts"><button class="mcancel" onclick="closeModal()">Cancel</button><button class="msave" onclick="saveModal()">✓ Save</button></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     FORGOT PIN MODAL  (3 steps: send → verify → set new)
+════════════════════════════════════════════════════════ -->
+<div class="fs-modal" id="fp-modal" style="display:none">
+  <div class="fs-card">
+    <!-- Step 1: send -->
+    <div id="fp-s1">
+      <div class="fs-icon amber">📧</div>
+      <div class="fs-title">Forgot PIN?</div>
+      <div class="fs-desc">A 6-digit reset code will be sent to the registered admin email address.</div>
+      <div class="fs-err" id="fp-e1"></div>
+      <div class="fs-row">
+        <button class="fs-cancel" onclick="closeFpModal()">Cancel</button>
+        <button class="fs-submit" id="fp-send-btn" onclick="fpSendCode()">Send Code</button>
+      </div>
+    </div>
+    <!-- Step 2: verify -->
+    <div id="fp-s2" style="display:none">
+      <div class="fs-icon blue">✉️</div>
+      <div class="fs-title">Enter Code</div>
+      <div class="fs-desc" id="fp-s2-desc">Enter the 6-digit code sent to the admin email. Expires in 10 minutes.</div>
+      <div class="fs-err" id="fp-e2"></div>
+      <input class="fs-inp" id="fp-code" type="number" placeholder="6-digit code" maxlength="6"
+             oninput="this.value=this.value.slice(0,6)" onkeydown="if(event.key==='Enter')fpVerify()">
+      <div class="fs-row">
+        <button class="fs-cancel" onclick="closeFpModal()">Cancel</button>
+        <button class="fs-submit" id="fp-verify-btn" onclick="fpVerify()">Verify</button>
+      </div>
+      <div class="fs-link"><a onclick="fpSendCode(true)">Resend code</a></div>
+    </div>
+    <!-- Step 3: set new PIN -->
+    <div id="fp-s3" style="display:none">
+      <div class="fs-icon green">🔐</div>
+      <div class="fs-title">Set New PIN</div>
+      <div class="fs-desc">Enter a new PIN for the master admin account.</div>
+      <div class="fs-err" id="fp-e3"></div>
+      <div class="fs-inp-wrap">
+        <input class="fs-inp" id="fp-newpin" type="password" placeholder="New PIN (4–6 digits)" maxlength="6"
+               onkeydown="if(event.key==='Enter')fpSetPin()">
+        <button class="fs-eye" onclick="togglePw('fp-newpin',this)" type="button" aria-label="Show PIN">
+          <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+      <div class="fs-inp-wrap">
+        <input class="fs-inp" id="fp-newpin2" type="password" placeholder="Confirm new PIN" maxlength="6"
+               onkeydown="if(event.key==='Enter')fpSetPin()">
+        <button class="fs-eye" onclick="togglePw('fp-newpin2',this)" type="button" aria-label="Show PIN">
+          <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+      <div class="fs-row">
+        <button class="fs-cancel" onclick="closeFpModal()">Cancel</button>
+        <button class="fs-submit" id="fp-setpin-btn" onclick="fpSetPin()">Save New PIN</button>
+      </div>
+    </div>
   </div>
 </div>
 
 <script>
-// ══════════════════════════════════════════════════════════════════
-// ★ PASTE YOUR GOOGLE APPS SCRIPT URL HERE ★
-// ══════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════════
+// CONFIG — paste your deployed Apps Script URL here
+// ══════════════════════════════════════════════════════════════
 const API_URL = 'https://script.google.com/macros/s/AKfycbwhBzeRAyaqB134Mfn8lBC_075jftKbyu7tT858Kf4IXN8MEX1V412uCKsy96GyrPj1/exec';
 
-// ── CLOUD FUNCTIONS ───────────────────────────────────────────────
-async function saveRosterToCloud(rosterObj) {
-  try {
-    const response = await fetch(API_URL, {method:'POST',body:JSON.stringify({action:'saveAll',data:rosterObj})});
-    const result = await response.json();
-    return result.success === true;
-  } catch (err) { return false; }
-}
-async function loadRosterFromCloud() {
-  try {
-    const res = await fetch(API_URL + '?action=loadAll');
-    const result = await res.json();
-    if (result && result.data) return result.data;
-  } catch (err) {}
-  return null;
-}
-// FIX 1: PIN saved/loaded from cloud so it works on every device
-let _cachedPin = null;
-async function loadPinFromCloud() {
-  try {
-    const res = await fetch(API_URL + '?action=getPin');
-    const result = await res.json();
-    if (result.pin) { _cachedPin = result.pin; s(K.MP, result.pin); }
-  } catch(e) {}
-}
-async function savePinToCloud(pin) {
-  try {
-    const res = await fetch(API_URL, {method:'POST',body:JSON.stringify({action:'savePin',pin:pin})});
-    const result = await res.json();
-    return result.success === true;
-  } catch(e) { return false; }
-}
-// FIX 3: Staff names saved/loaded from cloud so login dropdown works on every device
-async function saveStaffToCloud(staffObj) {
-  try {
-    const res = await fetch(API_URL, {method:'POST',body:JSON.stringify({action:'saveStaff',data:staffObj})});
-    const result = await res.json();
-    return result.success === true;
-  } catch(e) { return false; }
-}
-async function loadStaffFromCloud() {
-  try {
-    const res = await fetch(API_URL + '?action=loadStaff');
-    const result = await res.json();
-    if (result && result.data) return result.data;
-  } catch(e) {}
-  return null;
-}
+// ── CLOUD ────────────────────────────────────────────────────────
+async function apiGet(action){try{const r=await fetch(API_URL+'?action='+action);return await r.json();}catch{return null;}}
+async function apiPost(body){try{const r=await fetch(API_URL,{method:'POST',body:JSON.stringify(body)});return await r.json();}catch{return null;}}
+async function saveRosterToCloud(data){const r=await apiPost({action:'saveAll',data});return r&&r.success;}
+async function loadRosterFromCloud(){const r=await apiGet('loadAll');return r&&r.data?r.data:null;}
+async function loadCredsFromCloud(){const r=await apiGet('getCreds');return r;}  // {username, pin}
+async function saveCredsToCloud(username,pin){return await apiPost({action:'saveCreds',username,pin});}
+async function loadStaffFromCloud(){const r=await apiGet('loadStaff');return r&&r.data?r.data:null;}
+async function saveStaffToCloud(data){return await apiPost({action:'saveStaff',data});}
 
-// ── LOCAL STORAGE (fallback) ──────────────────────────────────────
-const K={R:'mfd5_r',S:'mfd5_s',A:'mfd5_a',MP:'mfd5_mp'};
-const g=(k,d)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch{return d}};
-const s=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
-const getRoster=()=>g(K.R,{obs:[],fore:[],smet:[]});
-const saveRoster=async r=>{
-  s(K.R,r); // always save locally first (instant)
-  const ok = await saveRosterToCloud(r); // then sync to cloud
-  if(!ok) toast('⚠️ Saved locally only. Cloud sync failed.','err');
-};
-const getStaff=()=>g(K.S,{obs:[],fore:[],smet:[]});
-const saveStaff=async v=>{s(K.S,v);await saveStaffToCloud(v);};
-const getAdmins=()=>g(K.A,[]);
-const saveAdmins=v=>s(K.A,v);
-const getMPin=()=>_cachedPin||g(K.MP,'1234');
+// ── LOCAL STORAGE ────────────────────────────────────────────────
+const K={R:'mfd5_r',S:'mfd5_s',A:'mfd5_a',CR:'mfd5_cr'};
+const lg=(k,d)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch{return d;}};
+const ls=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch{}};
+const getRoster=()=>lg(K.R,{obs:[],fore:[],smet:[]});
+const saveRoster=async r=>{ls(K.R,r);const ok=await saveRosterToCloud(r);if(!ok)toast('⚠️ Saved locally only. Cloud sync failed.','err');};
+const getStaff=()=>lg(K.S,{obs:[],fore:[],smet:[]});
+const saveStaff=async v=>{ls(K.S,v);await saveStaffToCloud(v);};
+const getAdmins=()=>lg(K.A,[]);
+const saveAdmins=v=>ls(K.A,v);
+// Master creds: {username:'admin', pin:'1234'}
+const getCreds=()=>lg(K.CR,{username:'admin',pin:'1234'});
+const saveCreds=async(u,p)=>{ls(K.CR,{username:u,pin:p});await saveCredsToCloud(u,p);};
 
-// ── NEPALI DATE (BS) CONVERTER ────────────────────────────────────
-// Full BS month data: each row = [year BS, days in each of 12 months]
-const BS_DATA = [
-  [2000,[30,32,31,32,31,30,30,30,29,30,29,31]],
-  [2001,[31,31,32,31,31,31,30,29,30,29,30,30]],
-  [2002,[31,31,32,32,31,30,30,29,30,29,30,30]],
-  [2003,[31,32,31,32,31,30,30,30,29,29,30,31]],
-  [2004,[30,32,31,32,31,30,30,30,29,30,29,31]],
-  [2005,[31,31,32,31,31,31,30,29,30,29,30,30]],
-  [2006,[31,31,32,32,31,30,30,29,30,29,30,30]],
-  [2007,[31,32,31,32,31,30,30,30,29,29,30,31]],
-  [2008,[31,31,31,32,31,30,30,30,29,30,29,31]],
-  [2009,[31,31,32,31,31,31,30,29,30,29,30,30]],
-  [2010,[31,31,32,32,31,30,30,29,30,29,30,30]],
-  [2011,[31,32,31,32,31,30,30,30,29,29,30,31]],
-  [2012,[31,31,31,32,31,30,30,30,29,30,29,31]],
-  [2013,[31,31,32,31,31,31,30,29,30,29,30,30]],
-  [2014,[31,31,32,32,31,30,30,29,30,29,30,30]],
-  [2015,[31,32,31,32,31,30,30,30,29,29,30,31]],
-  [2016,[31,31,31,32,31,30,30,30,29,30,29,31]],
-  [2017,[31,31,32,31,31,31,30,29,30,29,30,30]],
-  [2018,[31,31,32,32,31,30,30,29,30,29,30,30]],
-  [2019,[31,32,31,32,31,30,30,30,29,29,30,31]],
-  [2020,[31,31,31,32,31,30,30,30,29,30,29,31]],
-  [2021,[31,31,32,31,31,31,30,29,30,29,30,30]],
-  [2022,[31,31,32,32,31,30,30,29,30,29,30,30]],
-  [2023,[31,32,31,32,31,30,30,30,29,29,30,31]],
-  [2024,[31,31,31,32,31,30,30,30,29,30,29,31]],
-  [2025,[31,31,32,31,31,31,30,29,30,29,30,30]],
-  [2026,[31,31,32,32,31,30,30,29,30,29,30,30]],
-  [2027,[31,32,31,32,31,30,30,30,29,29,30,32]],
-  [2028,[30,32,31,32,31,30,30,30,29,30,29,31]],
-  [2029,[31,31,32,31,31,31,30,29,30,29,30,30]],
-  [2030,[31,31,32,32,31,30,30,29,30,29,30,30]],
-  [2031,[31,32,31,32,31,30,30,30,29,29,30,31]],
-  [2032,[31,31,31,32,31,30,30,30,29,30,29,31]],
-  [2033,[31,31,32,31,31,31,30,29,30,29,30,30]],
-  [2034,[31,31,32,32,31,30,30,29,30,29,30,30]],
-  [2035,[31,32,31,32,31,30,30,30,29,29,30,31]],
-  [2036,[31,31,31,32,31,30,30,30,29,30,29,31]],
-  [2037,[31,31,32,31,31,31,30,29,30,29,30,30]],
-  [2038,[31,31,32,32,31,30,30,29,30,29,30,30]],
-  [2039,[31,32,31,32,31,30,30,30,29,29,30,31]],
-  [2040,[31,31,31,32,31,30,30,30,29,30,29,31]],
-  [2041,[31,31,32,31,31,31,30,29,30,29,30,30]],
-  [2042,[31,31,32,32,31,30,30,29,30,29,30,30]],
-  [2043,[31,32,31,32,31,30,30,30,29,29,30,31]],
-  [2044,[31,31,31,32,31,30,30,30,29,30,29,31]],
-  [2045,[31,31,32,31,31,31,30,29,30,29,30,30]],
-  [2046,[31,31,32,32,31,30,30,29,30,29,30,30]],
-  [2047,[31,32,31,32,31,30,30,30,29,29,30,31]],
-  [2048,[31,31,31,32,31,30,30,30,29,30,29,31]],
-  [2049,[31,31,32,31,31,31,30,29,30,29,30,30]],
-  [2050,[31,31,32,32,31,30,30,29,30,29,30,30]],
-  [2051,[31,32,31,32,31,30,30,30,29,29,30,31]],
-  [2052,[31,31,31,32,31,30,30,30,29,30,29,31]],
-  [2053,[31,31,32,31,31,31,30,29,30,29,30,30]],
-  [2054,[31,31,32,32,31,30,30,29,30,29,30,30]],
-  [2055,[31,32,31,32,31,30,30,30,29,29,30,31]],
-  [2056,[31,31,31,32,31,30,30,30,29,30,29,31]],
-  [2057,[31,31,32,31,31,31,30,29,30,29,30,30]],
-  [2058,[31,31,32,32,31,30,30,29,30,29,30,30]],
-  [2059,[31,32,31,32,31,30,30,30,29,29,30,31]],
-  [2060,[31,31,31,32,31,30,30,30,29,30,29,31]],
-  [2061,[31,31,32,31,31,31,30,29,30,29,30,30]],
-  [2062,[31,31,32,32,31,30,30,29,30,29,30,30]],
-  [2063,[31,32,31,32,31,30,30,30,29,29,30,31]],
-  [2064,[31,31,31,32,31,30,30,30,29,30,29,31]],
-  [2065,[31,31,32,31,31,31,30,29,30,29,30,30]],
-  [2066,[31,31,32,32,31,30,30,29,30,29,30,30]],
-  [2067,[31,32,31,32,31,30,30,30,29,29,30,31]],
-  [2068,[31,31,31,32,31,30,30,30,29,30,29,31]],
-  [2069,[31,31,32,31,31,31,30,29,30,29,30,30]],
-  [2070,[31,31,32,32,31,30,30,29,30,29,30,30]],
-  [2071,[31,32,31,32,31,30,30,30,29,29,30,31]],
-  [2072,[31,31,31,32,31,30,30,30,29,30,29,31]],
-  [2073,[31,31,32,31,31,31,30,29,30,29,30,30]],
-  [2074,[31,31,32,32,31,30,30,29,30,29,30,30]],
-  [2075,[31,32,31,32,31,30,30,30,29,29,30,31]],
-  [2076,[31,31,31,32,31,30,30,30,29,30,29,31]],
-  [2077,[31,31,32,31,31,31,30,29,30,29,30,30]],
-  [2078,[31,31,32,32,31,30,30,29,30,29,30,30]],
-  [2079,[31,32,31,32,31,30,30,30,29,29,30,31]],
-  [2080,[31,31,31,32,31,30,30,30,29,30,29,31]],
-  [2081,[31,31,32,31,31,31,30,29,30,29,30,30]],
-  [2082,[30,32,31,32,31,30,30,30,29,30,30,30]],
-  [2083,[31,31,32,31,31,31,30,29,30,29,30,30]],
-  [2084,[31,31,32,31,31,30,30,30,29,30,30,30]],
-  [2085,[31,31,32,31,31,31,30,29,30,29,30,30]],
-  [2086,[31,31,32,32,31,30,30,29,30,29,30,30]],
-  [2087,[31,32,31,32,31,30,30,30,29,29,30,31]],
-  [2088,[31,32,31,32,31,30,30,30,29,30,29,31]],
-  [2089,[31,31,32,31,31,31,30,29,30,29,30,30]],
-  [2090,[31,31,32,32,31,30,30,29,30,29,30,30]],
-];
+// ── BS DATE CONVERTER ────────────────────────────────────────────
+const BS_DATA=[[2000,[30,32,31,32,31,30,30,30,29,30,29,31]],[2001,[31,31,32,31,31,31,30,29,30,29,30,30]],[2002,[31,31,32,32,31,30,30,29,30,29,30,30]],[2003,[31,32,31,32,31,30,30,30,29,29,30,31]],[2004,[30,32,31,32,31,30,30,30,29,30,29,31]],[2005,[31,31,32,31,31,31,30,29,30,29,30,30]],[2006,[31,31,32,32,31,30,30,29,30,29,30,30]],[2007,[31,32,31,32,31,30,30,30,29,29,30,31]],[2008,[31,31,31,32,31,30,30,30,29,30,29,31]],[2009,[31,31,32,31,31,31,30,29,30,29,30,30]],[2010,[31,31,32,32,31,30,30,29,30,29,30,30]],[2011,[31,32,31,32,31,30,30,30,29,29,30,31]],[2012,[31,31,31,32,31,30,30,30,29,30,29,31]],[2013,[31,31,32,31,31,31,30,29,30,29,30,30]],[2014,[31,31,32,32,31,30,30,29,30,29,30,30]],[2015,[31,32,31,32,31,30,30,30,29,29,30,31]],[2016,[31,31,31,32,31,30,30,30,29,30,29,31]],[2017,[31,31,32,31,31,31,30,29,30,29,30,30]],[2018,[31,31,32,32,31,30,30,29,30,29,30,30]],[2019,[31,32,31,32,31,30,30,30,29,29,30,31]],[2020,[31,31,31,32,31,30,30,30,29,30,29,31]],[2021,[31,31,32,31,31,31,30,29,30,29,30,30]],[2022,[31,31,32,32,31,30,30,29,30,29,30,30]],[2023,[31,32,31,32,31,30,30,30,29,29,30,31]],[2024,[31,31,31,32,31,30,30,30,29,30,29,31]],[2025,[31,31,32,31,31,31,30,29,30,29,30,30]],[2026,[31,31,32,32,31,30,30,29,30,29,30,30]],[2027,[31,32,31,32,31,30,30,30,29,29,30,32]],[2028,[30,32,31,32,31,30,30,30,29,30,29,31]],[2029,[31,31,32,31,31,31,30,29,30,29,30,30]],[2030,[31,31,32,32,31,30,30,29,30,29,30,30]],[2031,[31,32,31,32,31,30,30,30,29,29,30,31]],[2032,[31,31,31,32,31,30,30,30,29,30,29,31]],[2033,[31,31,32,31,31,31,30,29,30,29,30,30]],[2034,[31,31,32,32,31,30,30,29,30,29,30,30]],[2035,[31,32,31,32,31,30,30,30,29,29,30,31]],[2036,[31,31,31,32,31,30,30,30,29,30,29,31]],[2037,[31,31,32,31,31,31,30,29,30,29,30,30]],[2038,[31,31,32,32,31,30,30,29,30,29,30,30]],[2039,[31,32,31,32,31,30,30,30,29,29,30,31]],[2040,[31,31,31,32,31,30,30,30,29,30,29,31]],[2041,[31,31,32,31,31,31,30,29,30,29,30,30]],[2042,[31,31,32,32,31,30,30,29,30,29,30,30]],[2043,[31,32,31,32,31,30,30,30,29,29,30,31]],[2044,[31,31,31,32,31,30,30,30,29,30,29,31]],[2045,[31,31,32,31,31,31,30,29,30,29,30,30]],[2046,[31,31,32,32,31,30,30,29,30,29,30,30]],[2047,[31,32,31,32,31,30,30,30,29,29,30,31]],[2048,[31,31,31,32,31,30,30,30,29,30,29,31]],[2049,[31,31,32,31,31,31,30,29,30,29,30,30]],[2050,[31,31,32,32,31,30,30,29,30,29,30,30]],[2051,[31,32,31,32,31,30,30,30,29,29,30,31]],[2052,[31,31,31,32,31,30,30,30,29,30,29,31]],[2053,[31,31,32,31,31,31,30,29,30,29,30,30]],[2054,[31,31,32,32,31,30,30,29,30,29,30,30]],[2055,[31,32,31,32,31,30,30,30,29,29,30,31]],[2056,[31,31,31,32,31,30,30,30,29,30,29,31]],[2057,[31,31,32,31,31,31,30,29,30,29,30,30]],[2058,[31,31,32,32,31,30,30,29,30,29,30,30]],[2059,[31,32,31,32,31,30,30,30,29,29,30,31]],[2060,[31,31,31,32,31,30,30,30,29,30,29,31]],[2061,[31,31,32,31,31,31,30,29,30,29,30,30]],[2062,[31,31,32,32,31,30,30,29,30,29,30,30]],[2063,[31,32,31,32,31,30,30,30,29,29,30,31]],[2064,[31,31,31,32,31,30,30,30,29,30,29,31]],[2065,[31,31,32,31,31,31,30,29,30,29,30,30]],[2066,[31,31,32,32,31,30,30,29,30,29,30,30]],[2067,[31,32,31,32,31,30,30,30,29,29,30,31]],[2068,[31,31,31,32,31,30,30,30,29,30,29,31]],[2069,[31,31,32,31,31,31,30,29,30,29,30,30]],[2070,[31,31,32,32,31,30,30,29,30,29,30,30]],[2071,[31,32,31,32,31,30,30,30,29,29,30,31]],[2072,[31,31,31,32,31,30,30,30,29,30,29,31]],[2073,[31,31,32,31,31,31,30,29,30,29,30,30]],[2074,[31,31,32,32,31,30,30,29,30,29,30,30]],[2075,[31,32,31,32,31,30,30,30,29,29,30,31]],[2076,[31,31,31,32,31,30,30,30,29,30,29,31]],[2077,[31,31,32,31,31,31,30,29,30,29,30,30]],[2078,[31,31,32,32,31,30,30,29,30,29,30,30]],[2079,[31,32,31,32,31,30,30,30,29,29,30,31]],[2080,[31,31,31,32,31,30,30,30,29,30,29,31]],[2081,[31,31,32,31,31,31,30,29,30,29,30,30]],[2082,[30,32,31,32,31,30,30,30,29,30,30,30]],[2083,[31,31,32,31,31,31,30,29,30,29,30,30]],[2084,[31,31,32,31,31,30,30,30,29,30,30,30]],[2085,[31,31,32,31,31,31,30,29,30,29,30,30]],[2086,[31,31,32,32,31,30,30,29,30,29,30,30]],[2087,[31,32,31,32,31,30,30,30,29,29,30,31]],[2088,[31,32,31,32,31,30,30,30,29,30,29,31]],[2089,[31,31,32,31,31,31,30,29,30,29,30,30]],[2090,[31,31,32,32,31,30,30,29,30,29,30,30]]];
 const BS_MONTHS_NP=['बैशाख','जेठ','असार','साउन','भदौ','आश्विन','कार्तिक','मंसिर','पुष','माघ','फागुन','चैत'];
-const BS_MONTHS_EN=['Baisakh','Jestha','Ashadh','Shrawan','Bhadra','Ashwin','Kartik','Mangsir','Poush','Magh','Falgun','Chaitra'];
 const NP_DIGITS=['०','१','२','३','४','५','६','७','८','९'];
 function toNpNum(n){return String(n).split('').map(d=>NP_DIGITS[+d]).join('');}
+const AD_REF=new Date(1943,3,14);
+function adToBS(isoDate){if(!isoDate)return null;const ad=new Date(isoDate+'T00:00:00');let diff=Math.round((ad-AD_REF)/86400000);if(diff<0)return null;let bsYear=2000,bsMonth=0,bsDay=0;for(let yi=0;yi<BS_DATA.length;yi++){const[yr,months]=BS_DATA[yi];let diy=months.reduce((a,b)=>a+b,0);if(diff<diy){bsYear=yr;for(let mi=0;mi<12;mi++){if(diff<months[mi]){bsMonth=mi;bsDay=diff+1;break;}diff-=months[mi];}break;}diff-=diy;}return{year:bsYear,month:bsMonth,day:bsDay};}
+function bsDateStr(isoDate){const bs=adToBS(isoDate);if(!bs)return '';return BS_MONTHS_NP[bs.month]+' '+toNpNum(bs.day);}
+function bsGate(isoDate){const bs=adToBS(isoDate);return bs?toNpNum(bs.day):'';}
 
-// Reference: AD 1943-04-14 = BS 2000-01-01
-const AD_REF = new Date(1943, 3, 14); // month is 0-indexed
-
-function adToBS(isoDate) {
-  if (!isoDate) return null;
-  const ad = new Date(isoDate + 'T00:00:00');
-  // days difference from reference
-  let diff = Math.round((ad - AD_REF) / 86400000);
-  if (diff < 0) return null;
-  let bsYear = 2000, bsMonth = 0, bsDay = 0;
-  for (let yi = 0; yi < BS_DATA.length; yi++) {
-    const [yr, months] = BS_DATA[yi];
-    let daysInYear = months.reduce((a, b) => a + b, 0);
-    if (diff < daysInYear) {
-      bsYear = yr;
-      for (let mi = 0; mi < 12; mi++) {
-        if (diff < months[mi]) { bsMonth = mi; bsDay = diff + 1; break; }
-        diff -= months[mi];
-      }
-      break;
-    }
-    diff -= daysInYear;
-  }
-  return { year: bsYear, month: bsMonth, day: bsDay };
-}
-
-// Returns e.g. "जेठ २३" or "Jestha 23"
-function bsDateStr(isoDate, lang='np') {
-  const bs = adToBS(isoDate);
-  if (!bs) return '';
-  if (lang === 'np') return BS_MONTHS_NP[bs.month] + ' ' + toNpNum(bs.day);
-  return BS_MONTHS_EN[bs.month] + ' ' + bs.day;
-}
-// Returns just the day number in Nepali
-function bsGate(isoDate) {
-  const bs = adToBS(isoDate);
-  return bs ? toNpNum(bs.day) : '';
-}
-
-// ── CONSTANTS ─────────────────────────────────────────────────────
+// ── CONSTANTS ────────────────────────────────────────────────────
 const WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const OBS_SH=['xx','MO','MO*','AON*','A1','A2'];
 const FORE_SH=['xx','MF','MF*','AFN*','AF','A1','A2'];
 const SMET_SH=['xx','SDM1','SDM2','SDM3','A1','A2','MO'];
 const SKIP_COLS=['mean','total','leave','incharge','agro','check','weekly','note','remark'];
 
-// ── STATE ─────────────────────────────────────────────────────────
+// ── STATE ────────────────────────────────────────────────────────
 let CU='',CT='obs',IM=false,CAO=null;
 let MOD={type:'',mid:'',di:-1};
 let NMC=0,_upFile=null;
+let _fpVerified=false; // OTP passed?
 const todayISO=()=>new Date().toISOString().split('T')[0];
 const ini=n=>(n||'?').slice(0,2).toUpperCase();
 
-// ── SHIFT HELPERS ─────────────────────────────────────────────────
-const SC=s_=>{
-  if(!s_||s_==='xx')return 's-OFF';
-  if(s_==='MO')return 's-MO';if(s_==='MO*')return 's-MOS';
-  if(s_==='AON*')return 's-AON';if(s_==='A1')return 's-A1';if(s_==='A2')return 's-A2';
-  return 's-OTH';
-};
-const SL=s_=>{
-  const m={MO:'Morning','MO*':'Morning*','AON*':'Night',A1:'Afternoon',A2:'Late',
-    MF:'Morning Fcst','MF*':'Morning Fcst*','AFN*':'Night Fcst',AF:'Aft Fcst',
-    SDM1:'SDM Morning',SDM2:'SDM Afternoon',SDM3:'SDM Night',xx:'Day off'};
-  return m[s_]||s_||'Day off';
-};
-const SCL=s_=>{
-  const m={MO:'#4ade80','MO*':'#86efac','AON*':'#a78bfa',A1:'#38bdf8',A2:'#fbbf24',
-    MF:'#34d399','MF*':'#6ee7b7','AFN*':'#c084fc',AF:'#60a5fa',
-    SDM1:'#f97316',SDM2:'#fb923c',SDM3:'#fdba74',xx:'#64748b'};
-  return m[s_]||'#64748b';
-};
+// ── SHIFT HELPERS ────────────────────────────────────────────────
+const SC=s_=>{if(!s_||s_==='xx')return 's-OFF';if(s_==='MO')return 's-MO';if(s_==='MO*')return 's-MOS';if(s_==='AON*')return 's-AON';if(s_==='A1')return 's-A1';if(s_==='A2')return 's-A2';return 's-OTH';};
+const SL=s_=>{const m={MO:'Morning','MO*':'Morning*','AON*':'Night',A1:'Afternoon',A2:'Late',MF:'Morning Fcst','MF*':'Morning Fcst*','AFN*':'Night Fcst',AF:'Aft Fcst',SDM1:'SDM Morning',SDM2:'SDM Afternoon',SDM3:'SDM Night',xx:'Day off'};return m[s_]||s_||'Day off';};
+const SCL=s_=>{const m={MO:'#4ade80','MO*':'#86efac','AON*':'#a78bfa',A1:'#38bdf8',A2:'#fbbf24',MF:'#34d399','MF*':'#6ee7b7','AFN*':'#c084fc',AF:'#60a5fa',SDM1:'#f97316',SDM2:'#fb923c',SDM3:'#fdba74',xx:'#64748b'};return m[s_]||'#64748b';};
 const shiftListForType=t=>t==='fore'?FORE_SH:t==='smet'?SMET_SH:OBS_SH;
+const ROLE_LABELS={obs:'Observer',fore:'Forecaster',smet:'Sr. Met'};
 
-// ── SEED DATA ─────────────────────────────────────────────────────
-const SEED={obs:[{id:'obs-jestha-2083',name:'Jestha 2083',nepali:'\u091c\u0947\u0920 \u20e3\u2083',type:'obs',startDate:'2026-05-15',
-days:[
-{date:1,isoDate:'2026-05-15',day:'Fri',duties:{Biju:'xx',Jeni:'MO*',Jyoti:'A1',Menka:'MO',Munesh:'AON*',Pratima:'AON*',Rasmi:'MO*'}},
-{date:2,isoDate:'2026-05-16',day:'Sat',duties:{Biju:'MO',Jeni:'xx',Jyoti:'AON*',Menka:'AON*',Munesh:'MO*',Pratima:'MO*',Rasmi:'xx'}},
-{date:3,isoDate:'2026-05-17',day:'Sun',duties:{Biju:'AON*',Jeni:'MO',Jyoti:'MO*',Menka:'MO*',Munesh:'xx',Pratima:'xx',Rasmi:'AON*'}},
-{date:4,isoDate:'2026-05-18',day:'Mon',duties:{Biju:'MO*',Jeni:'AON*',Jyoti:'xx',Menka:'xx',Munesh:'MO',Pratima:'AON*',Rasmi:'MO*'}},
-{date:5,isoDate:'2026-05-19',day:'Tue',duties:{Biju:'A1',Jeni:'MO*',Jyoti:'MO',Menka:'AON*',Munesh:'AON*',Pratima:'MO*',Rasmi:'A1'}},
-{date:6,isoDate:'2026-05-20',day:'Wed',duties:{Biju:'MO',Jeni:'A1',Jyoti:'AON*',Menka:'MO*',Munesh:'MO*',Pratima:'A1',Rasmi:'AON*'}},
-{date:7,isoDate:'2026-05-21',day:'Thu',duties:{Biju:'AON*',Jeni:'MO',Jyoti:'MO*',Menka:'A1',Munesh:'xx',Pratima:'AON*',Rasmi:'MO*'}},
-{date:8,isoDate:'2026-05-22',day:'Fri',duties:{Biju:'MO*',Jeni:'AON*',Jyoti:'A1',Menka:'AON*',Munesh:'MO',Pratima:'MO*',Rasmi:'xx'}},
-{date:9,isoDate:'2026-05-23',day:'Sat',duties:{Biju:'xx',Jeni:'MO*',Jyoti:'MO',Menka:'MO*',Munesh:'AON*',Pratima:'xx',Rasmi:'AON*'}},
-{date:10,isoDate:'2026-05-24',day:'Sun',duties:{Biju:'AON*',Jeni:'xx',Jyoti:'AON*',Menka:'xx',Munesh:'MO*',Pratima:'MO',Rasmi:'MO*'}},
-{date:11,isoDate:'2026-05-25',day:'Mon',duties:{Biju:'MO*',Jeni:'AON*',Jyoti:'MO*',Menka:'A1',Munesh:'xx',Pratima:'AON*',Rasmi:'MO'}},
-{date:12,isoDate:'2026-05-26',day:'Tue',duties:{Biju:'MO',Jeni:'MO*',Jyoti:'xx',Menka:'AON*',Munesh:'AON*',Pratima:'MO*',Rasmi:'A1'}},
-{date:13,isoDate:'2026-05-27',day:'Wed',duties:{Biju:'AON*',Jeni:'A1',Jyoti:'MO',Menka:'MO*',Munesh:'MO*',Pratima:'xx',Rasmi:'AON*'}},
-{date:14,isoDate:'2026-05-28',day:'Thu',duties:{Biju:'MO*',Jeni:'MO',Jyoti:'AON*',Menka:'xx',Munesh:'A1',Pratima:'AON*',Rasmi:'MO*'}},
-{date:15,isoDate:'2026-05-29',day:'Fri',duties:{Biju:'xx',Jeni:'AON*',Jyoti:'MO*',Menka:'AON*',Munesh:'MO',Pratima:'MO*',Rasmi:'xx'}},
-{date:16,isoDate:'2026-05-30',day:'Sat',duties:{Biju:'AON*',Jeni:'MO*',Jyoti:'xx',Menka:'MO*',Munesh:'xx',Pratima:'MO',Rasmi:'AON*'}},
-{date:17,isoDate:'2026-05-31',day:'Sun',duties:{Biju:'MO*',Jeni:'xx',Jyoti:'AON*',Menka:'MO',Munesh:'AON*',Pratima:'A1',Rasmi:'MO*'}},
-{date:18,isoDate:'2026-06-01',day:'Mon',duties:{Biju:'MO',Jeni:'AON*',Jyoti:'MO*',Menka:'A1',Munesh:'MO*',Pratima:'AON*',Rasmi:'A1'}},
-{date:19,isoDate:'2026-06-02',day:'Tue',duties:{Biju:'AON*',Jeni:'MO*',Jyoti:'A1',Menka:'AON*',Munesh:'A1',Pratima:'MO*',Rasmi:'MO'}},
-{date:20,isoDate:'2026-06-03',day:'Wed',duties:{Biju:'MO*',Jeni:'A1',Jyoti:'AON*',Menka:'MO*',Munesh:'MO',Pratima:'xx',Rasmi:'AON*'}},
-{date:21,isoDate:'2026-06-04',day:'Thu',duties:{Biju:'xx',Jeni:'MO',Jyoti:'MO*',Menka:'A1',Munesh:'AON*',Pratima:'AON*',Rasmi:'MO*'}},
-{date:22,isoDate:'2026-06-05',day:'Fri',duties:{Biju:'AON*',Jeni:'AON*',Jyoti:'xx',Menka:'MO',Munesh:'MO*',Pratima:'MO*',Rasmi:'xx'}},
-{date:23,isoDate:'2026-06-06',day:'Sat',duties:{Biju:'MO*',Jeni:'MO*',Jyoti:'AON*',Menka:'xx',Munesh:'A1',Pratima:'MO',Rasmi:'AON*'}},
-{date:24,isoDate:'2026-06-07',day:'Sun',duties:{Biju:'MO',Jeni:'xx',Jyoti:'MO*',Menka:'AON*',Munesh:'AON*',Pratima:'A1',Rasmi:'MO*'}},
-{date:25,isoDate:'2026-06-08',day:'Mon',duties:{Biju:'A1',Jeni:'AON*',Jyoti:'A1',Menka:'MO*',Munesh:'MO*',Pratima:'AON*',Rasmi:'MO'}},
-{date:26,isoDate:'2026-06-09',day:'Tue',duties:{Biju:'AON*',Jeni:'MO*',Jyoti:'MO',Menka:'A1',Munesh:'xx',Pratima:'MO*',Rasmi:'AON*'}},
-{date:27,isoDate:'2026-06-10',day:'Wed',duties:{Biju:'MO*',Jeni:'A1',Jyoti:'AON*',Menka:'MO',Munesh:'AON*',Pratima:'xx',Rasmi:'MO*'}},
-{date:28,isoDate:'2026-06-11',day:'Thu',duties:{Biju:'xx',Jeni:'AON*',Jyoti:'MO*',Menka:'AON*',Munesh:'MO*',Pratima:'MO',Rasmi:'xx'}},
-{date:29,isoDate:'2026-06-12',day:'Fri',duties:{Biju:'AON*',Jeni:'MO*',Jyoti:'xx',Menka:'MO*',Munesh:'A1',Pratima:'AON*',Rasmi:'MO'}},
-{date:30,isoDate:'2026-06-13',day:'Sat',duties:{Biju:'MO*',Jeni:'xx',Jyoti:'AON*',Menka:'xx',Munesh:'MO',Pratima:'MO*',Rasmi:'AON*'}},
-{date:31,isoDate:'2026-06-14',day:'Sun',duties:{Biju:'A1',Jeni:'AON*',Jyoti:'MO*',Menka:'MO',Munesh:'AON*',Pratima:'A1',Rasmi:'MO*'}},
-]}],fore:[],smet:[]};
-
-// ── INIT ──────────────────────────────────────────────────────────
-window.addEventListener('DOMContentLoaded', async () => {
-  // Load PIN, staff names, and roster from cloud on every page load
-  await loadPinFromCloud();
-  const cloudStaff = await loadStaffFromCloud();
-  if (cloudStaff) s(K.S, cloudStaff);
-  const cloudData = await loadRosterFromCloud();
-  if (cloudData) s(K.R, cloudData);
+// ── INIT ─────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded',async()=>{
+  // Load creds from cloud
+  const creds=await loadCredsFromCloud();
+  if(creds&&creds.username)ls(K.CR,{username:creds.username,pin:creds.pin||'1234'});
+  const cs=await loadStaffFromCloud();if(cs)ls(K.S,cs);
+  const cd=await loadRosterFromCloud();if(cd)ls(K.R,cd);
   selRole('obs');
 });
 
-// ── SCREENS ───────────────────────────────────────────────────────
-const showScreen=id=>{document.querySelectorAll('.screen').forEach(sc=>sc.classList.remove('active'));document.getElementById(id).classList.add('active');};
+// ── SHOW / HIDE PASSWORD ─────────────────────────────────────────
+function togglePw(inputId,btn){
+  const inp=document.getElementById(inputId);
+  const isHidden=inp.type==='password';
+  inp.type=isHidden?'text':'password';
+  const icon=btn.querySelector('svg');
+  if(isHidden){
+    // show "eye-off" icon
+    icon.innerHTML='<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+  }else{
+    icon.innerHTML='<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+  }
+}
 
-// ── LOGIN ─────────────────────────────────────────────────────────
+// ── LOGIN TABS ───────────────────────────────────────────────────
+function switchLTab(tab){
+  document.getElementById('lt-staff').classList.toggle('active',tab==='staff');
+  document.getElementById('lt-admin').classList.toggle('active',tab==='admin');
+  document.getElementById('lp-staff').classList.toggle('active',tab==='staff');
+  document.getElementById('lp-admin').classList.toggle('active',tab==='admin');
+  if(tab==='admin'){setTimeout(()=>document.getElementById('adm-user').focus(),80);}
+}
+
+// ── STAFF LOGIN ──────────────────────────────────────────────────
 let _role='obs';
-function selRole(r){
-  _role=r;
-  ['obs','fore','smet'].forEach(x=>document.getElementById('rb-'+x).classList.toggle('sel',x===r));
-  fillNameDrop();
-}
-function fillNameDrop(){
-  const sel=document.getElementById('login-name');
-  const staff=(getStaff()[_role]||[]);
-  sel.innerHTML='<option value="">-- Select your name --</option>';
-  staff.forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n;sel.appendChild(o);});
-}
-function doLogin(){
-  const name=document.getElementById('login-name').value;
-  if(!name){toast('Please select your name','err');return;}
-  CU=name;CT=_role;IM=false;CAO=null;showApp();
-}
-async function openAdmin(){
-  await loadPinFromCloud();
-  const pin=prompt('Enter admin PIN:\n\n(Leave blank and press OK to use "Forgot PIN")');
-  if(pin===null)return; // cancelled
-  if(pin===''){forgotPin();return;}
-  if(pin===getMPin()){IM=true;CAO=null;showAdmin('Master Admin');return;}
-  const found=getAdmins().find(a=>a.pin===pin);
-  if(found){IM=false;CAO=found;showAdmin(found.name);return;}
-  toast('Incorrect PIN — leave blank & press OK to reset','err');
-}
-async function forgotPin(){
-  toast('Sending reset code to admin email…');
-  let res;
-  try{
-    const r=await fetch(API_URL+'?action=sendCode');
-    res=await r.json();
-  }catch(e){toast('Network error sending code','err');return;}
-  if(!res.success){toast('Error: '+res.error,'err');return;}
-  toast('Code sent to '+res.email);
-  const code=prompt('A 6-digit code was sent to '+res.email+'.\n\nEnter the code:');
-  if(!code)return;
-  let v;
-  try{
-    const r=await fetch(API_URL,{method:'POST',body:JSON.stringify({action:'verifyCode',code:code.trim()})});
-    v=await r.json();
-  }catch(e){toast('Network error verifying code','err');return;}
-  if(!v.success){toast('Error: '+v.error,'err');return;}
-  _cachedPin=v.pin;s(K.MP,v.pin);
-  toast('✅ Verified! Logging in as Master Admin…');
-  IM=true;CAO=null;showAdmin('Master Admin');
-}
-function doLogout(){showScreen('s-login');}
-function backLogin(){showScreen('s-login');}
+function selRole(r){_role=r;['obs','fore','smet'].forEach(x=>document.getElementById('rb-'+x).classList.toggle('sel',x===r));fillNameDrop();}
+function fillNameDrop(){const sel=document.getElementById('login-name');const staff=(getStaff()[_role]||[]);sel.innerHTML='<option value="">-- Select your name --</option>';staff.forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n;sel.appendChild(o);});}
+function doLogin(){const name=document.getElementById('login-name').value;if(!name){toast('Please select your name','err');return;}CU=name;CT=_role;IM=false;CAO=null;showApp();}
 
-// ── APP ───────────────────────────────────────────────────────────
-const ROLE_LABELS={obs:'Observer',fore:'Forecaster',smet:'Sr. Met'};
+// ── ADMIN LOGIN ──────────────────────────────────────────────────
+async function doAdminLogin(){
+  const user=document.getElementById('adm-user').value.trim();
+  const pass=document.getElementById('adm-pass').value.trim();
+  const err=document.getElementById('admin-err');
+  err.style.display='none';
+  if(!user||!pass){showAdminErr('Enter username and PIN.');return;}
+
+  // Always reload creds from cloud to ensure latest
+  const creds=await loadCredsFromCloud();
+  if(creds&&creds.username)ls(K.CR,{username:creds.username,pin:creds.pin||'1234'});
+  const local=getCreds();
+
+  // Check master admin
+  if(user===local.username&&pass===local.pin){
+    IM=true;CAO=null;showAdmin(local.username+' (Master)');return;
+  }
+  // Check sub-admins
+  const found=getAdmins().find(a=>a.name===user&&a.pin===pass);
+  if(found){IM=false;CAO=found;showAdmin(found.name);return;}
+  showAdminErr('Incorrect username or PIN.');
+}
+function showAdminErr(msg){const e=document.getElementById('admin-err');e.textContent=msg;e.style.display='block';}
+
+function doLogout(){
+  document.getElementById('adm-user').value='';
+  document.getElementById('adm-pass').value='';
+  document.getElementById('admin-err').style.display='none';
+  showScreen('s-login');
+}
+function backLogin(){doLogout();}
+
+// ── APP SCREEN ───────────────────────────────────────────────────
 function showApp(){
   showScreen('s-app');
   document.getElementById('app-user').textContent=CU;
-  const b=document.getElementById('app-badge');
-  b.textContent=ROLE_LABELS[CT];
-  b.className='rbadge rb-'+CT;
-  fillMonthSels();renderToday();renderMine();renderCal();
-  checkDuty();reqNotif();
+  const b=document.getElementById('app-badge');b.textContent=ROLE_LABELS[CT];b.className='rbadge rb-'+CT;
+  fillMonthSels();renderToday();renderMine();renderCal();checkDuty();reqNotif();
 }
 function showTab(t){
-  ['today','mine','cal'].forEach(n=>{
-    document.getElementById('tb-'+n).classList.toggle('active',n===t);
-    document.getElementById('pane-'+n).classList.toggle('active',n===t);
-  });
-  if(t==='cal')renderCal();
-  if(t==='mine')renderMine();
-  if(t==='today')renderToday();
+  ['today','mine','cal'].forEach(n=>{document.getElementById('tb-'+n).classList.toggle('active',n===t);document.getElementById('pane-'+n).classList.toggle('active',n===t);});
+  if(t==='cal')renderCal();if(t==='mine')renderMine();if(t==='today')renderToday();
 }
+function showScreen(id){document.querySelectorAll('.screen').forEach(sc=>sc.classList.remove('active'));document.getElementById(id).classList.add('active');}
 
-// ── MONTH SELECTS ─────────────────────────────────────────────────
-function getTypeMonths(t){return (getRoster()[t]||[]);}
-function fillMonthSels(){
-  ['mine','cal'].forEach(id=>{
-    const sel=document.getElementById('sel-'+id);
-    sel.innerHTML='';
-    getTypeMonths(CT).forEach(m=>{const o=document.createElement('option');o.value=m.id;o.textContent=m.name+(m.nepali?' · '+m.nepali:'');sel.appendChild(o);});
-  });
-}
-function getSelM(id){
-  const v=document.getElementById(id).value;
-  return getTypeMonths(CT).find(m=>m.id===v)||getTypeMonths(CT)[0];
-}
+// ── MONTH SELECTS ────────────────────────────────────────────────
+function getTypeMonths(t){return(getRoster()[t]||[]);}
+function fillMonthSels(){['mine','cal'].forEach(id=>{const sel=document.getElementById('sel-'+id);sel.innerHTML='';getTypeMonths(CT).forEach(m=>{const o=document.createElement('option');o.value=m.id;o.textContent=m.name+(m.nepali?' · '+m.nepali:'');sel.appendChild(o);});});}
+function getSelM(id){const v=document.getElementById(id).value;return getTypeMonths(CT).find(m=>m.id===v)||getTypeMonths(CT)[0];}
 
-// ── MY DUTIES ─────────────────────────────────────────────────────
+// ── MY DUTIES ────────────────────────────────────────────────────
 function renderMine(){
-  const m=getSelM('sel-mine');
-  const el=document.getElementById('mine-list');
-  if(!m){el.innerHTML='<div class="empty-state">No roster yet.<br>Admin can upload a file via the Admin panel.</div>';document.getElementById('mine-sum').innerHTML='';return;}
+  const m=getSelM('sel-mine');const el=document.getElementById('mine-list');
+  if(!m){el.innerHTML='<div class="empty-state">No roster yet.<br>Admin can upload a file.</div>';document.getElementById('mine-sum').innerHTML='';return;}
   document.getElementById('meta-mine').textContent=m.nepali||'';
-  const today=todayISO(),cnt={n:0,mo:0,af:0,off:0};
-  let html='',wk=[],wi=0;
+  const today=todayISO(),cnt={n:0,mo:0,af:0,off:0};let html='',wk=[],wi=0;
   m.days.forEach((d,i)=>{
     const sh=(d.duties||{})[CU]||'xx';wk.push({...d,sh});
     if(wk.length===7||i===m.days.length-1){
       html+=`<div class="wblk"><div class="wlbl">Week ${++wi}</div>`;
       wk.forEach(wd=>{
         const it=wd.isoDate===today;
-        if(!wd.sh||wd.sh==='xx')cnt.off++;
-        else if(['AON*','AFN*','SDM3'].includes(wd.sh))cnt.n++;
-        else if(['MO','MO*','MF','MF*','SDM1'].includes(wd.sh))cnt.mo++;
-        else cnt.af++;
-        html+=`<div class="drow${it?' today':''}">
-          <div class="dl"><span class="ddn">${wd.day}</span><span class="ddt">${(wd.isoDate||'').slice(5).replace('-','/')}</span><span class="dgt">${bsGate(wd.isoDate)} \u0917\u0924\u0947</span></div>
-          <span class="sh ${SC(wd.sh)}">${SL(wd.sh)}</span>
-          ${it?'<span class="tchip">Today</span>':''}
-        </div>`;
+        if(!wd.sh||wd.sh==='xx')cnt.off++;else if(['AON*','AFN*','SDM3'].includes(wd.sh))cnt.n++;else if(['MO','MO*','MF','MF*','SDM1'].includes(wd.sh))cnt.mo++;else cnt.af++;
+        html+=`<div class="drow${it?' today':''}"><div class="dl"><span class="ddn">${wd.day}</span><span class="ddt">${(wd.isoDate||'').slice(5).replace('-','/')}</span><span class="dgt">${bsGate(wd.isoDate)} गते</span></div><span class="sh ${SC(wd.sh)}">${SL(wd.sh)}</span>${it?'<span class="tchip">Today</span>':''}</div>`;
       });
       html+='</div>';wk=[];
     }
   });
   el.innerHTML=html;
-  document.getElementById('mine-sum').innerHTML=`
-    <div class="scard"><div class="snum" style="color:var(--pu)">${cnt.n}</div><div class="slbl">Night shifts</div></div>
-    <div class="scard"><div class="snum" style="color:var(--gn)">${cnt.mo}</div><div class="slbl">Morning shifts</div></div>
-    <div class="scard"><div class="snum" style="color:var(--ac)">${cnt.af}</div><div class="slbl">Afternoon shifts</div></div>
-    <div class="scard"><div class="snum" style="color:var(--tx3)">${cnt.off}</div><div class="slbl">Days off</div></div>`;
+  document.getElementById('mine-sum').innerHTML=`<div class="scard"><div class="snum" style="color:var(--pu)">${cnt.n}</div><div class="slbl">Night shifts</div></div><div class="scard"><div class="snum" style="color:var(--gn)">${cnt.mo}</div><div class="slbl">Morning shifts</div></div><div class="scard"><div class="snum" style="color:var(--ac)">${cnt.af}</div><div class="slbl">Afternoon shifts</div></div><div class="scard"><div class="snum" style="color:var(--tx3)">${cnt.off}</div><div class="slbl">Days off</div></div>`;
 }
 
-// ── CALENDAR ──────────────────────────────────────────────────────
+// ── CALENDAR ─────────────────────────────────────────────────────
 function renderCal(){
-  const m=getSelM('sel-cal');
-  if(!m){document.getElementById('cal-body').innerHTML='';return;}
+  const m=getSelM('sel-cal');if(!m){document.getElementById('cal-body').innerHTML='';return;}
   document.getElementById('meta-cal').textContent=m.nepali||'';
   const today=todayISO(),staff=getStaff()[CT]||[];
   const fdow=new Date(m.startDate+'T00:00:00').getDay();
-  let html='';
-  for(let i=0;i<fdow;i++)html+='<div class="cc empty"></div>';
+  let html='';for(let i=0;i<fdow;i++)html+='<div class="cc empty"></div>';
   m.days.forEach(d=>{
-    const it=d.isoDate===today;
-    const active=staff.map(n=>({n,sh:(d.duties||{})[n]})).filter(x=>x.sh&&x.sh!=='xx');
-    html+=`<div class="cc${it?' today':''}">
-      <div class="cdn">${d.date}</div>
-      ${active.slice(0,3).map(x=>`<div class="cpip" style="background:${SCL(x.sh)}22;color:${SCL(x.sh)}">${x.n.slice(0,4)}</div>`).join('')}
-      ${active.length>3?`<div style="font-size:8px;color:var(--tx3)">+${active.length-3}</div>`:''}
-    </div>`;
+    const it=d.isoDate===today;const active=staff.map(n=>({n,sh:(d.duties||{})[n]})).filter(x=>x.sh&&x.sh!=='xx');
+    html+=`<div class="cc${it?' today':''}"><div class="cdn">${d.date}</div>${active.slice(0,3).map(x=>`<div class="cpip" style="background:${SCL(x.sh)}22;color:${SCL(x.sh)}">${x.n.slice(0,4)}</div>`).join('')}${active.length>3?`<div style="font-size:8px;color:var(--tx3)">+${active.length-3}</div>`:''}</div>`;
   });
   document.getElementById('cal-body').innerHTML=html;
 }
 
 // ── TODAY ─────────────────────────────────────────────────────────
 function renderToday(){
-  const today=todayISO(),r=getRoster();
-  let fd=null,fm=null;
+  const today=todayISO(),r=getRoster();let fd=null,fm=null;
   (r[CT]||[]).forEach(m=>{const d=m.days.find(d=>d.isoDate===today);if(d){fd=d;fm=m;}});
   const el=document.getElementById('today-content');
   if(!fd){el.innerHTML=`<div class="empty-state">No roster for today (${today}).<br>Admin can upload this month's file.</div>`;return;}
-  const staff=getStaff()[CT]||[];const duties=fd.duties||{};
-  const myShift=duties[CU]||'xx';
+  const staff=getStaff()[CT]||[];const duties=fd.duties||{};const myShift=duties[CU]||'xx';
   const on=staff.map(n=>({n,sh:duties[n]})).filter(x=>x.sh&&x.sh!=='xx');
   const off=staff.map(n=>n).filter(n=>!duties[n]||duties[n]==='xx');
-  el.innerHTML=`
-    <div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:11px 12px;margin-bottom:10px">
-      <div style="font-size:10px;color:var(--tx3)">${fm.name}${fm.nepali?' \u00b7 '+fm.nepali:''}</div>
-      <div style="font-size:15px;font-weight:700">${fd.day}, ${today} <span style="font-size:11px;color:var(--tx3)">\u00b7 ${bsDateStr(today)} \u0917\u0924\u0947</span></div>
-    </div>
-    <div style="background:var(--acbg);border:1px solid var(--ac);border-radius:var(--r);padding:13px;margin-bottom:13px;text-align:center">
-      <div style="font-size:11px;color:var(--tx3);margin-bottom:4px">Your duty today &mdash; ${CU}</div>
-      <div style="font-size:22px;font-weight:700;color:var(--ac)">${SL(myShift)}</div>
-      ${myShift!=='xx'?`<div style="font-size:11px;color:var(--tx2);margin-top:3px">${myShift}</div>`:''}
-    </div>
-    <div class="sec-lbl">All staff on duty</div>
-    ${on.map(x=>`<div class="dutyrow"><div class="drp"><div class="av">${ini(x.n)}</div><span class="pnm">${x.n}</span></div><span class="sh ${SC(x.sh)}">${SL(x.sh)}</span></div>`).join('')||'<p style="color:var(--tx3);font-size:13px">No staff scheduled.</p>'}
-    ${off.length?`<div class="sec-lbl" style="margin-top:14px">Day off</div><div class="off-chips">${off.map(n=>`<span class="off-chip">${n}</span>`).join('')}</div>`:''}`;
+  el.innerHTML=`<div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:11px 12px;margin-bottom:10px"><div style="font-size:10px;color:var(--tx3)">${fm.name}${fm.nepali?' · '+fm.nepali:''}</div><div style="font-size:15px;font-weight:700">${fd.day}, ${today} <span style="font-size:11px;color:var(--tx3)"> · ${bsDateStr(today)} गते</span></div></div><div style="background:var(--acbg);border:1px solid var(--ac);border-radius:var(--r);padding:13px;margin-bottom:13px;text-align:center"><div style="font-size:11px;color:var(--tx3);margin-bottom:4px">Your duty today — ${CU}</div><div style="font-size:22px;font-weight:700;color:var(--ac)">${SL(myShift)}</div>${myShift!=='xx'?`<div style="font-size:11px;color:var(--tx2);margin-top:3px">${myShift}</div>`:''}</div><div class="sec-lbl">All staff on duty</div>${on.map(x=>`<div class="dutyrow"><div class="drp"><div class="av">${ini(x.n)}</div><span class="pnm">${x.n}</span></div><span class="sh ${SC(x.sh)}">${SL(x.sh)}</span></div>`).join('')||'<p style="color:var(--tx3);font-size:13px">No staff scheduled.</p>'}${off.length?`<div class="sec-lbl" style="margin-top:14px">Day off</div><div class="off-chips">${off.map(n=>`<span class="off-chip">${n}</span>`).join('')}</div>`:''}`;
 }
 
 // ── NOTIFICATIONS ─────────────────────────────────────────────────
-function reqNotif(){
-  if(!('Notification' in window))return;
-  if(Notification.permission==='default')Notification.requestPermission().then(p=>{if(p==='granted')checkDuty(true);});
-  else if(Notification.permission==='granted')checkDuty(true);
-}
+function reqNotif(){if(!('Notification' in window))return;if(Notification.permission==='default')Notification.requestPermission().then(p=>{if(p==='granted')checkDuty(true);});else if(Notification.permission==='granted')checkDuty(true);}
 function checkDuty(notif=false){
-  const today=todayISO(),r=getRoster();
-  let shift=null;
+  const today=todayISO(),r=getRoster();let shift=null;
   (r[CT]||[]).forEach(m=>{const d=m.days.find(d=>d.isoDate===today);if(d)shift=(d.duties||{})[CU]||null;});
-  const banner=document.getElementById('duty-banner');
-  const t=document.getElementById('db-t'),b=document.getElementById('db-b');
-  if(shift&&shift!=='xx'){
-    banner.className='duty-banner db-on';banner.style.display='block';
-    t.textContent='\uD83D\uDCCB You are on duty today!';t.style.color='var(--ac)';
-    b.innerHTML=`Shift: <strong style="color:var(--ac)">${SL(shift)}</strong>`;
-    if(notif&&Notification.permission==='granted'){try{new Notification('MFD \u2013 On duty today!',{body:`${CU}: ${SL(shift)} \u00b7 ${today}`});}catch{}}
-  }else if(shift==='xx'){
-    banner.className='duty-banner db-off';banner.style.display='block';
-    t.textContent='\u2705 Day off today';t.style.color='var(--gn)';
-    b.textContent='You are not scheduled for duty. Enjoy!';
-  }
+  const banner=document.getElementById('duty-banner');const t=document.getElementById('db-t'),b=document.getElementById('db-b');
+  if(shift&&shift!=='xx'){banner.className='duty-banner db-on';banner.style.display='block';t.textContent='📋 You are on duty today!';t.style.color='var(--ac)';b.innerHTML=`Shift: <strong style="color:var(--ac)">${SL(shift)}</strong>`;if(notif&&Notification.permission==='granted'){try{new Notification('MFD – On duty today!',{body:`${CU}: ${SL(shift)} · ${today}`});}catch{}}}
+  else if(shift==='xx'){banner.className='duty-banner db-off';banner.style.display='block';t.textContent='✅ Day off today';t.style.color='var(--gn)';b.textContent='You are not scheduled. Enjoy!';}
 }
 
-// ── ADMIN ─────────────────────────────────────────────────────────
+// ── ADMIN SCREEN ──────────────────────────────────────────────────
 function showAdmin(name){
-  showScreen('s-admin');
-  document.getElementById('admin-lbl').textContent=name;
+  showScreen('s-admin');document.getElementById('admin-lbl').textContent=name;
   document.getElementById('admins-tab').style.display=IM?'':'none';
   renderStaffLists();renderAllMonths();populateEdMonths();renderEditList();
-  if(IM)renderSubAdmins();
+  if(IM){renderSubAdmins();prefillMasterCreds();}
   showATab(document.querySelector('.atab'),'upload');
 }
 function showATab(btn,name){
   document.querySelectorAll('.atab').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.apane').forEach(p=>p.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('ap-'+name).classList.add('active');
+  btn.classList.add('active');document.getElementById('ap-'+name).classList.add('active');
   if(name==='edit'){populateEdMonths();renderEditList();}
+}
+
+// ── MASTER CREDENTIALS ────────────────────────────────────────────
+function prefillMasterCreds(){
+  const c=getCreds();
+  document.getElementById('ma-user').value=c.username||'admin';
+  document.getElementById('ma-pin').value='';
+}
+async function saveMasterCreds(){
+  const user=document.getElementById('ma-user').value.trim();
+  const pin=document.getElementById('ma-pin').value.trim();
+  if(!user){toast('Username required','err');return;}
+  if(pin&&pin.length<4){toast('PIN must be 4–6 digits','err');return;}
+  const current=getCreds();
+  const newPin=pin||current.pin;
+  await saveCreds(user,newPin);
+  toast('✅ Master credentials updated on all devices!');
+  document.getElementById('ma-pin').value='';
 }
 
 // ── STAFF ─────────────────────────────────────────────────────────
 function renderStaffLists(){
   ['obs','fore','smet'].forEach(t=>{
-    const staff=getStaff()[t]||[];
-    const canEdit=IM||(CAO&&(CAO.perm==='all'||CAO.perm===t));
-    document.getElementById(t+'-staff').innerHTML=staff.length
-      ?staff.map((n,i)=>`<div class="lrow">
-          <div><div class="lmain">${n}</div></div>
-          <div class="lact">
-            <button class="btn-a btn-sm" onclick="renameStaff('${t}',${i})">Rename</button>
-            ${canEdit?`<button class="btn-d btn-sm" onclick="removeStaff('${t}',${i})">Remove</button>`:''}
-          </div>
-        </div>`).join('')
-      :'<p style="font-size:12px;color:var(--tx3)">No staff yet.</p>';
+    const staff=getStaff()[t]||[];const canEdit=IM||(CAO&&(CAO.perm==='all'||CAO.perm===t));
+    document.getElementById(t+'-staff').innerHTML=staff.length?staff.map((n,i)=>`<div class="lrow"><div><div class="lmain">${n}</div></div><div class="lact"><button class="btn-a btn-sm" onclick="renameStaff('${t}',${i})">Rename</button>${canEdit?`<button class="btn-d btn-sm" onclick="removeStaff('${t}',${i})">Remove</button>`:''}</div></div>`).join(''):'<p style="font-size:12px;color:var(--tx3)">No staff yet.</p>';
   });
 }
-function addStaff(t){
-  const inp=document.getElementById(t+'-inp');
-  const name=inp.value.trim();if(!name)return;
-  const st=getStaff();st[t]=st[t]||[];
-  if(st[t].includes(name)){toast('Already exists','err');return;}
-  st[t].push(name);saveStaff(st);inp.value='';renderStaffLists();fillNameDrop();toast('Added: '+name);
-}
-function removeStaff(t,i){
-  const st=getStaff();if(!confirm('Remove "'+st[t][i]+'"?'))return;
-  st[t].splice(i,1);saveStaff(st);renderStaffLists();fillNameDrop();toast('Removed');
-}
-function renameStaff(t,i){
-  const st=getStaff();const old=st[t][i];
-  const nw=prompt('Rename "'+old+'" to:',old);if(!nw||nw.trim()===old)return;
-  const r=getRoster();
-  (r[t]||[]).forEach(m=>m.days.forEach(d=>{if(d.duties&&old in d.duties){d.duties[nw.trim()]=d.duties[old];delete d.duties[old];}}));
-  st[t][i]=nw.trim();saveStaff(st);saveRoster(r);renderStaffLists();fillNameDrop();toast('Renamed to '+nw.trim());
-}
+function addStaff(t){const inp=document.getElementById(t+'-inp');const name=inp.value.trim();if(!name)return;const st=getStaff();st[t]=st[t]||[];if(st[t].includes(name)){toast('Already exists','err');return;}st[t].push(name);saveStaff(st);inp.value='';renderStaffLists();fillNameDrop();toast('Added: '+name);}
+function removeStaff(t,i){const st=getStaff();if(!confirm('Remove "'+st[t][i]+'"?'))return;st[t].splice(i,1);saveStaff(st);renderStaffLists();fillNameDrop();toast('Removed');}
+function renameStaff(t,i){const st=getStaff();const old=st[t][i];const nw=prompt('Rename "'+old+'" to:',old);if(!nw||nw.trim()===old)return;const r=getRoster();(r[t]||[]).forEach(m=>m.days.forEach(d=>{if(d.duties&&old in d.duties){d.duties[nw.trim()]=d.duties[old];delete d.duties[old];}}));st[t][i]=nw.trim();saveStaff(st);saveRoster(r);renderStaffLists();fillNameDrop();toast('Renamed to '+nw.trim());}
 
-// ── MONTHS LIST ───────────────────────────────────────────────────
+// ── MONTHS ───────────────────────────────────────────────────────
 function renderAllMonths(){
-  const r=getRoster();
-  const all=[...(r.obs||[]).map(m=>({...m,tl:'Observer'})),...(r.fore||[]).map(m=>({...m,tl:'Forecaster'})),...(r.smet||[]).map(m=>({...m,tl:'Sr. Met'}))];
-  document.getElementById('all-months').innerHTML=all.length
-    ?all.map(m=>`<div class="lrow">
-        <div><div class="lmain">${m.name}<span class="pill p-${m.type}">${m.tl}</span></div><div class="lsub">${m.nepali||''} &middot; ${m.days.length} days</div></div>
-        <button class="btn-d btn-sm" onclick="deleteMonth('${m.type}','${m.id}')">Delete</button>
-      </div>`).join('')
-    :'<p style="font-size:12px;color:var(--tx3)">No months yet. Upload a file to get started.</p>';
+  const r=getRoster();const all=[...(r.obs||[]).map(m=>({...m,tl:'Observer'})),...(r.fore||[]).map(m=>({...m,tl:'Forecaster'})),...(r.smet||[]).map(m=>({...m,tl:'Sr. Met'}))];
+  document.getElementById('all-months').innerHTML=all.length?all.map(m=>`<div class="lrow"><div><div class="lmain">${m.name}<span class="pill p-${m.type}">${m.tl}</span></div><div class="lsub">${m.nepali||''} · ${m.days.length} days</div></div><button class="btn-d btn-sm" onclick="deleteMonth('${m.type}','${m.id}')">Delete</button></div>`).join(''):'<p style="font-size:12px;color:var(--tx3)">No months yet.</p>';
 }
-function deleteMonth(type,id){
-  if(!confirm('Delete this month?'))return;
-  const r=getRoster();r[type]=(r[type]||[]).filter(m=>m.id!==id);
-  saveRoster(r);renderAllMonths();fillMonthSels();populateEdMonths();toast('Deleted');
-}
+function deleteMonth(type,id){if(!confirm('Delete this month?'))return;const r=getRoster();r[type]=(r[type]||[]).filter(m=>m.id!==id);saveRoster(r);renderAllMonths();fillMonthSels();populateEdMonths();toast('Deleted');}
 
 // ── ADD MONTH MANUALLY ────────────────────────────────────────────
 function clearNMDays(){document.getElementById('nm-days').innerHTML='';NMC=0;}
 function refreshNMDays(){document.querySelectorAll('[data-nmd]').forEach(el=>{const i=parseInt(el.dataset.nmd);updNMDay(i);});}
-function addNMDay(){
-  NMC++;const i=NMC;const type=document.getElementById('nm-type').value||'obs';
-  const staff=getStaff()[type]||[];const start=document.getElementById('nm-start').value;
-  let iso='',dn='';
-  if(start){const dt=new Date(start+'T00:00:00');dt.setDate(dt.getDate()+(i-1));iso=dt.toISOString().split('T')[0];dn=WD[dt.getDay()];}
-  const shifts=shiftListForType(type);
-  const sopts=shifts.map(sh=>`<option value="${sh}">${sh==='xx'?'xx \u2014 Day off':sh+' \u2014 '+SL(sh)}</option>`).join('');
-  const el=document.createElement('div');el.className='dblk';el.id='nmd-'+i;el.dataset.nmd=i;
-  el.innerHTML=`<div class="dblk-hd"><span class="dblk-n" id="nmd-lbl-${i}">Day ${i}${dn?' \u2014 '+dn:''}</span><button class="rmbtn" onclick="document.getElementById('nmd-${i}').remove()">&times;</button></div>
-  <div class="g3" style="margin-bottom:8px">
-    <div><label class="flbl">\u0917\u0924\u0947</label><input type="number" class="finp" id="nmd-num-${i}" value="${i}" min="1" max="32"></div>
-    <div><label class="flbl">Date</label><input type="date" class="finp" id="nmd-iso-${i}" value="${iso}" onchange="updNMDay(${i})"></div>
-    <div><label class="flbl">Day</label><span id="nmd-dn-${i}" style="display:block;padding:9px 0;font-size:13px;font-weight:700">${dn}</span></div>
-  </div>
-  ${staff.map(n=>`<div class="shr"><span class="shrn">${n}</span><select class="shsel" id="nmd-sh-${i}-${n}">${sopts}</select></div>`).join('')}`;
-  document.getElementById('nm-days').appendChild(el);
-}
-function updNMDay(i){
-  const v=document.getElementById('nmd-iso-'+i)?.value;if(!v)return;
-  const dn=WD[new Date(v+'T00:00:00').getDay()];
-  const dnEl=document.getElementById('nmd-dn-'+i);if(dnEl)dnEl.textContent=dn;
-  const lbl=document.getElementById('nmd-lbl-'+i);if(lbl)lbl.textContent=`Day ${i} \u2014 ${dn} ${v.slice(5).replace('-','/')}`;
-}
-function saveNM(){
-  const name=document.getElementById('nm-name').value.trim();
-  const nepali=document.getElementById('nm-nepali').value.trim();
-  const start=document.getElementById('nm-start').value;
-  const type=document.getElementById('nm-type').value||'obs';
-  if(!name||!start){toast('Fill month name & start date','err');return;}
-  const staff=getStaff()[type]||[];const days=[];
-  document.querySelectorAll('[data-nmd]').forEach(bl=>{
-    const i=bl.dataset.nmd;
-    const dateNum=parseInt(document.getElementById('nmd-num-'+i)?.value||i);
-    const iso=document.getElementById('nmd-iso-'+i)?.value||'';
-    const dn=document.getElementById('nmd-dn-'+i)?.textContent||'';
-    const duties={};
-    staff.forEach(n=>{const sel=document.getElementById('nmd-sh-'+i+'-'+n);duties[n]=sel?sel.value:'xx';});
-    days.push({date:dateNum,isoDate:iso,day:dn,duties});
-  });
-  const id=type+'-'+name.toLowerCase().replace(/\s+/g,'-');
-  const r=getRoster();r[type]=r[type]||[];
-  const ei=r[type].findIndex(m=>m.id===id);
-  const mo={id,name,nepali,type,startDate:start,days};
-  if(ei>=0){if(!confirm('Overwrite?'))return;r[type][ei]=mo;}else r[type].push(mo);
-  saveRoster(r);renderAllMonths();fillMonthSels();populateEdMonths();
-  toast('Month saved: '+name);
-  document.getElementById('nm-name').value='';document.getElementById('nm-nepali').value='';
-  document.getElementById('nm-start').value='';clearNMDays();
-}
+function addNMDay(){NMC++;const i=NMC;const type=document.getElementById('nm-type').value||'obs';const staff=getStaff()[type]||[];const start=document.getElementById('nm-start').value;let iso='',dn='';if(start){const dt=new Date(start+'T00:00:00');dt.setDate(dt.getDate()+(i-1));iso=dt.toISOString().split('T')[0];dn=WD[dt.getDay()];}const shifts=shiftListForType(type);const sopts=shifts.map(sh=>`<option value="${sh}">${sh==='xx'?'xx — Day off':sh+' — '+SL(sh)}</option>`).join('');const el=document.createElement('div');el.className='dblk';el.id='nmd-'+i;el.dataset.nmd=i;el.innerHTML=`<div class="dblk-hd"><span class="dblk-n" id="nmd-lbl-${i}">Day ${i}${dn?' — '+dn:''}</span><button class="rmbtn" onclick="document.getElementById('nmd-${i}').remove()">&times;</button></div><div class="g3" style="margin-bottom:8px"><div><label class="flbl">गते</label><input type="number" class="finp" id="nmd-num-${i}" value="${i}" min="1" max="32"></div><div><label class="flbl">Date</label><input type="date" class="finp" id="nmd-iso-${i}" value="${iso}" onchange="updNMDay(${i})"></div><div><label class="flbl">Day</label><span id="nmd-dn-${i}" style="display:block;padding:9px 0;font-size:13px;font-weight:700">${dn}</span></div></div>${staff.map(n=>`<div class="shr"><span class="shrn">${n}</span><select class="shsel" id="nmd-sh-${i}-${n}">${sopts}</select></div>`).join('')}`;document.getElementById('nm-days').appendChild(el);}
+function updNMDay(i){const v=document.getElementById('nmd-iso-'+i)?.value;if(!v)return;const dn=WD[new Date(v+'T00:00:00').getDay()];const dnEl=document.getElementById('nmd-dn-'+i);if(dnEl)dnEl.textContent=dn;const lbl=document.getElementById('nmd-lbl-'+i);if(lbl)lbl.textContent=`Day ${i} — ${dn} ${v.slice(5).replace('-','/')}`;}
+function saveNM(){const name=document.getElementById('nm-name').value.trim();const nepali=document.getElementById('nm-nepali').value.trim();const start=document.getElementById('nm-start').value;const type=document.getElementById('nm-type').value||'obs';if(!name||!start){toast('Fill month name & start date','err');return;}const staff=getStaff()[type]||[];const days=[];document.querySelectorAll('[data-nmd]').forEach(bl=>{const i=bl.dataset.nmd;const dateNum=parseInt(document.getElementById('nmd-num-'+i)?.value||i);const iso=document.getElementById('nmd-iso-'+i)?.value||'';const dn=document.getElementById('nmd-dn-'+i)?.textContent||'';const duties={};staff.forEach(n=>{const sel=document.getElementById('nmd-sh-'+i+'-'+n);duties[n]=sel?sel.value:'xx';});days.push({date:dateNum,isoDate:iso,day:dn,duties});});const id=type+'-'+name.toLowerCase().replace(/\s+/g,'-');const r=getRoster();r[type]=r[type]||[];const ei=r[type].findIndex(m=>m.id===id);const mo={id,name,nepali,type,startDate:start,days};if(ei>=0){if(!confirm('Overwrite?'))return;r[type][ei]=mo;}else r[type].push(mo);saveRoster(r);renderAllMonths();fillMonthSels();populateEdMonths();toast('Month saved: '+name);document.getElementById('nm-name').value='';document.getElementById('nm-nepali').value='';document.getElementById('nm-start').value='';clearNMDays();}
 
-// ── FILE UPLOAD ────────────────────────────────────────────────────
+// ── FILE UPLOAD ───────────────────────────────────────────────────
 function udragOver(e){e.preventDefault();document.getElementById('udrop').classList.add('over');}
 function udragLeave(){document.getElementById('udrop').classList.remove('over');}
 function udrop_(e){e.preventDefault();udragLeave();const f=e.dataTransfer.files[0];if(f)setUpFile(f);}
 function ufileChosen(inp){if(inp.files[0])setUpFile(inp.files[0]);}
-function setUpFile(f){
-  _upFile=f;
-  const lbl=document.getElementById('udrop-lbl');
-  lbl.textContent=f.name;lbl.style.color='var(--gn)';
-  document.getElementById('udrop').classList.add('ok');
-}
-function loadXLSX(cb){
-  if(window.XLSX){cb();return;}
-  const sc=document.createElement('script');
-  sc.src='https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
-  sc.onload=cb;sc.onerror=()=>toast('Could not load Excel library. Check internet.','err');
-  document.head.appendChild(sc);
-}
+function setUpFile(f){_upFile=f;const lbl=document.getElementById('udrop-lbl');lbl.textContent=f.name;lbl.style.color='var(--gn)';document.getElementById('udrop').classList.add('ok');}
+function loadXLSX(cb){if(window.XLSX){cb();return;}const sc=document.createElement('script');sc.src='https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';sc.onload=cb;sc.onerror=()=>toast('Could not load Excel library.','err');document.head.appendChild(sc);}
 function importFile(){
   if(!_upFile){toast('Choose a file first','err');return;}
-  const mname=document.getElementById('up-mname').value.trim();
-  const mnepali=document.getElementById('up-mnepali').value.trim();
-  const type=document.getElementById('up-type').value||'obs';
-  const tabName=document.getElementById('up-tab').value.trim();
-  const hrow=parseInt(document.getElementById('up-hrow').value||'5')-1;
+  const mname=document.getElementById('up-mname').value.trim();const mnepali=document.getElementById('up-mnepali').value.trim();const type=document.getElementById('up-type').value||'obs';const tabName=document.getElementById('up-tab').value.trim();const hrow=parseInt(document.getElementById('up-hrow').value||'5')-1;
   if(!mname){toast('Enter month name','err');return;}
   loadXLSX(()=>{
-    const stat=document.getElementById('up-stat');
-    stat.className='stat stat-load';stat.style.display='block';
-    stat.innerHTML='<span class="spinner"></span>Reading file...';
+    const stat=document.getElementById('up-stat');stat.className='stat stat-load';stat.style.display='block';stat.innerHTML='<span class="spinner"></span>Reading file...';
     const reader=new FileReader();
     reader.onload=async e=>{
       try{
         const wb=XLSX.read(new Uint8Array(e.target.result),{type:'array',cellDates:true});
-        let sname=wb.SheetNames[0];
-        if(tabName){
-          const m=wb.SheetNames.find(n=>n.trim().toLowerCase()===tabName.toLowerCase())
-            ||wb.SheetNames.find(n=>n.toLowerCase().includes(tabName.toLowerCase()));
-          if(m)sname=m;
-          else{stat.className='stat stat-err';stat.textContent='Tab "'+tabName+'" not found. Tabs: '+wb.SheetNames.join(', ');return;}
-        }
-        const ws=wb.Sheets[sname];
-        const rows=XLSX.utils.sheet_to_json(ws,{header:1,defval:'',raw:false});
-        let hi=hrow;
-        if(!rows[hi]||rows[hi].filter(c=>c).length<3){
-          const autoHi=rows.findIndex(r=>r.some(c=>c&&(c.toString().toUpperCase().includes('DAY')||c.toString().includes('\u0917\u0924\u0947'))));
-          if(autoHi>=0)hi=autoHi;
-        }
-        const headers=rows[hi]||[];
-        const staffCols=[];
-        headers.forEach((h,i)=>{
-          if(i<3||!h||!h.toString().trim())return;
-          const hn=h.toString().toLowerCase();
-          if(SKIP_COLS.some(x=>hn.includes(x)))return;
-          staffCols.push({name:h.toString().trim(),col:i});
-        });
-        if(!staffCols.length){stat.className='stat stat-err';stat.textContent='No staff columns found in row '+(hi+1)+'. Try changing Header row number.';return;}
-        const st=getStaff();st[type]=st[type]||[];
-        staffCols.forEach(sc=>{if(!st[type].includes(sc.name))st[type].push(sc.name);});
-        await saveStaff(st); // saves to cloud so all devices get staff names in login dropdown
-        const days=[];let startDate='';
-        rows.slice(hi+1).forEach(row=>{
-          const nc=(row[1]||'').toString().trim();
-          if(!nc||isNaN(parseInt(nc)))return;
-          const dateNum=parseInt(nc);
-          const dayName=(row[0]||'').toString().trim();
-          let iso='';
-          const rd=(row[2]||'').toString().trim();
-          if(rd.match(/^\d{4}-\d{2}-\d{2}/))iso=rd.slice(0,10);
-          else if(rd){const dt=new Date(rd);if(!isNaN(dt.getTime()))iso=dt.toISOString().split('T')[0];}
-          if(iso&&!startDate)startDate=iso;
-          const duties={};
-          staffCols.forEach(sc=>{duties[sc.name]=((row[sc.col]||'xx').toString().trim())||'xx';});
-          days.push({date:dateNum,isoDate:iso,day:dayName,duties});
-        });
-        if(!days.length){stat.className='stat stat-err';stat.textContent='No data rows found after header row '+(hi+1)+'.';return;}
-        const id=type+'-'+mname.toLowerCase().replace(/\s+/g,'-');
-        const r=getRoster();r[type]=r[type]||[];
-        const ei=r[type].findIndex(m=>m.id===id);
-        const mo={id,name:mname,nepali:mnepali,type,startDate,days};
+        let sname=wb.SheetNames[0];if(tabName){const m=wb.SheetNames.find(n=>n.trim().toLowerCase()===tabName.toLowerCase())||wb.SheetNames.find(n=>n.toLowerCase().includes(tabName.toLowerCase()));if(m)sname=m;else{stat.className='stat stat-err';stat.textContent='Tab "'+tabName+'" not found. Tabs: '+wb.SheetNames.join(', ');return;}}
+        const ws=wb.Sheets[sname];const rows=XLSX.utils.sheet_to_json(ws,{header:1,defval:'',raw:false});
+        let hi=hrow;if(!rows[hi]||rows[hi].filter(c=>c).length<3){const autoHi=rows.findIndex(r=>r.some(c=>c&&(c.toString().toUpperCase().includes('DAY')||c.toString().includes('गते'))));if(autoHi>=0)hi=autoHi;}
+        const headers=rows[hi]||[];const staffCols=[];headers.forEach((h,i)=>{if(i<3||!h||!h.toString().trim())return;const hn=h.toString().toLowerCase();if(SKIP_COLS.some(x=>hn.includes(x)))return;staffCols.push({name:h.toString().trim(),col:i});});
+        if(!staffCols.length){stat.className='stat stat-err';stat.textContent='No staff columns found in row '+(hi+1)+'.';return;}
+        const st=getStaff();st[type]=st[type]||[];staffCols.forEach(sc=>{if(!st[type].includes(sc.name))st[type].push(sc.name);});await saveStaff(st);
+        const days=[];let startDate='';rows.slice(hi+1).forEach(row=>{const nc=(row[1]||'').toString().trim();if(!nc||isNaN(parseInt(nc)))return;const dateNum=parseInt(nc);const dayName=(row[0]||'').toString().trim();let iso='';const rd=(row[2]||'').toString().trim();if(rd.match(/^\d{4}-\d{2}-\d{2}/))iso=rd.slice(0,10);else if(rd){const dt=new Date(rd);if(!isNaN(dt.getTime()))iso=dt.toISOString().split('T')[0];}if(iso&&!startDate)startDate=iso;const duties={};staffCols.forEach(sc=>{duties[sc.name]=((row[sc.col]||'xx').toString().trim())||'xx';});days.push({date:dateNum,isoDate:iso,day:dayName,duties});});
+        if(!days.length){stat.className='stat stat-err';stat.textContent='No data rows found.';return;}
+        const id=type+'-'+mname.toLowerCase().replace(/\s+/g,'-');const r=getRoster();r[type]=r[type]||[];const ei=r[type].findIndex(m=>m.id===id);const mo={id,name:mname,nepali:mnepali,type,startDate,days};
         if(ei>=0){if(!confirm('Month "'+mname+'" already exists. Overwrite?'))return;r[type][ei]=mo;}else r[type].push(mo);
-
-        // ── SAVE TO CLOUD ──────────────────────────────────────
-        stat.innerHTML='<span class="spinner"></span>Saving to cloud so all users can see...';
-        stat.className='stat stat-load';stat.style.display='block';
-        const ok = await saveRosterToCloud(r);
-        s(K.R, r); // always update local too
-        // ──────────────────────────────────────────────────────
-
+        stat.innerHTML='<span class="spinner"></span>Saving to cloud…';stat.className='stat stat-load';stat.style.display='block';
+        const ok=await saveRosterToCloud(r);ls(K.R,r);
         renderStaffLists();renderAllMonths();fillMonthSels();fillNameDrop();populateEdMonths();
-        if(ok){
-          stat.className='stat stat-ok';
-          stat.textContent='\u2705 Imported '+days.length+' days \u00b7 '+staffCols.length+' staff \u00b7 Saved to cloud! All users can now see this roster.';
-          toast('Imported & saved to cloud: '+mname);
-        } else {
-          stat.className='stat stat-err';
-          stat.textContent='\u26A0\uFE0F Imported locally but cloud save failed. Check your Apps Script URL and internet connection.';
-          toast('Imported locally only','err');
-        }
-      }catch(err){stat.className='stat stat-err';stat.textContent='\u274C '+err.message;}
+        if(ok){stat.className='stat stat-ok';stat.textContent='✅ Imported '+days.length+' days · '+staffCols.length+' staff · Saved to cloud!';toast('Imported & saved: '+mname);}
+        else{stat.className='stat stat-err';stat.textContent='⚠️ Imported locally but cloud save failed.';toast('Imported locally only','err');}
+      }catch(err){stat.className='stat stat-err';stat.textContent='❌ '+err.message;}
     };
     reader.onerror=()=>{stat.className='stat stat-err';stat.textContent='Failed to read file.';};
     reader.readAsArrayBuffer(_upFile);
   });
 }
 
-// ── EDIT DUTIES ────────────────────────────────────────────────────
-function populateEdMonths(){
-  const type=document.getElementById('ed-type')?.value||'obs';
-  const sel=document.getElementById('ed-month');
-  sel.innerHTML='<option value="">-- Select month --</option>';
-  getTypeMonths(type).forEach(m=>{const o=document.createElement('option');o.value=m.id;o.textContent=m.name;sel.appendChild(o);});
-}
-function renderEditList(){
-  const type=document.getElementById('ed-type')?.value||'obs';
-  const mid=document.getElementById('ed-month')?.value;
-  const month=(getRoster()[type]||[]).find(m=>m.id===mid);
-  if(!month){document.getElementById('ed-list').innerHTML='';return;}
-  const staff=getStaff()[type]||[];
-  let html='';
-  month.days.forEach((d,di)=>{
-    const duties=d.duties||{};
-    const pills=staff.map(n=>`<span class="sh ${SC(duties[n]||'xx')}" style="font-size:9px;padding:2px 5px">${n.slice(0,4)}:${duties[n]||'xx'}</span>`).join('');
-    html+=`<div class="ed-row">
-      <div class="ed-l"><div class="ed-date">${bsGate(d.isoDate)} \u0917\u0924\u0947</div><div class="ed-dn">${d.day} ${(d.isoDate||'').slice(5).replace('-','/')}</div></div>
-      <div class="ed-shifts">${pills}</div>
-      <button class="ed-btn" onclick="openModal('${type}','${mid}',${di})"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
-    </div>`;
-  });
-  document.getElementById('ed-list').innerHTML=html||'<p style="font-size:12px;color:var(--tx3)">No days.</p>';
-}
+// ── EDIT DUTIES ───────────────────────────────────────────────────
+function populateEdMonths(){const type=document.getElementById('ed-type')?.value||'obs';const sel=document.getElementById('ed-month');sel.innerHTML='<option value="">-- Select month --</option>';getTypeMonths(type).forEach(m=>{const o=document.createElement('option');o.value=m.id;o.textContent=m.name;sel.appendChild(o);});}
+function renderEditList(){const type=document.getElementById('ed-type')?.value||'obs';const mid=document.getElementById('ed-month')?.value;const month=(getRoster()[type]||[]).find(m=>m.id===mid);if(!month){document.getElementById('ed-list').innerHTML='';return;}const staff=getStaff()[type]||[];let html='';month.days.forEach((d,di)=>{const duties=d.duties||{};const pills=staff.map(n=>`<span class="sh ${SC(duties[n]||'xx')}" style="font-size:9px;padding:2px 5px">${n.slice(0,4)}:${duties[n]||'xx'}</span>`).join('');html+=`<div class="ed-row"><div class="ed-l"><div class="ed-date">${bsGate(d.isoDate)} गते</div><div class="ed-dn">${d.day} ${(d.isoDate||'').slice(5).replace('-','/')}</div></div><div class="ed-shifts">${pills}</div><button class="ed-btn" onclick="openModal('${type}','${mid}',${di})"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button></div>`;});document.getElementById('ed-list').innerHTML=html||'<p style="font-size:12px;color:var(--tx3)">No days.</p>';}
 
-// ── EDIT MODAL ─────────────────────────────────────────────────────
-function openModal(type,mid,di){
-  const month=(getRoster()[type]||[]).find(m=>m.id===mid);if(!month)return;
-  const day=month.days[di];MOD={type,mid,di};
-  const staff=getStaff()[type]||[];
-  const shifts=shiftListForType(type);
-  document.getElementById('modal-title').textContent=`Edit Duties \u2014 ${day.day}, ${bsGate(day.isoDate)} \u0917\u0924\u0947`;
-  document.getElementById('modal-sub').textContent=`${month.name}${month.nepali?' \u00b7 '+month.nepali:''} \u00b7 ${day.isoDate||''}`;
-  const cur=day.duties||{};
-  document.getElementById('modal-rows').innerHTML=staff.map(n=>{
-    const opts=shifts.map(sh=>`<option value="${sh}"${sh===(cur[n]||'xx')?' selected':''}>${sh==='xx'?'xx \u2014 Day off':sh+' \u2014 '+SL(sh)}</option>`).join('');
-    return `<div class="mprow"><div class="mpname"><div class="av">${ini(n)}</div>${n}</div><select class="msel" id="msel-${n}">${opts}</select></div>`;
-  }).join('');
-  document.getElementById('modal').style.display='flex';
-}
+// ── EDIT MODAL ────────────────────────────────────────────────────
+function openModal(type,mid,di){const month=(getRoster()[type]||[]).find(m=>m.id===mid);if(!month)return;const day=month.days[di];MOD={type,mid,di};const staff=getStaff()[type]||[];const shifts=shiftListForType(type);document.getElementById('modal-title').textContent=`Edit Duties — ${day.day}, ${bsGate(day.isoDate)} गते`;document.getElementById('modal-sub').textContent=`${month.name}${month.nepali?' · '+month.nepali:''} · ${day.isoDate||''}`;const cur=day.duties||{};document.getElementById('modal-rows').innerHTML=staff.map(n=>{const opts=shifts.map(sh=>`<option value="${sh}"${sh===(cur[n]||'xx')?' selected':''}>${sh==='xx'?'xx — Day off':sh+' — '+SL(sh)}</option>`).join('');return `<div class="mprow"><div class="mpname"><div class="av">${ini(n)}</div>${n}</div><select class="msel" id="msel-${n}">${opts}</select></div>`;}).join('');document.getElementById('modal').style.display='flex';}
 function closeModal(){document.getElementById('modal').style.display='none';}
 function bgClose(e){if(e.target===document.getElementById('modal'))closeModal();}
-function saveModal(){
-  const r=getRoster();
-  const month=(r[MOD.type]||[]).find(m=>m.id===MOD.mid);if(!month)return;
-  const day=month.days[MOD.di];if(!day.duties)day.duties={};
-  getStaff()[MOD.type].forEach(n=>{const sel=document.getElementById('msel-'+n);if(sel)day.duties[n]=sel.value;});
-  saveRoster(r);closeModal();renderEditList();renderMine();renderCal();renderToday();toast('Duties updated \u2713');
-}
+function saveModal(){const r=getRoster();const month=(r[MOD.type]||[]).find(m=>m.id===MOD.mid);if(!month)return;const day=month.days[MOD.di];if(!day.duties)day.duties={};getStaff()[MOD.type].forEach(n=>{const sel=document.getElementById('msel-'+n);if(sel)day.duties[n]=sel.value;});saveRoster(r);closeModal();renderEditList();renderMine();renderCal();renderToday();toast('Duties updated ✓');}
 
-// ── SUB-ADMINS ─────────────────────────────────────────────────────
+// ── SUB-ADMINS ────────────────────────────────────────────────────
 function renderSubAdmins(){
   const admins=getAdmins();
-  document.getElementById('sub-admins').innerHTML=admins.length
-    ?admins.map((a,i)=>`<div class="lrow">
-        <div><div class="lmain">${a.name}</div><div class="lsub">${'\u2022'.repeat(a.pin.length)} &middot; <span class="ptag ptag-${a.perm==='all'?'all':a.perm}">${a.perm==='all'?'All rosters':a.perm}</span></div></div>
-        <div class="lact"><button class="btn-a btn-sm" onclick="editSAPIN(${i})">PIN</button><button class="btn-d btn-sm" onclick="removeSA(${i})">Remove</button></div>
-      </div>`).join('')
-    :'<p style="font-size:12px;color:var(--tx3)">No sub-admins yet.</p>';
+  document.getElementById('sub-admins').innerHTML=admins.length?admins.map((a,i)=>`<div class="lrow"><div><div class="lmain">${a.name}</div><div class="lsub"><span class="ptag ptag-${a.perm==='all'?'all':a.perm}">${a.perm==='all'?'All rosters':a.perm}</span></div></div><div class="lact"><button class="btn-a btn-sm" onclick="editSAPIN(${i})">PIN</button><button class="btn-d btn-sm" onclick="removeSA(${i})">Remove</button></div></div>`).join(''):'<p style="font-size:12px;color:var(--tx3)">No sub-admins yet.</p>';
 }
 function addSubAdmin(){
-  const name=document.getElementById('sa-name').value.trim();
-  const pin=document.getElementById('sa-pin').value.trim();
-  const perm=document.getElementById('sa-perm').value;
+  const name=document.getElementById('sa-name').value.trim();const pin=document.getElementById('sa-pin').value.trim();const perm=document.getElementById('sa-perm').value;
   if(!name||pin.length<4){toast('Name & 4-digit PIN required','err');return;}
-  if(pin===getMPin()){toast('Cannot use master PIN','err');return;}
-  const admins=getAdmins();
-  if(admins.find(a=>a.name===name)){toast('Username taken','err');return;}
-  admins.push({name,pin,perm});saveAdmins(admins);
-  document.getElementById('sa-name').value='';document.getElementById('sa-pin').value='';
-  renderSubAdmins();toast('Sub-admin added: '+name);
+  const mc=getCreds();if(name===mc.username){toast('Cannot use master username','err');return;}
+  const admins=getAdmins();if(admins.find(a=>a.name===name)){toast('Username taken','err');return;}
+  admins.push({name,pin,perm});saveAdmins(admins);document.getElementById('sa-name').value='';document.getElementById('sa-pin').value='';renderSubAdmins();toast('Sub-admin added: '+name);
 }
 function removeSA(i){const a=getAdmins();if(!confirm('Remove "'+a[i].name+'"?'))return;a.splice(i,1);saveAdmins(a);renderSubAdmins();toast('Removed');}
-function editSAPIN(i){
-  const a=getAdmins();const np=prompt('New PIN for "'+a[i].name+'":');
-  if(!np||np.length<4){toast('4+ digits required','err');return;}
-  a[i].pin=np;saveAdmins(a);renderSubAdmins();toast('PIN updated');
+function editSAPIN(i){const a=getAdmins();const np=prompt('New PIN for "'+a[i].name+'":');if(!np||np.length<4){toast('4+ digits required','err');return;}a[i].pin=np;saveAdmins(a);renderSubAdmins();toast('PIN updated');}
+
+// ═══════════════════════════════════════════════════════════════
+// FORGOT PIN — 3-step flow: Send OTP → Verify OTP → Set New PIN
+// ═══════════════════════════════════════════════════════════════
+function openForgotPin(){
+  _fpVerified=false;
+  // Reset to step 1
+  document.getElementById('fp-s1').style.display='block';
+  document.getElementById('fp-s2').style.display='none';
+  document.getElementById('fp-s3').style.display='none';
+  document.getElementById('fp-e1').style.display='none';
+  document.getElementById('fp-e2').style.display='none';
+  document.getElementById('fp-e3').style.display='none';
+  document.getElementById('fp-code').value='';
+  document.getElementById('fp-newpin').value='';
+  document.getElementById('fp-newpin2').value='';
+  const btn=document.getElementById('fp-send-btn');btn.textContent='Send Code';btn.disabled=false;
+  document.getElementById('fp-modal').style.display='flex';
 }
-async function saveMPin(){
-  const pin=document.getElementById('mpin-inp').value.trim();
-  if(pin.length<4){toast('4+ digits required','err');return;}
-  _cachedPin=pin;s(K.MP,pin);
-  const ok=await savePinToCloud(pin);
-  if(ok)toast('\u2705 Master PIN updated on all devices!');
-  else toast('PIN saved locally only - cloud failed','err');
-  document.getElementById('mpin-inp').value='';
+function closeFpModal(){document.getElementById('fp-modal').style.display='none';}
+
+async function fpSendCode(isResend=false){
+  const btn=document.getElementById('fp-send-btn');
+  const err=document.getElementById('fp-e1');
+  err.style.display='none';btn.textContent='Sending…';btn.disabled=true;
+  const r=await apiGet('sendCode');
+  btn.disabled=false;
+  if(!r||!r.success){
+    err.textContent=r?r.error:'Network error. Check connection.';err.style.display='block';
+    btn.textContent='Send Code';return;
+  }
+  if(!isResend){
+    document.getElementById('fp-s1').style.display='none';
+    document.getElementById('fp-s2').style.display='block';
+    document.getElementById('fp-s2-desc').textContent='Code sent to '+r.email+'. Enter the 6-digit code below. Expires in 10 min.';
+    setTimeout(()=>document.getElementById('fp-code').focus(),80);
+  } else {
+    toast('New code sent to '+r.email);
+  }
 }
 
-// ── TOAST ──────────────────────────────────────────────────────────
-function toast(msg,cls=''){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.className='toast'+(cls==='err'?' et':'');
-  t.classList.add('show');clearTimeout(t._t);
-  t._t=setTimeout(()=>t.classList.remove('show'),2800);
+async function fpVerify(){
+  const code=document.getElementById('fp-code').value.trim();
+  const err=document.getElementById('fp-e2');
+  const btn=document.getElementById('fp-verify-btn');
+  err.style.display='none';
+  if(code.length!==6){err.textContent='Enter the full 6-digit code.';err.style.display='block';return;}
+  btn.textContent='Verifying…';btn.disabled=true;
+  const r=await apiPost({action:'verifyCode',code});
+  btn.disabled=false;btn.textContent='Verify';
+  if(!r||!r.success){err.textContent=r?r.error:'Network error.';err.style.display='block';return;}
+  // OTP verified — go to step 3 (set new PIN)
+  _fpVerified=true;
+  document.getElementById('fp-s2').style.display='none';
+  document.getElementById('fp-s3').style.display='block';
+  setTimeout(()=>document.getElementById('fp-newpin').focus(),80);
 }
+
+async function fpSetPin(){
+  const p1=document.getElementById('fp-newpin').value.trim();
+  const p2=document.getElementById('fp-newpin2').value.trim();
+  const err=document.getElementById('fp-e3');
+  const btn=document.getElementById('fp-setpin-btn');
+  err.style.display='none';
+  if(!_fpVerified){err.textContent='Please verify OTP first.';err.style.display='block';return;}
+  if(p1.length<4){err.textContent='PIN must be at least 4 digits.';err.style.display='block';return;}
+  if(p1!==p2){err.textContent='PINs do not match.';err.style.display='block';return;}
+  btn.textContent='Saving…';btn.disabled=true;
+  const current=getCreds();
+  const r=await apiPost({action:'saveCreds',username:current.username,pin:p1});
+  btn.disabled=false;btn.textContent='Save New PIN';
+  if(!r||!r.success){err.textContent='Failed to save PIN. Try again.';err.style.display='block';return;}
+  ls(K.CR,{username:current.username,pin:p1});
+  closeFpModal();
+  toast('✅ PIN updated! You can now log in.');
+}
+
+// ── TOAST ─────────────────────────────────────────────────────────
+function toast(msg,cls=''){const t=document.getElementById('toast');t.textContent=msg;t.className='toast'+(cls==='err'?' et':'');t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2800);}
 </script>
 </body>
 </html>
