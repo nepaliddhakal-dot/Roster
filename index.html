@@ -243,7 +243,11 @@ input,select,button,textarea{font-family:inherit}
     <div class="db-body" id="db-b"></div>
   </div>
   <div class="tabs">
-    <button class="tab-btn active" id="tb-mine" onclick="showTab('mine')">
+    <button class="tab-btn active" id="tb-today" onclick="showTab('today')">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Today
+    </button>
+    <button class="tab-btn" id="tb-mine" onclick="showTab('mine')">
       <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
       My Duties
     </button>
@@ -251,12 +255,9 @@ input,select,button,textarea{font-family:inherit}
       <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
       Calendar
     </button>
-    <button class="tab-btn" id="tb-today" onclick="showTab('today')">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      Today
-    </button>
   </div>
-  <div class="pane active" id="pane-mine">
+  <div class="pane active" id="pane-today"><div id="today-content"></div></div>
+  <div class="pane" id="pane-mine">
     <div class="mrow"><select id="sel-mine" onchange="renderMine()"></select><span class="mmeta" id="meta-mine"></span></div>
     <div id="mine-list"></div>
     <div class="sgrid" id="mine-sum"></div>
@@ -266,7 +267,6 @@ input,select,button,textarea{font-family:inherit}
     <div class="chead"><div class="chc">Sun</div><div class="chc">Mon</div><div class="chc">Tue</div><div class="chc">Wed</div><div class="chc">Thu</div><div class="chc">Fri</div><div class="chc">Sat</div></div>
     <div class="cbody" id="cal-body"></div>
   </div>
-  <div class="pane" id="pane-today"><div id="today-content"></div></div>
 </div>
 
 <!-- ADMIN -->
@@ -422,26 +422,49 @@ const API_URL = 'https://script.google.com/macros/s/AKfycbwhBzeRAyaqB134Mfn8lBC_
 // ── CLOUD FUNCTIONS ───────────────────────────────────────────────
 async function saveRosterToCloud(rosterObj) {
   try {
-    const response = await fetch(API_URL, {
-      method: 'POST',
-      body: JSON.stringify({ action: 'saveAll', data: rosterObj })
-    });
+    const response = await fetch(API_URL, {method:'POST',body:JSON.stringify({action:'saveAll',data:rosterObj})});
     const result = await response.json();
     return result.success === true;
-  } catch (err) {
-    console.error('Cloud save failed:', err);
-    return false;
-  }
+  } catch (err) { return false; }
 }
-
 async function loadRosterFromCloud() {
   try {
     const res = await fetch(API_URL + '?action=loadAll');
     const result = await res.json();
     if (result && result.data) return result.data;
-  } catch (err) {
-    console.error('Cloud load failed:', err);
-  }
+  } catch (err) {}
+  return null;
+}
+// FIX 1: PIN saved/loaded from cloud so it works on every device
+let _cachedPin = null;
+async function loadPinFromCloud() {
+  try {
+    const res = await fetch(API_URL + '?action=getPin');
+    const result = await res.json();
+    if (result.pin) { _cachedPin = result.pin; s(K.MP, result.pin); }
+  } catch(e) {}
+}
+async function savePinToCloud(pin) {
+  try {
+    const res = await fetch(API_URL, {method:'POST',body:JSON.stringify({action:'savePin',pin:pin})});
+    const result = await res.json();
+    return result.success === true;
+  } catch(e) { return false; }
+}
+// FIX 3: Staff names saved/loaded from cloud so login dropdown works on every device
+async function saveStaffToCloud(staffObj) {
+  try {
+    const res = await fetch(API_URL, {method:'POST',body:JSON.stringify({action:'saveStaff',data:staffObj})});
+    const result = await res.json();
+    return result.success === true;
+  } catch(e) { return false; }
+}
+async function loadStaffFromCloud() {
+  try {
+    const res = await fetch(API_URL + '?action=loadStaff');
+    const result = await res.json();
+    if (result && result.data) return result.data;
+  } catch(e) {}
   return null;
 }
 
@@ -455,11 +478,11 @@ const saveRoster=async r=>{
   const ok = await saveRosterToCloud(r); // then sync to cloud
   if(!ok) toast('⚠️ Saved locally only. Cloud sync failed.','err');
 };
-const getStaff=()=>g(K.S,{obs:['Biju','Jeni','Jyoti','Menka','Munesh','Pratima','Rasmi'],fore:[],smet:[]});
-const saveStaff=v=>s(K.S,v);
+const getStaff=()=>g(K.S,{obs:[],fore:[],smet:[]});
+const saveStaff=async v=>{s(K.S,v);await saveStaffToCloud(v);};
 const getAdmins=()=>g(K.A,[]);
 const saveAdmins=v=>s(K.A,v);
-const getMPin=()=>g(K.MP,'1234');
+const getMPin=()=>_cachedPin||g(K.MP,'1234');
 
 // ── CONSTANTS ─────────────────────────────────────────────────────
 const WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -534,13 +557,12 @@ days:[
 
 // ── INIT ──────────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', async () => {
-  // Try to load from cloud first
+  // Load PIN, staff names, and roster from cloud on every page load
+  await loadPinFromCloud();
+  const cloudStaff = await loadStaffFromCloud();
+  if (cloudStaff) s(K.S, cloudStaff);
   const cloudData = await loadRosterFromCloud();
-  if (cloudData) {
-    s(K.R, cloudData); // update local cache with cloud data
-  } else if (!g(K.R, null)) {
-    saveRoster(SEED); // first time ever, use seed data
-  }
+  if (cloudData) s(K.R, cloudData);
   selRole('obs');
 });
 
@@ -565,7 +587,8 @@ function doLogin(){
   if(!name){toast('Please select your name','err');return;}
   CU=name;CT=_role;IM=false;CAO=null;showApp();
 }
-function openAdmin(){
+async function openAdmin(){
+  await loadPinFromCloud();
   const pin=prompt('Enter admin PIN:');
   if(!pin)return;
   if(pin===getMPin()){IM=true;CAO=null;showAdmin('Master Admin');return;}
@@ -584,15 +607,16 @@ function showApp(){
   const b=document.getElementById('app-badge');
   b.textContent=ROLE_LABELS[CT];
   b.className='rbadge rb-'+CT;
-  fillMonthSels();renderMine();renderCal();renderToday();
+  fillMonthSels();renderToday();renderMine();renderCal();
   checkDuty();reqNotif();
 }
 function showTab(t){
-  ['mine','cal','today'].forEach(n=>{
+  ['today','mine','cal'].forEach(n=>{
     document.getElementById('tb-'+n).classList.toggle('active',n===t);
     document.getElementById('pane-'+n).classList.toggle('active',n===t);
   });
   if(t==='cal')renderCal();
+  if(t==='mine')renderMine();
   if(t==='today')renderToday();
 }
 
@@ -674,14 +698,20 @@ function renderToday(){
   const el=document.getElementById('today-content');
   if(!fd){el.innerHTML=`<div class="empty-state">No roster for today (${today}).<br>Admin can upload this month's file.</div>`;return;}
   const staff=getStaff()[CT]||[];const duties=fd.duties||{};
+  const myShift=duties[CU]||'xx';
   const on=staff.map(n=>({n,sh:duties[n]})).filter(x=>x.sh&&x.sh!=='xx');
   const off=staff.map(n=>n).filter(n=>!duties[n]||duties[n]==='xx');
   el.innerHTML=`
-    <div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:11px 12px;margin-bottom:12px">
+    <div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:11px 12px;margin-bottom:10px">
       <div style="font-size:10px;color:var(--tx3)">${fm.name}${fm.nepali?' \u00b7 '+fm.nepali:''}</div>
       <div style="font-size:15px;font-weight:700">${fd.day}, ${today} <span style="font-size:11px;color:var(--tx3)">\u00b7 ${fd.date} \u0917\u0924\u0947</span></div>
     </div>
-    <div class="sec-lbl">On duty today</div>
+    <div style="background:var(--acbg);border:1px solid var(--ac);border-radius:var(--r);padding:13px;margin-bottom:13px;text-align:center">
+      <div style="font-size:11px;color:var(--tx3);margin-bottom:4px">Your duty today &mdash; ${CU}</div>
+      <div style="font-size:22px;font-weight:700;color:var(--ac)">${SL(myShift)}</div>
+      ${myShift!=='xx'?`<div style="font-size:11px;color:var(--tx2);margin-top:3px">${myShift}</div>`:''}
+    </div>
+    <div class="sec-lbl">All staff on duty</div>
     ${on.map(x=>`<div class="dutyrow"><div class="drp"><div class="av">${ini(x.n)}</div><span class="pnm">${x.n}</span></div><span class="sh ${SC(x.sh)}">${SL(x.sh)}</span></div>`).join('')||'<p style="color:var(--tx3);font-size:13px">No staff scheduled.</p>'}
     ${off.length?`<div class="sec-lbl" style="margin-top:14px">Day off</div><div class="off-chips">${off.map(n=>`<span class="off-chip">${n}</span>`).join('')}</div>`:''}`;
 }
@@ -891,7 +921,7 @@ function importFile(){
         if(!staffCols.length){stat.className='stat stat-err';stat.textContent='No staff columns found in row '+(hi+1)+'. Try changing Header row number.';return;}
         const st=getStaff();st[type]=st[type]||[];
         staffCols.forEach(sc=>{if(!st[type].includes(sc.name))st[type].push(sc.name);});
-        saveStaff(st);
+        await saveStaff(st); // saves to cloud so all devices get staff names in login dropdown
         const days=[];let startDate='';
         rows.slice(hi+1).forEach(row=>{
           const nc=(row[1]||'').toString().trim();
@@ -1017,10 +1047,14 @@ function editSAPIN(i){
   if(!np||np.length<4){toast('4+ digits required','err');return;}
   a[i].pin=np;saveAdmins(a);renderSubAdmins();toast('PIN updated');
 }
-function saveMPin(){
+async function saveMPin(){
   const pin=document.getElementById('mpin-inp').value.trim();
   if(pin.length<4){toast('4+ digits required','err');return;}
-  s(K.MP,pin);toast('Master PIN updated');document.getElementById('mpin-inp').value='';
+  _cachedPin=pin;s(K.MP,pin);
+  const ok=await savePinToCloud(pin);
+  if(ok)toast('\u2705 Master PIN updated on all devices!');
+  else toast('PIN saved locally only - cloud failed','err');
+  document.getElementById('mpin-inp').value='';
 }
 
 // ── TOAST ──────────────────────────────────────────────────────────
