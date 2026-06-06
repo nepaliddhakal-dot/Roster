@@ -484,6 +484,145 @@ const getAdmins=()=>g(K.A,[]);
 const saveAdmins=v=>s(K.A,v);
 const getMPin=()=>_cachedPin||g(K.MP,'1234');
 
+// ── NEPALI DATE (BS) CONVERTER ────────────────────────────────────
+// Full BS month data: each row = [year BS, days in each of 12 months]
+const BS_DATA = [
+  [2000,[30,32,31,32,31,30,30,30,29,30,29,31]],
+  [2001,[31,31,32,31,31,31,30,29,30,29,30,30]],
+  [2002,[31,31,32,32,31,30,30,29,30,29,30,30]],
+  [2003,[31,32,31,32,31,30,30,30,29,29,30,31]],
+  [2004,[30,32,31,32,31,30,30,30,29,30,29,31]],
+  [2005,[31,31,32,31,31,31,30,29,30,29,30,30]],
+  [2006,[31,31,32,32,31,30,30,29,30,29,30,30]],
+  [2007,[31,32,31,32,31,30,30,30,29,29,30,31]],
+  [2008,[31,31,31,32,31,30,30,30,29,30,29,31]],
+  [2009,[31,31,32,31,31,31,30,29,30,29,30,30]],
+  [2010,[31,31,32,32,31,30,30,29,30,29,30,30]],
+  [2011,[31,32,31,32,31,30,30,30,29,29,30,31]],
+  [2012,[31,31,31,32,31,30,30,30,29,30,29,31]],
+  [2013,[31,31,32,31,31,31,30,29,30,29,30,30]],
+  [2014,[31,31,32,32,31,30,30,29,30,29,30,30]],
+  [2015,[31,32,31,32,31,30,30,30,29,29,30,31]],
+  [2016,[31,31,31,32,31,30,30,30,29,30,29,31]],
+  [2017,[31,31,32,31,31,31,30,29,30,29,30,30]],
+  [2018,[31,31,32,32,31,30,30,29,30,29,30,30]],
+  [2019,[31,32,31,32,31,30,30,30,29,29,30,31]],
+  [2020,[31,31,31,32,31,30,30,30,29,30,29,31]],
+  [2021,[31,31,32,31,31,31,30,29,30,29,30,30]],
+  [2022,[31,31,32,32,31,30,30,29,30,29,30,30]],
+  [2023,[31,32,31,32,31,30,30,30,29,29,30,31]],
+  [2024,[31,31,31,32,31,30,30,30,29,30,29,31]],
+  [2025,[31,31,32,31,31,31,30,29,30,29,30,30]],
+  [2026,[31,31,32,32,31,30,30,29,30,29,30,30]],
+  [2027,[31,32,31,32,31,30,30,30,29,29,30,32]],
+  [2028,[30,32,31,32,31,30,30,30,29,30,29,31]],
+  [2029,[31,31,32,31,31,31,30,29,30,29,30,30]],
+  [2030,[31,31,32,32,31,30,30,29,30,29,30,30]],
+  [2031,[31,32,31,32,31,30,30,30,29,29,30,31]],
+  [2032,[31,31,31,32,31,30,30,30,29,30,29,31]],
+  [2033,[31,31,32,31,31,31,30,29,30,29,30,30]],
+  [2034,[31,31,32,32,31,30,30,29,30,29,30,30]],
+  [2035,[31,32,31,32,31,30,30,30,29,29,30,31]],
+  [2036,[31,31,31,32,31,30,30,30,29,30,29,31]],
+  [2037,[31,31,32,31,31,31,30,29,30,29,30,30]],
+  [2038,[31,31,32,32,31,30,30,29,30,29,30,30]],
+  [2039,[31,32,31,32,31,30,30,30,29,29,30,31]],
+  [2040,[31,31,31,32,31,30,30,30,29,30,29,31]],
+  [2041,[31,31,32,31,31,31,30,29,30,29,30,30]],
+  [2042,[31,31,32,32,31,30,30,29,30,29,30,30]],
+  [2043,[31,32,31,32,31,30,30,30,29,29,30,31]],
+  [2044,[31,31,31,32,31,30,30,30,29,30,29,31]],
+  [2045,[31,31,32,31,31,31,30,29,30,29,30,30]],
+  [2046,[31,31,32,32,31,30,30,29,30,29,30,30]],
+  [2047,[31,32,31,32,31,30,30,30,29,29,30,31]],
+  [2048,[31,31,31,32,31,30,30,30,29,30,29,31]],
+  [2049,[31,31,32,31,31,31,30,29,30,29,30,30]],
+  [2050,[31,31,32,32,31,30,30,29,30,29,30,30]],
+  [2051,[31,32,31,32,31,30,30,30,29,29,30,31]],
+  [2052,[31,31,31,32,31,30,30,30,29,30,29,31]],
+  [2053,[31,31,32,31,31,31,30,29,30,29,30,30]],
+  [2054,[31,31,32,32,31,30,30,29,30,29,30,30]],
+  [2055,[31,32,31,32,31,30,30,30,29,29,30,31]],
+  [2056,[31,31,31,32,31,30,30,30,29,30,29,31]],
+  [2057,[31,31,32,31,31,31,30,29,30,29,30,30]],
+  [2058,[31,31,32,32,31,30,30,29,30,29,30,30]],
+  [2059,[31,32,31,32,31,30,30,30,29,29,30,31]],
+  [2060,[31,31,31,32,31,30,30,30,29,30,29,31]],
+  [2061,[31,31,32,31,31,31,30,29,30,29,30,30]],
+  [2062,[31,31,32,32,31,30,30,29,30,29,30,30]],
+  [2063,[31,32,31,32,31,30,30,30,29,29,30,31]],
+  [2064,[31,31,31,32,31,30,30,30,29,30,29,31]],
+  [2065,[31,31,32,31,31,31,30,29,30,29,30,30]],
+  [2066,[31,31,32,32,31,30,30,29,30,29,30,30]],
+  [2067,[31,32,31,32,31,30,30,30,29,29,30,31]],
+  [2068,[31,31,31,32,31,30,30,30,29,30,29,31]],
+  [2069,[31,31,32,31,31,31,30,29,30,29,30,30]],
+  [2070,[31,31,32,32,31,30,30,29,30,29,30,30]],
+  [2071,[31,32,31,32,31,30,30,30,29,29,30,31]],
+  [2072,[31,31,31,32,31,30,30,30,29,30,29,31]],
+  [2073,[31,31,32,31,31,31,30,29,30,29,30,30]],
+  [2074,[31,31,32,32,31,30,30,29,30,29,30,30]],
+  [2075,[31,32,31,32,31,30,30,30,29,29,30,31]],
+  [2076,[31,31,31,32,31,30,30,30,29,30,29,31]],
+  [2077,[31,31,32,31,31,31,30,29,30,29,30,30]],
+  [2078,[31,31,32,32,31,30,30,29,30,29,30,30]],
+  [2079,[31,32,31,32,31,30,30,30,29,29,30,31]],
+  [2080,[31,31,31,32,31,30,30,30,29,30,29,31]],
+  [2081,[31,31,32,31,31,31,30,29,30,29,30,30]],
+  [2082,[30,32,31,32,31,30,30,30,29,30,30,30]],
+  [2083,[31,31,32,31,31,31,30,29,30,29,30,30]],
+  [2084,[31,31,32,31,31,30,30,30,29,30,30,30]],
+  [2085,[31,31,32,31,31,31,30,29,30,29,30,30]],
+  [2086,[31,31,32,32,31,30,30,29,30,29,30,30]],
+  [2087,[31,32,31,32,31,30,30,30,29,29,30,31]],
+  [2088,[31,32,31,32,31,30,30,30,29,30,29,31]],
+  [2089,[31,31,32,31,31,31,30,29,30,29,30,30]],
+  [2090,[31,31,32,32,31,30,30,29,30,29,30,30]],
+];
+const BS_MONTHS_NP=['बैशाख','जेठ','असार','साउन','भदौ','आश्विन','कार्तिक','मंसिर','पुष','माघ','फागुन','चैत'];
+const BS_MONTHS_EN=['Baisakh','Jestha','Ashadh','Shrawan','Bhadra','Ashwin','Kartik','Mangsir','Poush','Magh','Falgun','Chaitra'];
+const NP_DIGITS=['०','१','२','३','४','५','६','७','८','९'];
+function toNpNum(n){return String(n).split('').map(d=>NP_DIGITS[+d]).join('');}
+
+// Reference: AD 1943-04-14 = BS 2000-01-01
+const AD_REF = new Date(1943, 3, 14); // month is 0-indexed
+
+function adToBS(isoDate) {
+  if (!isoDate) return null;
+  const ad = new Date(isoDate + 'T00:00:00');
+  // days difference from reference
+  let diff = Math.round((ad - AD_REF) / 86400000);
+  if (diff < 0) return null;
+  let bsYear = 2000, bsMonth = 0, bsDay = 0;
+  for (let yi = 0; yi < BS_DATA.length; yi++) {
+    const [yr, months] = BS_DATA[yi];
+    let daysInYear = months.reduce((a, b) => a + b, 0);
+    if (diff < daysInYear) {
+      bsYear = yr;
+      for (let mi = 0; mi < 12; mi++) {
+        if (diff < months[mi]) { bsMonth = mi; bsDay = diff + 1; break; }
+        diff -= months[mi];
+      }
+      break;
+    }
+    diff -= daysInYear;
+  }
+  return { year: bsYear, month: bsMonth, day: bsDay };
+}
+
+// Returns e.g. "जेठ २३" or "Jestha 23"
+function bsDateStr(isoDate, lang='np') {
+  const bs = adToBS(isoDate);
+  if (!bs) return '';
+  if (lang === 'np') return BS_MONTHS_NP[bs.month] + ' ' + toNpNum(bs.day);
+  return BS_MONTHS_EN[bs.month] + ' ' + bs.day;
+}
+// Returns just the day number in Nepali
+function bsGate(isoDate) {
+  const bs = adToBS(isoDate);
+  return bs ? toNpNum(bs.day) : '';
+}
+
 // ── CONSTANTS ─────────────────────────────────────────────────────
 const WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const OBS_SH=['xx','MO','MO*','AON*','A1','A2'];
@@ -653,7 +792,7 @@ function renderMine(){
         else if(['MO','MO*','MF','MF*','SDM1'].includes(wd.sh))cnt.mo++;
         else cnt.af++;
         html+=`<div class="drow${it?' today':''}">
-          <div class="dl"><span class="ddn">${wd.day}</span><span class="ddt">${(wd.isoDate||'').slice(5).replace('-','/')}</span><span class="dgt">${wd.date} \u0917\u0924\u0947</span></div>
+          <div class="dl"><span class="ddn">${wd.day}</span><span class="ddt">${(wd.isoDate||'').slice(5).replace('-','/')}</span><span class="dgt">${bsGate(wd.isoDate)} \u0917\u0924\u0947</span></div>
           <span class="sh ${SC(wd.sh)}">${SL(wd.sh)}</span>
           ${it?'<span class="tchip">Today</span>':''}
         </div>`;
@@ -704,7 +843,7 @@ function renderToday(){
   el.innerHTML=`
     <div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);padding:11px 12px;margin-bottom:10px">
       <div style="font-size:10px;color:var(--tx3)">${fm.name}${fm.nepali?' \u00b7 '+fm.nepali:''}</div>
-      <div style="font-size:15px;font-weight:700">${fd.day}, ${today} <span style="font-size:11px;color:var(--tx3)">\u00b7 ${fd.date} \u0917\u0924\u0947</span></div>
+      <div style="font-size:15px;font-weight:700">${fd.day}, ${today} <span style="font-size:11px;color:var(--tx3)">\u00b7 ${bsDateStr(today)} \u0917\u0924\u0947</span></div>
     </div>
     <div style="background:var(--acbg);border:1px solid var(--ac);border-radius:var(--r);padding:13px;margin-bottom:13px;text-align:center">
       <div style="font-size:11px;color:var(--tx3);margin-bottom:4px">Your duty today &mdash; ${CU}</div>
@@ -986,7 +1125,7 @@ function renderEditList(){
     const duties=d.duties||{};
     const pills=staff.map(n=>`<span class="sh ${SC(duties[n]||'xx')}" style="font-size:9px;padding:2px 5px">${n.slice(0,4)}:${duties[n]||'xx'}</span>`).join('');
     html+=`<div class="ed-row">
-      <div class="ed-l"><div class="ed-date">${d.date} \u0917\u0924\u0947</div><div class="ed-dn">${d.day} ${(d.isoDate||'').slice(5).replace('-','/')}</div></div>
+      <div class="ed-l"><div class="ed-date">${bsGate(d.isoDate)} \u0917\u0924\u0947</div><div class="ed-dn">${d.day} ${(d.isoDate||'').slice(5).replace('-','/')}</div></div>
       <div class="ed-shifts">${pills}</div>
       <button class="ed-btn" onclick="openModal('${type}','${mid}',${di})"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
     </div>`;
@@ -1000,7 +1139,7 @@ function openModal(type,mid,di){
   const day=month.days[di];MOD={type,mid,di};
   const staff=getStaff()[type]||[];
   const shifts=shiftListForType(type);
-  document.getElementById('modal-title').textContent=`Edit Duties \u2014 ${day.day}, ${day.date} \u0917\u0924\u0947`;
+  document.getElementById('modal-title').textContent=`Edit Duties \u2014 ${day.day}, ${bsGate(day.isoDate)} \u0917\u0924\u0947`;
   document.getElementById('modal-sub').textContent=`${month.name}${month.nepali?' \u00b7 '+month.nepali:''} \u00b7 ${day.isoDate||''}`;
   const cur=day.duties||{};
   document.getElementById('modal-rows').innerHTML=staff.map(n=>{
