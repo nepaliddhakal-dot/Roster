@@ -728,12 +728,34 @@ function doLogin(){
 }
 async function openAdmin(){
   await loadPinFromCloud();
-  const pin=prompt('Enter admin PIN:');
-  if(!pin)return;
+  const pin=prompt('Enter admin PIN:\n\n(Leave blank and press OK to use "Forgot PIN")');
+  if(pin===null)return; // cancelled
+  if(pin===''){forgotPin();return;}
   if(pin===getMPin()){IM=true;CAO=null;showAdmin('Master Admin');return;}
   const found=getAdmins().find(a=>a.pin===pin);
   if(found){IM=false;CAO=found;showAdmin(found.name);return;}
-  toast('Incorrect PIN','err');
+  toast('Incorrect PIN — leave blank & press OK to reset','err');
+}
+async function forgotPin(){
+  toast('Sending reset code to admin email…');
+  let res;
+  try{
+    const r=await fetch(API_URL+'?action=sendCode');
+    res=await r.json();
+  }catch(e){toast('Network error sending code','err');return;}
+  if(!res.success){toast('Error: '+res.error,'err');return;}
+  toast('Code sent to '+res.email);
+  const code=prompt('A 6-digit code was sent to '+res.email+'.\n\nEnter the code:');
+  if(!code)return;
+  let v;
+  try{
+    const r=await fetch(API_URL,{method:'POST',body:JSON.stringify({action:'verifyCode',code:code.trim()})});
+    v=await r.json();
+  }catch(e){toast('Network error verifying code','err');return;}
+  if(!v.success){toast('Error: '+v.error,'err');return;}
+  _cachedPin=v.pin;s(K.MP,v.pin);
+  toast('✅ Verified! Logging in as Master Admin…');
+  IM=true;CAO=null;showAdmin('Master Admin');
 }
 function doLogout(){showScreen('s-login');}
 function backLogin(){showScreen('s-login');}
